@@ -1,3 +1,3 @@
 # CodeSwitch
- CodeSwitch Application CZ2006
+ CodeSwitch CZ2006
  
