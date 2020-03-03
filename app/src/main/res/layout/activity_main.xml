@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AD0A23"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="312dp"
+        android:layout_height="73dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="CodeSwitch\nPowered By SkillsFuture"
+        android:textColor="#14A9BD"
+        android:textSize="24sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="222dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="30dp"
+        android:background="#FFFFFF"
+        android:capitalize="characters"
+        android:gravity="center"
+        android:text="Username"
+        android:textColor="#14A9BD"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="222dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="21dp"
+        android:background="#FFFFFF"
+        android:capitalize="characters"
+        android:gravity="center"
+        android:text="Password"
+        android:textColor="#14A9BD"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
+
+    <EditText
+        android:id="@+id/loginUsername"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="28dp"
+        android:background="#0A1325"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/passwordLogin"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="248dp"
+        android:background="#0A0F1C"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:onClick="onRegisterNewClick"
+        android:text="NEW USER"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLogin"
+        tools:text="NEW USER" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onLoginClick"
+        android:text="LOGIN"
+        android:textSize="14dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
