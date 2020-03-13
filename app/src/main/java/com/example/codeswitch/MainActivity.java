@@ -69,18 +69,18 @@ public class MainActivity extends ModifiedActivity {
             @Override
             public void onResponse(Call<UserAuthResponse> call, Response<UserAuthResponse> response) {
                 userAuthResponse = response.body();
-                System.out.println(userAuthResponse.toString());
+                System.out.println("Response" + userAuthResponse.toString());
                 Toast.makeText(thisContext, userAuthResponse.getMessage(), Toast.LENGTH_LONG).show();
 
                 if (userAuthResponse.getSuccess()) {
-                    System.out.println("success!");
+                    System.out.println("Response: success!");
                     // do intent stuff
                 }
             }
 
             @Override
             public void onFailure(Call<UserAuthResponse> call, Throwable t) {
-                System.out.println("Network failure!");
+                System.out.println("Response: Network failure!");
             }
         });
     }
