@@ -12,7 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface ApiInterface {
+public interface Dao<T> {
     @GET("users/{id}")
     Call<User> getUserDetail(@Path("id") int id);
 

@@ -4,16 +4,13 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User extends BaseObject {
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("id")
-    @Expose
-    private Integer id;
     @SerializedName("skills")
     @Expose
-    private List<String> skillIds = null;
+    private List<String> skills = null;
     @SerializedName("url")
     @Expose
     private String url;
@@ -26,20 +23,12 @@ public class User {
         this.email = email;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public List<String> getSkillIds() {
-        return skillIds;
+        return skills;
     }
 
     public void setSkillIds(List<String> skillIds) {
-        this.skillIds = skillIds;
+        this.skills = skillIds;
     }
 
     public String getUrl() {
@@ -55,7 +44,7 @@ public class User {
         return "User{" +
                 "email='" + email + '\'' +
                 ", id=" + id +
-                ", skillIds=" + skillIds +
+                ", skillIds=" + skills +
                 ", url='" + url + '\'' +
                 '}';
     }
