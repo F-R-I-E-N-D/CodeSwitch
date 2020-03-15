@@ -2,22 +2,20 @@ package com.example.codeswitch;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.codeswitch.model.BaseResponse;
 import com.example.codeswitch.model.UserAuthResponse;
-import com.example.codeswitch.network.ApiClient;
-import com.example.codeswitch.network.ApiInterface;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.CustomCallback;
+import com.example.codeswitch.network.Dao;
 
 public class MainActivity extends ModifiedActivity {
     private String email;
     private String password;
-    private ApiInterface api;
-    private UserAuthResponse userAuthResponse = null;
+    private Dao dao;
 
 //    private boolean successful  = false; // Initialised
 //    private boolean prev = false;
@@ -29,58 +27,36 @@ public class MainActivity extends ModifiedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        api = ApiClient.getInstance().create(ApiInterface.class);
-
-//        TestClient.runLogin();
+        dao = ApiManager.getInstance().create(Dao.class);
     }
 
     public void onLoginClick(View view) {
         email = getEditText(R.id.email_login_input);
         password = getEditText(R.id.password_login_input);
 
-        // new LoginValidation().execute(email, password);
-
-        //--------------------------//
-        // Not async
-
-        authenticate(email, password);
-
-//        System.out.println("Successful2: " + successful);
-//        if (successful)
-//        {
-//            Toast.makeText(thisContext, "Logged In",   Toast.LENGTH_LONG).show();
-//        }
-//        else
-//        {
-//            Toast.makeText(thisContext, "Unsuccessful Login",   Toast.LENGTH_SHORT).show();
-//        }
-        //--------------------------//
+        authenticateLogin(email, password);
     }
 
     public void onRegisterNewClick(View view) {
-        Toast.makeText(this, "register_button clicked", Toast.LENGTH_SHORT).show();
+        // TODO: Redirect to RegisterActivity
+        Log.d("Debug", "Register Button Clicked");
     }
 
-    // TODO: This uses the facade pattern!
-    public void authenticate(String email, String password) {
-        Call<UserAuthResponse> call = api.loginUser(email, password);
-
-        call.enqueue(new Callback<UserAuthResponse>() {
+    /**
+     * Logs the user into the app. Validity check is done by server.
+     * @param email User's inputted email
+     * @param password User's inputted password
+     */
+    private void authenticateLogin(String email, String password) {
+        ApiManager.callApi(dao.loginUser(email, password), new CustomCallback<BaseResponse>() {
             @Override
-            public void onResponse(Call<UserAuthResponse> call, Response<UserAuthResponse> response) {
-                userAuthResponse = response.body();
-                System.out.println(userAuthResponse.toString());
-                Toast.makeText(thisContext, userAuthResponse.getMessage(), Toast.LENGTH_LONG).show();
-
-                if (userAuthResponse.getSuccess()) {
-                    System.out.println("success!");
-                    // do intent stuff
+            public void onResponse(BaseResponse response) {
+                if (response.getSuccess()) {
+                    // TODO: Redirect to ProfileActivity with the user's data
+                    Log.d("Debug", response.toString());
+                } else {
+                    Toast.makeText(thisContext, response.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<UserAuthResponse> call, Throwable t) {
-                System.out.println("Network failure!");
             }
         });
     }
