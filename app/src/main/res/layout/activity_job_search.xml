@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="160dp"
                 android:textSize="30sp"
-                android:id="@+id/activityTitle4"
+                android:id="@+id/activityTitle1"
                 android:textAlignment="center"
                 android:gravity="center"/>
 
@@ -50,7 +50,7 @@
         </RelativeLayout>
 
 
-
+        
     </RelativeLayout>
 
 

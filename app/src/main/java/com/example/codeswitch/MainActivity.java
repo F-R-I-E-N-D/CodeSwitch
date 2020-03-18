@@ -1,6 +1,7 @@
 package com.example.codeswitch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +55,16 @@ public class MainActivity extends ModifiedActivity {
                 if (response.getSuccess()) {
                     // TODO: Redirect to ProfileActivity with the user's information
                     Log.d("Debug", response.toString());
+
+                    //go to job search - tim
+                    try {
+                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
+                        startActivity(k);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                    //end tim
+
                 } else {
                     Toast.makeText(thisContext, response.getMessage(), Toast.LENGTH_LONG).show();
                 }
