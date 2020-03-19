@@ -30,4 +30,6 @@ public abstract class BaseResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public abstract String toString();
 }
