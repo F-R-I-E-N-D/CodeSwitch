@@ -3,6 +3,7 @@ package com.example.codeswitch.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+// Schema is still subject to change
 public class UserJob extends BaseObject {
     @SerializedName("user")
     @Expose

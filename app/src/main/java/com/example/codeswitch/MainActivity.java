@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseResponse;
 import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
 
@@ -26,8 +27,10 @@ public class MainActivity extends ModifiedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        dao = ApiManager.getInstance().create(Dao.class);
+        ApiTest.testGetCourseDetail();
+//        ApiTest.testCreateAccount();
+//        setContentView(R.layout.activity_main);
+//        dao = ApiManager.getInstance().create(Dao.class);
     }
 
     public void onLoginClick(View view) {
