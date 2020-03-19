@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseResponse;
-import com.example.codeswitch.model.UserAuthResponse;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;

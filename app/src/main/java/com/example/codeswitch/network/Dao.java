@@ -1,9 +1,7 @@
 package com.example.codeswitch.network;
 
 import com.example.codeswitch.model.User;
-import com.example.codeswitch.model.UserAuthResponse;
-
-import java.util.List;
+import com.example.codeswitch.model.AuthResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,6 +16,6 @@ public interface Dao<T> {
 
     @FormUrlEncoded
     @POST("users/login")
-    Call<UserAuthResponse> loginUser(@Field("email") String email,
-                                     @Field("password") String password);
+    Call<AuthResponse> loginUser(@Field("email") String email,
+                                 @Field("password") String password);
 }
