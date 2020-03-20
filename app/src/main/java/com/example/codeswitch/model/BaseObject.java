@@ -8,15 +8,15 @@ import com.google.gson.annotations.SerializedName;
  * Usage of strategy pattern
  */
 public abstract class BaseObject {
-    @SerializedName("id")
-    @Expose
-    protected Integer id;
+    protected int id;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
+
+    public abstract String toString();
 }

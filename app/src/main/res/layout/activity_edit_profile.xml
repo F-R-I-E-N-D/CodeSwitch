@@ -13,23 +13,25 @@
         android:layout_height="match_parent"
         android:id="@+id/relLayout">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relLayoutMiddle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/relLayoutMiddle"
             android:layout_above="@+id/relLayoutBotBar">
 
             <TextView
+                android:id="@+id/activityTitle4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="160dp"
-                android:textSize="30sp"
-                android:id="@+id/activityTitle4"
+                android:gravity="center"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
