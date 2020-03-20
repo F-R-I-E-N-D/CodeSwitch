@@ -17,20 +17,16 @@ public class MainActivity extends ModifiedActivity {
     private String email;
     private String password;
     private Dao dao;
-
-//    private boolean successful  = false; // Initialised
-//    private boolean prev = false;
-//    private boolean current = true;
-//
+    
     Context thisContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ApiTest.testGetCourseDetail();
+//        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
-//        setContentView(R.layout.activity_main);
-//        dao = ApiManager.getInstance().create(Dao.class);
+        setContentView(R.layout.activity_main);
+        dao = ApiManager.getInstance().create(Dao.class);
     }
 
     public void onLoginClick(View view) {
