@@ -1,60 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JobSearchActivity"
-    android:background="@color/colorWhite">
+    tools:context=".EditProfileActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relLayout">
+    <TextView
+        android:id="@+id/interest2"
+        android:layout_width="81dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:background="#F8DF95"
+        android:text="INTEREST 2"
+        app:layout_constraintStart_toStartOf="@id/interest"
+        app:layout_constraintTop_toTopOf="@id/AreaOfInterest" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relLayoutMiddle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/relLayoutBotBar">
+    <Button
+        android:id="@+id/delete2"
+        android:layout_width="18dp"
+        android:layout_height="23dp"
+        android:padding="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="x"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintEnd_toEndOf="@id/skill2"
+        app:layout_constraintTop_toTopOf="@id/skill2" />
 
-            <TextView
-                android:id="@+id/activityTitle4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="160dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/skill2"
+        android:layout_width="81dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:background="#F8DF95"
+        android:text="SKILL 2"
+        app:layout_constraintStart_toStartOf="@id/skill"
+        app:layout_constraintTop_toTopOf="@id/Skills" />
 
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="111dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="122dp"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="23dp"
+        android:text="Edit Profile"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/Skills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="80dp"
+        android:text="Skills:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Username" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/relLayoutBotBar"
-            android:layout_alignParentBottom="true">
+    <TextView
+        android:id="@+id/AreaOfInterest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="100dp"
+        android:text="Areas of Interest:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/addSkill" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/bottomNavView_Bar"
-                android:background="@drawable/white_grey_border"
-                app:menu="@menu/bottom_navigation_menu"
-                >
+    <Button
+        android:id="@+id/Apply"
+        android:layout_width="179dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="15dp"
+        android:text="Apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            </com.google.android.material.bottomnavigation.BottomNavigationView>
+    <Button
+        android:id="@+id/Reset"
+        android:layout_width="167dp"
+        android:layout_height="86dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="17dp"
+        android:text="RESET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        </RelativeLayout>
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/Username"
+        android:layout_width="182dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="50dp"
+        android:text="Username"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Title" />
 
+    <TextView
+        android:id="@+id/skill"
+        android:layout_width="81dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="30dp"
+        android:background="#F8DF95"
+        android:text="SKILL 1"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Skills"
+        tools:visibility="visible" />
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/interest"
+        android:layout_width="81dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="30dp"
+        android:background="#F8DF95"
+        android:text="INTEREST 1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/AreaOfInterest" />
 
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="18dp"
+        android:layout_height="23dp"
+        android:padding="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="x"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintEnd_toEndOf="@id/skill"
+        app:layout_constraintTop_toTopOf="@id/skill" />
 
+    <Button
+        android:id="@+id/delete3"
+        android:layout_width="18dp"
+        android:layout_height="23dp"
+        android:padding="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="x"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintEnd_toEndOf="@id/interest"
+        app:layout_constraintTop_toTopOf="@id/interest" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/delete4"
+        android:layout_width="18dp"
+        android:layout_height="23dp"
+        android:padding="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="x"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintEnd_toEndOf="@id/interest2"
+        app:layout_constraintTop_toTopOf="@id/interest2" />
+
+    <Button
+        android:id="@+id/AddInterest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="60dp"
+        android:text="Add New Interests"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/interest" />
+
+    <Button
+        android:id="@+id/addSkill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="60dp"
+        android:text="Add New Skills"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/skill" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
