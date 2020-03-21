@@ -23,6 +23,95 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/CourseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="121dp"
+            tools:layout_editor_absoluteY="36dp" />
+
+        <TextView
+            android:id="@+id/CourseProvider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Provider"
+            tools:layout_editor_absoluteX="121dp"
+            tools:layout_editor_absoluteY="62dp" />
+
+        <Button
+            android:id="@+id/CourseURL"
+            android:layout_width="278dp"
+            android:layout_height="42dp"
+            android:text="Course Link"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="134dp" />
+
+        <TextView
+            android:id="@+id/SkillsTaught"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Taught Skills:"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="204dp" />
+
+        <Button
+            android:id="@+id/Skill1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skill1"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="247dp" />
+
+        <Button
+            android:id="@+id/Skill2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skill2"
+            tools:layout_editor_absoluteX="134dp"
+            tools:layout_editor_absoluteY="247dp" />
+
+        <TextView
+            android:id="@+id/CourseDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Description:"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="339dp" />
+
+        <EditText
+            android:id="@+id/CourseDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="379dp" />
+
+        <ImageView
+            android:id="@+id/CourseImage"
+            android:layout_width="97dp"
+            android:layout_height="88dp"
+            android:src="@drawable/course_img"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="36dp" />
+
+        <TextView
+            android:id="@+id/DatePosted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Posted"
+            tools:layout_editor_absoluteX="124dp"
+            tools:layout_editor_absoluteY="92dp" />
+
+        <Button
+            android:id="@+id/Close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close"
+            tools:layout_editor_absoluteX="315dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
