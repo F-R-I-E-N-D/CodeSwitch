@@ -23,14 +23,17 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
     TextView roleTextView, descriptionTextView, companyTextView, application_urlTextView, picture_urlTextView, dateTextView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         // call the super class onCreate to complete the creation of activity like
         // the view hierarchy
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.job_details);
         getDetails();
 //        display();
         // set the user interface layout for this activity
         // the layout file is defined in the project res/layout/main_activity.xml fil
-        setContentView(R.layout.job_details);
+
+
         //Bundle extras =intent.getExtras();
 
 
@@ -52,17 +55,17 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
     }
 
     public void display(){
-        roleTextView = (TextView) findViewById(R.id.JobTitle);
+        roleTextView = findViewById(R.id.JobTitle);
         roleTextView.setText(role);
-        companyTextView = (TextView) findViewById(R.id.CompanyName);
+        companyTextView = findViewById(R.id.CompanyName);
         companyTextView.setText(company);
-        descriptionTextView = (TextView) findViewById(R.id.JobDescription);
+        descriptionTextView = findViewById(R.id.JobDescription);
         descriptionTextView.setText(description);
-        application_urlTextView = (TextView) findViewById(R.id.JobURL);
+        application_urlTextView = findViewById(R.id.JobURL);
         application_urlTextView.setText(application_url);
-        //picture_urlTextView = (Textview) findViewById((R.id.JobImage);
+        //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
         //picture_urlTextView.set(picture_url);
-        dateTextView = (TextView) findViewById(R.id.DatePosted);
+        dateTextView = findViewById(R.id.DatePosted);
         dateTextView.setText(date_posted.toString());
     }
 /*
