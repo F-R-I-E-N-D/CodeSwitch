@@ -52,6 +52,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
     }
 */
     public void getDetails(){
+
         role = "1";
         description = "2";
         company = "3";
