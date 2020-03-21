@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relLayoutMiddle"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfileActivity">
+
 
     <TextView
         android:id="@+id/interest2"
@@ -84,21 +86,21 @@
         android:layout_height="87dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="80dp"
         android:text="Apply"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/AddInterest" />
 
     <Button
         android:id="@+id/Reset"
         android:layout_width="167dp"
         android:layout_height="86dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="26dp"
         android:layout_marginRight="26dp"
-        android:layout_marginBottom="17dp"
         android:text="RESET"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/AddInterest" />
 
     <Button
         android:id="@+id/BackButton"
@@ -210,4 +212,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/skill" />
 
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/relLayoutBotBar"
+    android:layout_alignParentBottom="true">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavView_Bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/white_grey_border"
+        app:menu="@menu/bottom_navigation_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

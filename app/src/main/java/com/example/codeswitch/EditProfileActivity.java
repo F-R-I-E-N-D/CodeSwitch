@@ -19,8 +19,8 @@ public class EditProfileActivity extends ModifiedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        TextView title = (TextView) findViewById(R.id.activityTitle4);
-        title.setText("This is Edit Profile");
+//        TextView title = (TextView) findViewById(R.id.activityTitle4);
+//        title.setText("This is Edit Profile");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
