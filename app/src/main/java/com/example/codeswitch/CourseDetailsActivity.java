@@ -2,6 +2,7 @@ package com.example.codeswitch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,15 +12,15 @@ import com.example.codeswitch.model.Skill;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CourseDetailsActivity extends ModifiedActivity /*implements DetailsActivity*/ {
+public class CourseDetailsActivity extends ModifiedActivity implements DetailsActivity {
 
-    String gameState, title, organizer, url, picture_url, description;
+    String gameState, courseName, courseProvider, courseURL, picture_url, courseDescription;
     Double price;
     Date date_posted;
     ArrayList<Skill> taughtSkills;
     ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
-    TextView titleTextView, organizerTextView, urlTextView, picture_urlTextView, descriptionTextView, priceTextView;
+    TextView courseNameTextView, courseProviderTextView, courseURLTextView, picture_urlTextView, courseDescriptionTextView, priceTextView;
     Button backButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,10 @@ public class CourseDetailsActivity extends ModifiedActivity /*implements Details
         // set the user interface layout for this activity
         // the layout file is defined in the project res/layout/main_activity.xml file
         setContentView(R.layout.course_details);
+        getDetails();
+        display();
 
-        Bundle extras =intent.getExtras();
+        //Bundle extras =intent.getExtras();
 
     }
 
@@ -40,21 +43,33 @@ public class CourseDetailsActivity extends ModifiedActivity /*implements Details
 
     public void getDetails(){
 
+        courseName = "1";
+        courseDescription = "2";
+        courseProvider = "3";
+        courseURL = "4";
+        date_posted = new Date();
     }
 
- /*   public void Display(){
-        titleTextView = findViewById(R.id.);
-        titleTextView.setText(title);
-        organizerTextView = findViewById(R.id.JobTitle);
-        organizerTextView.setText(title);
-        urlTextView = findViewById(R.id.JobTitle);
-        urlTextView.setText(title);
-        descriptionTextView = findViewById(R.id.JobTitle);
-        descriptionTextView.setText(title);
-        priceTextView = findViewById(R.id.);
-        priceTextView.setText(price.toString());
+    public void display(){
+        courseNameTextView = findViewById(R.id.courseName);
+        courseNameTextView.setText(courseName);
+        courseProviderTextView = findViewById(R.id.courseProvider);
+        courseProviderTextView.setText(courseProvider);
+        courseURLTextView = findViewById(R.id.courseURL);
+        courseURLTextView.setText(courseURL);
+        courseDescriptionTextView = findViewById(R.id.courseDescriptionText);
+        courseDescriptionTextView.setText(courseDescription);
+        //priceTextView = findViewById(R.id.);
+        //priceTextView.setText(price.toString());
+        backButton = findViewById(R.id.courseDetailsBackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-    }*/
+    }
 
     public void OnGetRecommendationClick(){
 

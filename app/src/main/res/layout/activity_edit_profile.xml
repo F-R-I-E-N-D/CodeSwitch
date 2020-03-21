@@ -18,7 +18,7 @@
         android:background="#F8DF95"
         android:text="INTEREST 2"
         app:layout_constraintStart_toStartOf="@id/interest"
-        app:layout_constraintTop_toTopOf="@id/AreaOfInterest" />
+        app:layout_constraintTop_toTopOf="@id/areaOfInterest" />
 
     <Button
         android:id="@+id/delete2"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="@id/Username" />
 
     <TextView
-        android:id="@+id/AreaOfInterest"
+        android:id="@+id/areaOfInterest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toTopOf="@id/AddInterest" />
 
     <Button
-        android:id="@+id/BackButton"
+        android:id="@+id/jobDetailsBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="close"
@@ -146,7 +146,7 @@
         android:background="#F8DF95"
         android:text="INTEREST 1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/AreaOfInterest" />
+        app:layout_constraintTop_toTopOf="@id/areaOfInterest" />
 
     <Button
         android:id="@+id/delete"

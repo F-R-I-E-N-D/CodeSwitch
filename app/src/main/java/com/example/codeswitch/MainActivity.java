@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseResponse;
+import com.example.codeswitch.model.Course;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
@@ -25,11 +26,11 @@ public class MainActivity extends ModifiedActivity {
         super.onCreate(savedInstanceState);
 //        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
-        setContentView(R.layout.activity_main);
-//        Intent intent = new Intent(this, JobDetailsActivity.class);
-//        intent.putExtra("EXIT", false);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
+        //setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, CourseDetailsActivity.class);
+        intent.putExtra("EXIT", false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
         dao = ApiManager.getInstance().create(Dao.class);
     }
