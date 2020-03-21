@@ -2,6 +2,7 @@ package com.example.codeswitch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.codeswitch.model.Course;
@@ -18,6 +19,8 @@ public class CourseDetailsActivity extends ModifiedActivity /*implements Details
     ArrayList<Skill> taughtSkills;
     ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
+    TextView titleTextView, organizerTextView, urlTextView, picture_urlTextView, descriptionTextView, priceTextView;
+    Button backButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // call the super class onCreate to complete the creation of activity like
@@ -33,21 +36,29 @@ public class CourseDetailsActivity extends ModifiedActivity /*implements Details
 
     }
 
-    /*
-    protected void onDestroy();{
 
-    }
+
     public void getDetails(){
 
     }
 
-    public void Display(){
+ /*   public void Display(){
+        titleTextView = findViewById(R.id.);
+        titleTextView.setText(title);
+        organizerTextView = findViewById(R.id.JobTitle);
+        organizerTextView.setText(title);
+        urlTextView = findViewById(R.id.JobTitle);
+        urlTextView.setText(title);
+        descriptionTextView = findViewById(R.id.JobTitle);
+        descriptionTextView.setText(title);
+        priceTextView = findViewById(R.id.);
+        priceTextView.setText(price.toString());
 
-    }
+    }*/
 
     public void OnGetRecommendationClick(){
 
     }
-    */
+
 
 }
