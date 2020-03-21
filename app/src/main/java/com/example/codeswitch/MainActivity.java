@@ -25,13 +25,14 @@ public class MainActivity extends ModifiedActivity {
         super.onCreate(savedInstanceState);
 //        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        //test for specific activity
         Intent intent = new Intent(this, JobDetailsActivity.class);
         intent.putExtra("EXIT", false);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
-        //dao = ApiManager.getInstance().create(Dao.class);
+        dao = ApiManager.getInstance().create(Dao.class);
     }
 
     public void onLoginClick(View view) {
