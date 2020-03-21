@@ -27,7 +27,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         // the view hierarchy
         super.onCreate(savedInstanceState);
         getDetails();
-        display();
+//        display();
         // set the user interface layout for this activity
         // the layout file is defined in the project res/layout/main_activity.xml fil
         setContentView(R.layout.job_details);
