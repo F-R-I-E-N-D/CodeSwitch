@@ -31,7 +31,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         getDetails();
-//        display();
+        display();
         // set the user interface layout for this activity
         // the layout file is defined in the project res/layout/main_activity.xml fil
 
@@ -51,7 +51,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
     public void getDetails(){
 
         jobTitle = "1";
-        jobDescription = "2";
+        jobDescription = "sample sample sample sample sample sample sample sample sample sample sample sample sample ";
         companyName = "3";
         jobURL = "4";
         date_posted = new Date();
@@ -62,9 +62,9 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         jobTitleTextView.setText(jobTitle);
         companyNameTextView = findViewById(R.id.companyName);
         companyNameTextView.setText(companyName);
-        jobDescriptionTextView = findViewById(R.id.jobDescription);
+        jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
         jobDescriptionTextView.setText(jobDescription);
-        jobURLTextView = findViewById(R.id.jobURL);
+        jobURLTextView = findViewById(R.id.jobURLButton);
         jobURLTextView.setText(jobURL);
         //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
         //picture_urlTextView.set(picture_url);

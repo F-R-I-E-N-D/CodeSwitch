@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/courseName" />
 
         <Button
-            android:id="@+id/courseURL"
+            android:id="@+id/courseURLButton"
             android:layout_width="278dp"
             android:layout_height="42dp"
             android:layout_marginStart="16dp"
@@ -65,7 +65,7 @@
             android:layout_marginTop="28dp"
             android:text="Taught Skills:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courseURL" />
+            app:layout_constraintTop_toBottomOf="@+id/courseURLButton" />
 
         <Button
             android:id="@+id/skill1"
@@ -87,7 +87,7 @@
             android:layout_marginTop="71dp"
             android:text="Skill2"
             app:layout_constraintStart_toEndOf="@+id/skill1"
-            app:layout_constraintTop_toBottomOf="@+id/courseURL" />
+            app:layout_constraintTop_toBottomOf="@+id/courseURLButton" />
 
         <TextView
             android:id="@+id/CourseDescription"
@@ -99,19 +99,6 @@
             android:text="Course Description:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/skill1" />
-
-        <EditText
-            android:id="@+id/courseDescriptionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="21dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CourseDescription" />
 
         <ImageView
             android:id="@+id/CourseImage"
@@ -142,6 +129,20 @@
             android:text="BACK"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/courseDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CourseDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -55,7 +55,7 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
         courseNameTextView.setText(courseName);
         courseProviderTextView = findViewById(R.id.courseProvider);
         courseProviderTextView.setText(courseProvider);
-        courseURLTextView = findViewById(R.id.courseURL);
+        courseURLTextView = findViewById(R.id.courseURLButton);
         courseURLTextView.setText(courseURL);
         courseDescriptionTextView = findViewById(R.id.courseDescriptionText);
         courseDescriptionTextView.setText(courseDescription);

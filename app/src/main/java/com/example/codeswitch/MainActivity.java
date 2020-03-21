@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseResponse;
 import com.example.codeswitch.model.Course;
+import com.example.codeswitch.model.Job;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
@@ -27,7 +28,7 @@ public class MainActivity extends ModifiedActivity {
 //        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
         //setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, CourseDetailsActivity.class);
+        Intent intent = new Intent(this, JobDetailsActivity.class);
         intent.putExtra("EXIT", false);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
