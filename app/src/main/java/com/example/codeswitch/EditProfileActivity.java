@@ -41,26 +41,6 @@ public class EditProfileActivity extends ModifiedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-//        thisIntent = getIntent();
-
-        Gson gson = new Gson();
-        SharedPreferences mPrefs = getApplicationContext().getSharedPreferences("CurrentUser", MODE_PRIVATE);
-        String json = mPrefs.getString("CurrentUser", null);
-        User user = gson.fromJson(json, User.class);
-        Log.d(TAG, user.toString());
-//        user.toString();
-//
-//        if (thisIntent.hasExtra("userObject")) {
-//            currentUser = (User) getIntent().getSerializableExtra("userObject");
-//            Log.i("EditProfile:", currentUser.toString());
-//        }
-//        else
-//            currentUser = null;
-
-
-
-//        TextView title = (TextView) findViewById(R.id.activityTitle4);
-//        title.setText("This is Edit Profile");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -94,24 +74,16 @@ public class EditProfileActivity extends ModifiedActivity {
 
     }
     public void getDetails(){
-        ArrayList<String> skills = new ArrayList<>();
-        skills.add("SQL");
-        skills.add("Java");
-        skills.add("YESS");
-        currentUser = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
+        currentUser = getUserFromPrefs();
     }
-
-
 
     public void display(){
         usernameTextView = findViewById(R.id.Username);
         usernameTextView.setText(currentUser.getEmail());
-        System.out.println("work");
         List<String> skills = currentUser.getSkills();
-        for(String s : skills)
-        {
+        if(skills.size() == 0) {
             TextView newTextView = new TextView(this);
-            newTextView.setText(s);
+            newTextView.setText("None");
 //            newTextView.setTextColor(#0066ff); // for example
             newTextView.setOnClickListener(new View.OnClickListener()
             {
@@ -121,39 +93,52 @@ public class EditProfileActivity extends ModifiedActivity {
                     System.out.println("dhgjgf jfgsfjhsgfsjfgdfjh");
                 }
             });
+        }
+        else {
+            for (String s : skills) {
+                TextView newTextView = new TextView(this);
+                newTextView.setText(s);
+//            newTextView.setTextColor(#0066ff); // for example
+                newTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("dhgjgf jfgsfjhsgfsjfgdfjh");
+                    }
+                });
 //
-            skillTextView.add(newTextView);
-        }
-        int viewidsize = 0;
-        for(TextView tv : skillTextView) {
-            tv.setId(viewidsize++); // Views must have IDs in order to add them to chain later.
-            layout.addView(tv);
-        }
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(layout);
-        View previousItem = null;
-        for(TextView tv : skillTextView) {
-            boolean lastItem =skillTextView.indexOf(tv) ==skillTextView.size() - 1;
-            if(previousItem == null) {
-                constraintSet.connect(tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-            } else {
-                constraintSet.connect(tv.getId(), ConstraintSet.LEFT, previousItem.getId(), ConstraintSet.RIGHT);
-                if(lastItem) {
-                    constraintSet.connect(tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                }
+                skillTextView.add(newTextView);
             }
-            previousItem = tv;
-        }
+            int viewidsize = 0;
+            for (TextView tv : skillTextView) {
+                tv.setId(viewidsize++); // Views must have IDs in order to add them to chain later.
+                layout.addView(tv);
+            }
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(layout);
+            View previousItem = null;
+            for (TextView tv : skillTextView) {
+                boolean lastItem = skillTextView.indexOf(tv) == skillTextView.size() - 1;
+                if (previousItem == null) {
+                    constraintSet.connect(tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
+                } else {
+                    constraintSet.connect(tv.getId(), ConstraintSet.LEFT, previousItem.getId(), ConstraintSet.RIGHT);
+                    if (lastItem) {
+                        constraintSet.connect(tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
+                    }
+                }
+                previousItem = tv;
+            }
 //        // [1, 2, 3, 4, 5]
 
-        int[] viewIds = new int[viewidsize];
-        int idCount = 0;
-        for(TextView i: skillTextView)
-            viewIds[idCount] = i.getId();
+            int[] viewIds = new int[viewidsize];
+            int idCount = 0;
+            for (TextView i : skillTextView)
+                viewIds[idCount] = i.getId();
 
 //        int[] viewIds = ByteUtils.toIntArray(new ArrayList<>(Collections2.transform(skillTextView, View::getId)));
-        constraintSet.createHorizontalChain(ConstraintSet.PARENT_ID, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, viewIds, null, ConstraintSet.CHAIN_SPREAD);
-        constraintSet.applyTo(layout);
+            constraintSet.createHorizontalChain(ConstraintSet.PARENT_ID, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, viewIds, null, ConstraintSet.CHAIN_SPREAD);
+            constraintSet.applyTo(layout);
+        }
 
     }
 
