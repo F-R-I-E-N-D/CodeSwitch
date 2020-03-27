@@ -115,7 +115,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
         Uri.Builder builder = new Uri.Builder();
 
-        https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
+        //https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
 
         builder.scheme("https")
                 .authority("w5fe0239ih.execute-api.us-east-1.amazonaws.com")
@@ -182,7 +182,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             Log.d("onCourseClick", searchResults.getJSONObject(position).getString("title")+ " at Index: " + position);
             Intent goToCourseDetails = new Intent(CourseSearchActivity.this, CourseDetailsActivity.class);
             String str = searchResults.getJSONObject(position).getString("referenceNumber");
-            goToCourseDetails.putExtra("courseSearchReferenceNumber" , str);
+            goToCourseDetails.putExtra("referenceNumber" , str);
             startActivity(goToCourseDetails);
         } catch (JSONException e) {
             e.printStackTrace();

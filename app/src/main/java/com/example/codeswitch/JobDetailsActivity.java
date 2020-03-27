@@ -14,7 +14,7 @@ import com.example.codeswitch.model.Skill;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class JobDetailsActivity extends ModifiedActivity implements DetailsActivity {
+public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
 
     String gameState, jobTitle, jobDescription, companyName, jobURL, picture_url;
     Date date_posted;
@@ -32,7 +32,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         getDetails();
-        display();
+//        display();
         // set the user interface layout for this activity
         // the layout file is defined in the project res/layout/main_activity.xml fil
 
@@ -58,48 +58,49 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         date_posted = new Date();
     }
 
-    public void display(){
-        jobTitleTextView = findViewById(R.id.jobTitle);
-        jobTitleTextView.setText(jobTitle);
-        companyNameTextView = findViewById(R.id.companyName);
-        companyNameTextView.setText(companyName);
-        jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
-        jobDescriptionTextView.setText(jobDescription);
-        jobURLTextView = findViewById(R.id.jobURLButton);
-        jobURLTextView.setText(jobURL);
-        //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
-        //picture_urlTextView.set(picture_url);
-        dateTextView = findViewById(R.id.datePosted);
-        dateTextView.setText(date_posted.toString());
-        // dynamically generate requiredSkills
-        int i = 0;
-        for (Skill requiredSkill : requiredSkills) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            Button btn = new Button(this);
-            btn.setId(i);
-            btn.setTag(requiredSkill.getName());
-            btn.setText(requiredSkill.getName());
-            int buttonId = btn.getId();
-            LinearLayout ll = (LinearLayout)findViewById(R.id.bu;
-            ll.addView(btn, params);
-            btn1 = ((Button) findViewById(id_));
-            btn1.setOnClickListener(new View.OnClickListener() {
-            });
-            i++;
-        }
-        backButton = findViewById(R.id.jobDetailsBackButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//
+//    public void display(){
+//        jobTitleTextView = findViewById(R.id.jobTitle);
+//        jobTitleTextView.setText(jobTitle);
+//        companyNameTextView = findViewById(R.id.companyName);
+//        companyNameTextView.setText(companyName);
+//        jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
+//        jobDescriptionTextView.setText(jobDescription);
+//        jobURLTextView = findViewById(R.id.jobURLButton);
+//        jobURLTextView.setText(jobURL);
+//        //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
+//        //picture_urlTextView.set(picture_url);
+//        dateTextView = findViewById(R.id.datePosted);
+//        dateTextView.setText(date_posted.toString());
+//        // dynamically generate requiredSkills
+//        int i = 0;
+//        for (Skill requiredSkill : requiredSkills) {
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//                    LinearLayout.LayoutParams.WRAP_CONTENT,
+//                    LinearLayout.LayoutParams.WRAP_CONTENT);
+//            Button btn = new Button(this);
+//            btn.setId(i);
+//            btn.setTag(requiredSkill.getName());
+//            btn.setText(requiredSkill.getName());
+//            int buttonId = btn.getId();
+//            LinearLayout ll = (LinearLayout)findViewById(R.id.bu;
+//            ll.addView(btn, params);
+//            btn1 = ((Button) findViewById(id_));
+//            btn1.setOnClickListener(new View.OnClickListener() {
+//            });
+//            i++;
+////        }
+//        backButton = findViewById(R.id.jobDetailsBackButton);
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
 
 
-    }
+//    }
 
 
 /*    public void generateCourses(){
