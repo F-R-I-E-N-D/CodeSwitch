@@ -2,6 +2,7 @@ package com.example.codeswitch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,6 +43,14 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
 
 
     public void getDetails(){
+
+        //tim start
+        Bundle extras = getIntent().getExtras();
+        String courseReferenceNumber = extras.getString("courseSearchReferenceNumber");
+
+        Log.d("onCourseClick", "Received courseReferenceNumber: " + courseReferenceNumber);
+
+        //tim end
 
         courseName = "1";
         courseDescription = "2";
