@@ -4,6 +4,6 @@ public interface DetailsActivity {
 
     public void getDetails();
 
-    public void Display();
+    public void display();
 
 }

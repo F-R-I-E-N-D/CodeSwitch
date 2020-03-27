@@ -13,8 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
     private static Retrofit instance;
-//    private static final String BASE_URL = "http://codeswitch-rest-api.herokuapp.com/";
-    private static final String BASE_URL = "http://10.0.2.2:8000/";
+    private static final String BASE_URL = "https://codeswitch-rest-api.herokuapp.com/";
+//    private static final String BASE_URL = "http://10.0.2.2:8000/";
 
     public static Retrofit getInstance() {
         if (instance == null) {
@@ -36,7 +36,8 @@ public class ApiManager {
             }
             @Override
             public void onFailure(Call<T> call, Throwable t) {
-                Log.d("Debug", "Network Failure");
+            Log.d("Debug", "Authentication Error");
+                t.printStackTrace();
             }
         });
     }
