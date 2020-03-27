@@ -2,15 +2,12 @@ package com.example.codeswitch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codeswitch.model.Course;
 import com.example.codeswitch.model.Interest;
-import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.Skill;
 
 import java.util.ArrayList;
@@ -18,13 +15,13 @@ import java.util.Date;
 
 public class JobDetailsActivity extends ModifiedActivity implements DetailsActivity {
 
-    String gameState, role, description, company, application_url, picture_url;
+    String gameState, jobTitle, jobDescription, companyName, jobURL, picture_url;
     Date date_posted;
     ArrayList<Interest> fields;
     ArrayList<Skill> requiredSkills;
     ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
-    TextView roleTextView, descriptionTextView, companyTextView, application_urlTextView, picture_urlTextView, dateTextView;
+    TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,27 +50,27 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
 */
     public void getDetails(){
 
-        role = "1";
-        description = "2";
-        company = "3";
-        application_url = "4";
+        jobTitle = "1";
+        jobDescription = "sample sample sample sample sample sample sample sample sample sample sample sample sample ";
+        companyName = "3";
+        jobURL = "4";
         date_posted = new Date();
     }
 
     public void display(){
-        roleTextView = findViewById(R.id.JobTitle);
-        roleTextView.setText(role);
-        companyTextView = findViewById(R.id.CompanyName);
-        companyTextView.setText(company);
-        descriptionTextView = findViewById(R.id.JobDescription);
-        descriptionTextView.setText(description);
-        application_urlTextView = findViewById(R.id.JobURL);
-        application_urlTextView.setText(application_url);
+        jobTitleTextView = findViewById(R.id.jobTitle);
+        jobTitleTextView.setText(jobTitle);
+        companyNameTextView = findViewById(R.id.companyName);
+        companyNameTextView.setText(companyName);
+        jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
+        jobDescriptionTextView.setText(jobDescription);
+        jobURLTextView = findViewById(R.id.jobURLButton);
+        jobURLTextView.setText(jobURL);
         //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
         //picture_urlTextView.set(picture_url);
-        dateTextView = findViewById(R.id.DatePosted);
+        dateTextView = findViewById(R.id.datePosted);
         dateTextView.setText(date_posted.toString());
-        backButton = findViewById(R.id.BackButton);
+        backButton = findViewById(R.id.jobDetailsBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

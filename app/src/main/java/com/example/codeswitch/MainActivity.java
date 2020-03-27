@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseResponse;
+import com.example.codeswitch.model.Course;
+import com.example.codeswitch.model.Job;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
@@ -45,6 +47,8 @@ public class MainActivity extends ModifiedActivity {
     public void onRegisterNewClick(View view) {
         // TODO: Redirect to RegisterActivity
         Log.d("Debug", "Register Button Clicked");
+        Intent k = new Intent(this, CreateAccountActivity.class);
+        startActivity(k);
     }
 
     /**

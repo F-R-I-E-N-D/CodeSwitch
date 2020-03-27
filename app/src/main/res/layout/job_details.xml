@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/JobURL"
+            android:id="@+id/jobURLButton"
             android:layout_width="243dp"
             android:layout_height="34dp"
             android:layout_marginStart="16dp"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/Skill1"
+            android:id="@+id/skill1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/Skill2"
+            android:id="@+id/skill2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="134dp"
@@ -73,13 +73,13 @@
             android:layout_height="87dp"
             android:layout_marginTop="101dp"
             android:text="Apply"
-            app:layout_constraintEnd_toStartOf="@+id/SaveJob"
+            app:layout_constraintEnd_toStartOf="@+id/saveJob"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/JobDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
 
         <Button
-            android:id="@+id/SaveJob"
+            android:id="@+id/saveJob"
             android:layout_width="0dp"
             android:layout_height="86dp"
             android:layout_marginTop="628dp"
@@ -89,10 +89,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/BackButton"
+            android:id="@+id/jobDetailsBackButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="close"
+            android:text="BACK"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -130,7 +130,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/JobTitle"
+            android:id="@+id/jobTitle"
             android:layout_width="59dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="122dp"
@@ -141,7 +141,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/CompanyName"
+            android:id="@+id/companyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
@@ -152,7 +152,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/RequiredSkill"
+            android:id="@+id/requiredSkill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -163,7 +163,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/AreaOfInterest"
+            android:id="@+id/areaOfInterest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -174,7 +174,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/JobDescription"
+            android:id="@+id/jobDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -185,7 +185,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/RecommendedCourse"
+            android:id="@+id/recommendedCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -196,7 +196,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/DatePosted"
+            android:id="@+id/datePosted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
@@ -205,6 +205,20 @@
             android:text="Date Posted"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/jobDescriptionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
