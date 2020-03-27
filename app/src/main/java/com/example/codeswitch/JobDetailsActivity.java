@@ -59,7 +59,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
     }
 
     public void display(){
-        jobTitleTextView = findViewById(R.id.jobTitle);
+        /*jobTitleTextView = findViewById(R.id.jobTitle);
         jobTitleTextView.setText(jobTitle);
         companyNameTextView = findViewById(R.id.companyName);
         companyNameTextView.setText(companyName);
@@ -98,7 +98,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         });
 
 
-
+*/
     }
 
 

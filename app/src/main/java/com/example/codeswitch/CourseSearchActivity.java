@@ -26,7 +26,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class CourseSearchActivity extends ModifiedActivity implements SearchActivity, CourseRecyclerViewAdapter.OnNoteListener {
+public class CourseSearchActivity extends ModifiedActivity implements SearchActivity, CourseRecyclerViewAdapter.OnCourseListener {
 
     //set up API call
     Context thisContext = this;
@@ -47,7 +47,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         setContentView(R.layout.activity_course_search);
 
         //searchView
-        SearchView searchView = findViewById(R.id.action_search);
+        SearchView searchView = findViewById(R.id.course_search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -177,7 +177,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
 
     @Override
-    public void onNoteClick(int position) {
+    public void onCourseClick(int position) {
         try {
             Log.d("onCourseClick", searchResults.getJSONObject(position).getString("title")+ " at Index: " + position);
             Intent goToCourseDetails = new Intent(CourseSearchActivity.this, CourseDetailsActivity.class);

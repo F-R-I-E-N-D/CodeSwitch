@@ -18,20 +18,13 @@
             android:layout_height="50dp"
             android:id="@+id/relLayoutTopBar"
             android:layout_alignParentTop="true">
-            
-            <Button
-                android:layout_width="72dp"
-                android:layout_height="match_parent"
-                android:text="Skill Selection"
-                android:id="@+id/skill_select_menu"
-                android:layout_alignParentTop="true"/>
-
 
             <SearchView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/action_search"
+                android:id="@+id/course_search_view"
                 android:layout_toRightOf="@+id/skill_select_menu"/>
+
         </RelativeLayout>
 
         <RelativeLayout

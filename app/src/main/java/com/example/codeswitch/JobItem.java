@@ -1,17 +1,16 @@
 package com.example.codeswitch;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class JobItem {
     private int jobImageResource;
     private String jobTitleText;
-    private String jobSkillsRequiredText;
+    private String jobCompanyText;
+    private String jobDatePostedText;
 
-    public JobItem(int ImageResource, String TitleText, String SkillsRequiredText){
+    public JobItem(int ImageResource, String TitleText, String CompanyText, String JobDatePostedText){
         jobImageResource = ImageResource;
         jobTitleText = TitleText;
-        jobSkillsRequiredText = SkillsRequiredText;
+        jobCompanyText = CompanyText;
+        jobDatePostedText = JobDatePostedText;
     }
 
     public int getJobImageResource(){
@@ -22,7 +21,9 @@ public class JobItem {
         return this.jobTitleText;
     }
 
-    public String getJobSkillsText(){
-        return this.jobSkillsRequiredText;
+    public String getJobCompanyText(){
+        return this.jobCompanyText;
     }
+
+    public String getJobDatePostedText() { return this.jobDatePostedText; }
 }
