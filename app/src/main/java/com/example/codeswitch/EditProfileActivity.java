@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.example.codeswitch.model.Interest;
 import com.example.codeswitch.model.Skill;
 import com.example.codeswitch.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,20 +34,28 @@ public class EditProfileActivity extends ModifiedActivity {
     private List<TextView> skillTextView = new ArrayList<>();
     private ConstraintLayout layout;
     private User currentUser;
-    private Intent thisIntent;
+    private final String TAG = "EditProfile";
+//    private Intent thisIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        thisIntent = getIntent();
+//        thisIntent = getIntent();
 
-        if (thisIntent.hasExtra("userObject")) {
-            currentUser = (User) getIntent().getSerializableExtra("userObject");
-            Log.i("EditProfile:", currentUser.toString());
-        }
-        else
-            currentUser = null;
+        Gson gson = new Gson();
+        SharedPreferences mPrefs = getApplicationContext().getSharedPreferences("CurrentUser", MODE_PRIVATE);
+        String json = mPrefs.getString("CurrentUser", null);
+        User user = gson.fromJson(json, User.class);
+        Log.d(TAG, user.toString());
+//        user.toString();
+//
+//        if (thisIntent.hasExtra("userObject")) {
+//            currentUser = (User) getIntent().getSerializableExtra("userObject");
+//            Log.i("EditProfile:", currentUser.toString());
+//        }
+//        else
+//            currentUser = null;
 
 
 
@@ -90,6 +100,8 @@ public class EditProfileActivity extends ModifiedActivity {
         skills.add("YESS");
         currentUser = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
     }
+
+
 
     public void display(){
         usernameTextView = findViewById(R.id.Username);
