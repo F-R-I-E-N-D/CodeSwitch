@@ -14,11 +14,13 @@
         <activity android:name=".JobSearchActivity"></activity>
         <activity android:name=".SavedJobsActivity"></activity>
         <activity android:name=".EditProfileActivity"></activity>
-        <activity android:name=".CourseSearchActivity"></activity>
+        <activity android:name=".CourseSearchActivity" ></activity>
+        <activity android:name=".JobDetailsActivity"></activity>
+        <activity android:name=".CourseDetailsActivity"></activity>
+        <activity android:name=".CreateAccountActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

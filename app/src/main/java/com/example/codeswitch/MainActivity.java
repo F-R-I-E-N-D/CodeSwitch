@@ -2,32 +2,36 @@ package com.example.codeswitch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.BaseResponse;
-import com.example.codeswitch.model.UserAuthResponse;
+import com.example.codeswitch.model.Course;
+import com.example.codeswitch.model.Job;
+import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
+import com.google.gson.Gson;
 
 public class MainActivity extends ModifiedActivity {
     private String email;
     private String password;
     private Dao dao;
-
-//    private boolean successful  = false; // Initialised
-//    private boolean prev = false;
-//    private boolean current = true;
-//
+    
     Context thisContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // This code must be here if you want to use the API.
         dao = ApiManager.getInstance().create(Dao.class);
     }
 
@@ -47,8 +51,8 @@ public class MainActivity extends ModifiedActivity {
     }
 
     public void onRegisterNewClick(View view) {
-        // TODO: Redirect to RegisterActivity
-        Log.d("Debug", "Register Button Clicked");
+        Intent k = new Intent(this, CreateAccountActivity.class);
+        startActivity(k);
     }
 
     /**
@@ -57,16 +61,15 @@ public class MainActivity extends ModifiedActivity {
      * @param password User's inputted password
      */
     private void authenticateLogin(String email, String password) {
-
-        ApiManager.callApi(dao.loginUser(email, password), new CustomCallback<BaseResponse>() {
+        ApiManager.callApi(dao.loginUser(email, password), new CustomCallback<AuthResponse>() {
             @Override
-            public void onResponse(BaseResponse response) {
+            public void onResponse(AuthResponse response) {
                 if (response.getSuccess()) {
-                    // TODO: Redirect to ProfileActivity with the user's information
                     Log.d("Debug", response.toString());
 
                     //go to job search - tim
                     try {
+                        saveUserToPrefs(response.getUser());
                         Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
                         startActivity(k);
                     } catch(Exception e) {

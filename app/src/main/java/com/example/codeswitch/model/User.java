@@ -1,19 +1,36 @@
 package com.example.codeswitch.model;
 
+import java.io.Serializable;
 import java.util.List;
+
+import com.example.codeswitch.model.BaseObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User extends BaseObject {
+public class User extends BaseObject implements Serializable {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("password")
+    @Expose
+    private String password;
     @SerializedName("skills")
     @Expose
     private List<String> skills = null;
+    @SerializedName("interests")
+    @Expose
+    private List<String> interests = null;
     @SerializedName("url")
     @Expose
     private String url;
+
+    public User(String email, String password, List<String> skills, List<String> interests, String url) {
+        this.email = email;
+        this.password = password;
+        this.skills = skills;
+        this.interests = interests;
+        this.url = url;
+    }
 
     public String getEmail() {
         return email;
@@ -23,12 +40,28 @@ public class User extends BaseObject {
         this.email = email;
     }
 
-    public List<String> getSkillIds() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<String> getSkills() {
         return skills;
     }
 
-    public void setSkillIds(List<String> skillIds) {
-        this.skills = skillIds;
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
     }
 
     public String getUrl() {
@@ -43,9 +76,11 @@ public class User extends BaseObject {
     public String toString() {
         return "User{" +
                 "email='" + email + '\'' +
-                ", id=" + id +
-                ", skillIds=" + skills +
+                ", password='" + password + '\'' +
+                ", skills=" + skills +
+                ", interests=" + interests +
                 ", url='" + url + '\'' +
+                ", id=" + id +
                 '}';
     }
 }
