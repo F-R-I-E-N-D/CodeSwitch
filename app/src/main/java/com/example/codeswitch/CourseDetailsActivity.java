@@ -18,7 +18,6 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
     Double price;
     Date date_posted;
     ArrayList<Skill> taughtSkills;
-    ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
     TextView courseNameTextView, courseProviderTextView, courseURLTextView, picture_urlTextView, courseDescriptionTextView, priceTextView;
     Button backButton;
