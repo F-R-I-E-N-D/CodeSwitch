@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseResponse;
+import com.example.codeswitch.model.Course;
+import com.example.codeswitch.model.Job;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
@@ -23,9 +25,15 @@ public class MainActivity extends ModifiedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
         setContentView(R.layout.activity_main);
+//        ApiTest.testGetCourseList();
+
+      //Intent intent = new Intent(this, EditProfileActivity.class);
+//        intent.putExtra("EXIT", false);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+       // startActivity(intent);
+
         dao = ApiManager.getInstance().create(Dao.class);
     }
 
@@ -39,6 +47,8 @@ public class MainActivity extends ModifiedActivity {
     public void onRegisterNewClick(View view) {
         // TODO: Redirect to RegisterActivity
         Log.d("Debug", "Register Button Clicked");
+        Intent k = new Intent(this, CreateAccountActivity.class);
+        startActivity(k);
     }
 
     /**
@@ -51,6 +61,7 @@ public class MainActivity extends ModifiedActivity {
             @Override
             public void onResponse(BaseResponse response) {
                 if (response.getSuccess()) {
+
                     // TODO: Redirect to ProfileActivity with the user's information
                     Log.d("Debug", response.toString());
 

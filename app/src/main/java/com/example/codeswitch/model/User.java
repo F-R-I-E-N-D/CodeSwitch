@@ -1,12 +1,13 @@
 package com.example.codeswitch.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.example.codeswitch.model.BaseObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User extends BaseObject {
+public class User extends BaseObject implements Serializable {
     @SerializedName("email")
     @Expose
     private String email;
@@ -23,8 +24,12 @@ public class User extends BaseObject {
     @Expose
     private String url;
 
-    public void setId(Integer id) {
-        this.id = id;
+    public User(String email, String password, List<String> skills, List<String> interests, String url) {
+        this.email = email;
+        this.password = password;
+        this.skills = skills;
+        this.interests = interests;
+        this.url = url;
     }
 
     public String getEmail() {
