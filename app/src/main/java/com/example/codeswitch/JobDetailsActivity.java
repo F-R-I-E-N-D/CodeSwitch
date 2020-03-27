@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codeswitch.model.Course;
@@ -70,6 +71,24 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         //picture_urlTextView.set(picture_url);
         dateTextView = findViewById(R.id.datePosted);
         dateTextView.setText(date_posted.toString());
+        // dynamically generate requiredSkills
+        int i = 0;
+        for (Skill requiredSkill : requiredSkills) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            Button btn = new Button(this);
+            btn.setId(i);
+            btn.setTag(requiredSkill.getName());
+            btn.setText(requiredSkill.getName());
+            int buttonId = btn.getId();
+            LinearLayout ll = (LinearLayout)findViewById(R.id.bu;
+            ll.addView(btn, params);
+            btn1 = ((Button) findViewById(id_));
+            btn1.setOnClickListener(new View.OnClickListener() {
+            });
+            i++;
+        }
         backButton = findViewById(R.id.jobDetailsBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
