@@ -40,7 +40,7 @@ public class MainActivity extends ModifiedActivity {
         password = getEditText(R.id.password_login_input);
         //hotwire - yh
         try {
-            Intent k = new Intent(MainActivity.this, JobDetailsActivity.class);
+            Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
             startActivity(k);
         } catch(Exception e) {
             e.printStackTrace();
