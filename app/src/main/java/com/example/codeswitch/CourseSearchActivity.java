@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
@@ -25,7 +26,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class CourseSearchActivity extends ModifiedActivity implements SearchActivity {
+public class CourseSearchActivity extends ModifiedActivity implements SearchActivity, CourseRecyclerViewAdapter.OnNoteListener {
 
     //set up API call
     Context thisContext = this;
@@ -52,7 +53,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             public boolean onQueryTextSubmit(String query) {
 
                 getCourseItemsFromAPI(query);
-
                 return false;
             }
 
@@ -68,20 +68,15 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         courseRecyclerView = findViewById(R.id.recyclerView_courseSearch);
         courseRecyclerView.setHasFixedSize(true);
         courseRecyclerManager = new LinearLayoutManager(this);
-        courseRecyclerAdapter = new CourseRecyclerViewAdapter(courseItems);
+        courseRecyclerAdapter = new CourseRecyclerViewAdapter(courseItems, this);   //pass the interface to the adapter
 
         courseRecyclerView.setLayoutManager(courseRecyclerManager);
         courseRecyclerView.setAdapter(courseRecyclerAdapter);
-
-        long startTime = System.currentTimeMillis();
-
 
         //bottomnavigationview
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         displayBottomNavigationView(bottomNavigationView);
 
-        long endTime = System.currentTimeMillis();
-        System.out.println("Time of RecyclerAdapter:" + (endTime-startTime));
     }
 
     public void displayBottomNavigationView(BottomNavigationView bottomNavigationView){
@@ -120,7 +115,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
         Uri.Builder builder = new Uri.Builder();
 
-        https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
+        //https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
 
         builder.scheme("https")
                 .authority("w5fe0239ih.execute-api.us-east-1.amazonaws.com")
@@ -169,6 +164,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         ExampleRequestQueue.add(jsonArrayRequest);
     }
 
+
     @Override
     public void fetchDisplayItems(String keyword) {
 
@@ -180,4 +176,16 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     }
 
 
+    @Override
+    public void onNoteClick(int position) {
+        try {
+            Log.d("onCourseClick", searchResults.getJSONObject(position).getString("title")+ " at Index: " + position);
+            Intent goToCourseDetails = new Intent(CourseSearchActivity.this, CourseDetailsActivity.class);
+            String str = searchResults.getJSONObject(position).getString("referenceNumber");
+            goToCourseDetails.putExtra("referenceNumber" , str);
+            startActivity(goToCourseDetails);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

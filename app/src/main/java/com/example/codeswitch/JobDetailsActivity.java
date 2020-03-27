@@ -17,7 +17,7 @@ import com.example.codeswitch.model.Skill;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class JobDetailsActivity extends ModifiedActivity implements DetailsActivity {
+public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
 
     String jobTitle, jobDescription, companyName, jobURL, picture_url;
     Date date_posted;
@@ -34,7 +34,7 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         getDetails();
-        display();
+//        display();
         // set the user interface layout for this activity
         // the layout file is defined in the project res/layout/main_activity.xml fil
 
@@ -130,4 +130,3 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
 
 
 }
-

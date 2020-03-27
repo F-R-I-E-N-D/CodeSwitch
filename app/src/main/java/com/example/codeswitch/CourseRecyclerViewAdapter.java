@@ -19,6 +19,8 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
     private ArrayList<CourseItem> courseItemList;
     private ArrayList<CourseItem> fullCourseItemList;
 
+    private OnNoteListener mOnNoteListener; //global listener
+
     @Override
     public Filter getFilter() {
         return exampleFilter;
@@ -54,38 +56,43 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
         }
     };
 
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView RecyclerImageView;
         public TextView RecyclerTitleText;
         public TextView RecyclerOrganizationText;
         public TextView RecyclerModeOfTrainingText;
 
-/*        private int courseImageResource;
-        private String courseTitleText;
-        private String courseReferenceNumberText;
-        private String courseOrganizationText;
-        private String courseModeOfTrainingText;*/
+        OnNoteListener onNoteListener;
 
-        public RecyclerViewHolder(View itemView){
+        public RecyclerViewHolder(View itemView, OnNoteListener onNoteListener){
             super(itemView);
             RecyclerImageView = itemView.findViewById(R.id.ImageView);
             RecyclerTitleText = itemView.findViewById(R.id.TitleText);
             RecyclerOrganizationText = itemView.findViewById(R.id.OrganizationText);
             RecyclerModeOfTrainingText = itemView.findViewById(R.id.ModeText);
+
+            this.onNoteListener = onNoteListener;   //listener is set to the global listener inside each individual viewholder
+            itemView.setOnClickListener(this);      //onclicklistener is attached to each individual viewholder
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
 
-    public CourseRecyclerViewAdapter(ArrayList<CourseItem> courseItemList) {
+    public CourseRecyclerViewAdapter(ArrayList<CourseItem> courseItemList, OnNoteListener onNoteListener) {
         this.courseItemList = courseItemList;
         fullCourseItemList = new ArrayList<>(courseItemList);   //make copy of list
 
-
+        this.mOnNoteListener = onNoteListener;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_view, parent, false);
-        RecyclerViewHolder rvh = new RecyclerViewHolder(v);
+        RecyclerViewHolder rvh = new RecyclerViewHolder(v, mOnNoteListener);        //global listener is passed to viewholder when constructed
         return rvh;
     }
 
@@ -102,5 +109,9 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
     @Override
     public int getItemCount() {
         return courseItemList.size();
+    }
+
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 }
