@@ -36,6 +36,7 @@ public class ApiManager {
             }
             @Override
             public void onFailure(Call<T> call, Throwable t) {
+            Log.d("Debug", "Authentication Error");
                 t.printStackTrace();
             }
         });
