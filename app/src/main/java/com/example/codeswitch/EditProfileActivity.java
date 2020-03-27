@@ -32,14 +32,22 @@ public class EditProfileActivity extends ModifiedActivity {
     private List<TextView> skillTextView = new ArrayList<>();
     private ConstraintLayout layout;
     private User currentUser;
+    private Intent thisIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        thisIntent = getIntent();
 
-        currentUser = (User) getIntent().getSerializableExtra("userObject");
-        Log.i("EditProfile:", currentUser.toString());
+        if (thisIntent.hasExtra("userObject")) {
+            currentUser = (User) getIntent().getSerializableExtra("userObject");
+            Log.i("EditProfile:", currentUser.toString());
+        }
+        else
+            currentUser = null;
+
+
 
 //        TextView title = (TextView) findViewById(R.id.activityTitle4);
 //        title.setText("This is Edit Profile");

@@ -71,10 +71,8 @@ public class CreateAccountActivity extends ModifiedActivity {
                         Log.i(TAG, "SUCCESSFUL NEW USER!!");
 
                         Intent editProfileIntent = new Intent(thisContext, EditProfileActivity.class);
-                        // TODO: Add user to intent
-
                         User user = response.getUser();
-                        Log.i(TAG, user.toString());
+//                        Log.i(TAG, user.toString());
                         editProfileIntent.putExtra("userObject", user);
                         startActivity(editProfileIntent);
 
