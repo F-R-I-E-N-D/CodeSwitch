@@ -84,10 +84,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="71dp"
+            android:layout_marginTop="24dp"
             android:text="Skill2"
             app:layout_constraintStart_toEndOf="@+id/skill1"
-            app:layout_constraintTop_toBottomOf="@+id/courseURLButton" />
+            app:layout_constraintTop_toBottomOf="@id/SkillsTaught" />
 
         <TextView
             android:id="@+id/CourseDescription"
