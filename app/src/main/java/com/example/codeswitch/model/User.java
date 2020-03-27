@@ -23,8 +23,12 @@ public class User extends BaseObject {
     @Expose
     private String url;
 
-    public void setId(Integer id) {
-        this.id = id;
+    public User(String email, String password, List<String> skills, List<String> interests, String url) {
+        this.email = email;
+        this.password = password;
+        this.skills = skills;
+        this.interests = interests;
+        this.url = url;
     }
 
     public String getEmail() {

@@ -23,15 +23,16 @@ public class MainActivity extends ModifiedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
         setContentView(R.layout.activity_main);
-//        Intent intent = new Intent(this, JobDetailsActivity.class);
+//        ApiTest.testGetCourseList();
+
+        Intent intent = new Intent(this, EditProfileActivity.class);
 //        intent.putExtra("EXIT", false);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
+        startActivity(intent);
 
-        dao = ApiManager.getInstance().create(Dao.class);
+//        dao = ApiManager.getInstance().create(Dao.class);
     }
 
     public void onLoginClick(View view) {
