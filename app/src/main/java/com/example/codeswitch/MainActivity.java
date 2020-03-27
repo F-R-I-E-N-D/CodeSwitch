@@ -34,7 +34,7 @@ public class MainActivity extends ModifiedActivity {
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
        // startActivity(intent);
 
-//        dao = ApiManager.getInstance().create(Dao.class);
+        dao = ApiManager.getInstance().create(Dao.class);
     }
 
     public void onLoginClick(View view) {
@@ -61,6 +61,7 @@ public class MainActivity extends ModifiedActivity {
             @Override
             public void onResponse(BaseResponse response) {
                 if (response.getSuccess()) {
+
                     // TODO: Redirect to ProfileActivity with the user's information
                     Log.d("Debug", response.toString());
 
