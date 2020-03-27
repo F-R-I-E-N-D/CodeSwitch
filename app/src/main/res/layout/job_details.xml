@@ -16,34 +16,34 @@
             android:id="@+id/jobURLButton"
             android:layout_width="243dp"
             android:layout_height="34dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="124dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="120dp"
             android:text="Link"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/JobImage" />
 
         <Button
             android:id="@+id/skill1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="223dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
             android:text="Skill 1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/areaOfInterest"
+            app:layout_constraintTop_toTopOf="@id/requiredSkill"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="37dp" />
 
         <Button
             android:id="@+id/skill2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="134dp"
-            android:layout_marginLeft="134dp"
-            android:layout_marginTop="223dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginLeft="124dp"
             android:text="Skill 2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/requiredSkill"
+            app:layout_constraintTop_toTopOf="@id/skill1" />
 
         <Button
             android:id="@+id/Interest2"
@@ -69,24 +69,27 @@
 
         <Button
             android:id="@+id/Apply"
-            android:layout_width="0dp"
-            android:layout_height="87dp"
-            android:layout_marginTop="101dp"
+            android:layout_width="158dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
             android:text="Apply"
             app:layout_constraintEnd_toStartOf="@+id/saveJob"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
+            app:layout_constraintTop_toBottomOf="@id/jobDescriptionText" />
 
         <Button
             android:id="@+id/saveJob"
-            android:layout_width="0dp"
-            android:layout_height="86dp"
-            android:layout_marginTop="628dp"
+            android:layout_width="152dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="30dp"
             android:text="SAVE JOB"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Apply"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/Apply"
+            app:layout_constraintTop_toBottomOf="@id/jobDescriptionText" />
 
         <Button
             android:id="@+id/jobDetailsBackButton"
@@ -111,8 +114,8 @@
             android:id="@+id/Course2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="134dp"
-            android:layout_marginLeft="134dp"
+            android:layout_marginStart="168dp"
+            android:layout_marginLeft="168dp"
             android:layout_marginTop="444dp"
             android:text="Course2"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +140,7 @@
             android:layout_marginLeft="122dp"
             android:layout_marginTop="29dp"
             android:text="Job Title "
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/JobImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -148,7 +151,7 @@
             android:layout_marginLeft="120dp"
             android:layout_marginTop="58dp"
             android:text="Company Name"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/JobImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -159,8 +162,10 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="182dp"
             android:text="Required Skills:"
+            app:layout_constraintBottom_toTopOf="@+id/skill1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/jobURLButton"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/areaOfInterest"
@@ -168,10 +173,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="296dp"
+            android:layout_marginTop="292dp"
             android:text="Areas of Interest:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/jobTitle" />
 
         <TextView
             android:id="@+id/jobDescription"
@@ -203,7 +208,7 @@
             android:layout_marginLeft="120dp"
             android:layout_marginTop="87dp"
             android:text="Date Posted"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/JobImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
