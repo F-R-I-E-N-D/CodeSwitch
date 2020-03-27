@@ -77,12 +77,12 @@ public class SavedJobsActivity extends ModifiedActivity {
                         startActivity(intent_toJS);
                         break;
                     case R.id.ic_course_search:
-                        Intent intent_toCS = new Intent(SavedJobsActivity.this, JobSearchActivity.class);
+                        Intent intent_toCS = new Intent(SavedJobsActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
                         break;
                     case R.id.ic_saved_jobs:
                         //already here
-                        break;
+                        return true;
                     case R.id.ic_profile:
                         Intent intent_toEP = new Intent(SavedJobsActivity.this, EditProfileActivity.class);
                         startActivity(intent_toEP);

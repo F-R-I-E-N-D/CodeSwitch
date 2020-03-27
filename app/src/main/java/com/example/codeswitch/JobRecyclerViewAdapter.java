@@ -24,7 +24,7 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
             super(itemView);
             RecyclerImageView = itemView.findViewById(R.id.ImageView);
             RecyclerTitleText = itemView.findViewById(R.id.TitleText);
-            RecyclerSkillsList = itemView.findViewById(R.id.SkillsText);
+            RecyclerSkillsList = itemView.findViewById(R.id.OrganizationText);
         }
     }
 
