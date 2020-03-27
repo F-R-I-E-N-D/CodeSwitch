@@ -2,6 +2,7 @@ package com.example.codeswitch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
+import com.google.gson.Gson;
 
 public class CreateAccountActivity extends ModifiedActivity {
 
@@ -65,17 +67,14 @@ public class CreateAccountActivity extends ModifiedActivity {
             public void onResponse(AuthResponse response) {
                 if (response.getSuccess()) {
 
-                    Log.d("Debug", response.toString());
+                    Log.d(TAG, response.toString());
 
                     try {
-                        Log.i(TAG, "SUCCESSFUL NEW USER!!");
+                        Log.d(TAG, "Successful New User");
 
-                        Intent editProfileIntent = new Intent(thisContext, EditProfileActivity.class);
-                        User user = response.getUser();
-//                        Log.i(TAG, user.toString());
-                        editProfileIntent.putExtra("userObject", user);
-                        startActivity(editProfileIntent);
-
+                        saveUserToPrefs(response.getUser());
+                        Intent k = new Intent(CreateAccountActivity.this, EditProfileActivity.class);
+                        startActivity(k);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }

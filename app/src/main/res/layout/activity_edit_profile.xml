@@ -67,16 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/UpdateSkill" />
 
-    <Button
-        android:id="@+id/Apply"
-        android:layout_width="179dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="80dp"
-        android:text="Apply"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/UpdateInterest" />
 
     <Button
         android:id="@+id/Reset"
