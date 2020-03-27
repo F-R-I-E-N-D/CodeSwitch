@@ -69,58 +69,58 @@ public class EditProfileActivity extends ModifiedActivity {
             }
         });
         layout = (ConstraintLayout)findViewById(R.id.relLayoutMiddle);
-        //getDetails();
+        getDetails();
         //display();
 
     }
-//    public void getDetails(){
-//        ArrayList<String> skills = new ArrayList<>();
-//        skills.add("SQL");
-//        skills.add("Java");
-//        user = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
-//    }
+    public void getDetails(){
+        ArrayList<String> skills = new ArrayList<>();
+        skills.add("SQL");
+        skills.add("Java");
+        user = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
+    }
 //
-////    public void display(){
-////        usernameTextView = findViewById(R.id.Username);
-////        usernameTextView.setText(user.getEmail());
-////
-////        List<String> skills = user.getSkills();
-////        for(String s : skills)
-////        {
-////            TextView newTextView = new TextView(this);
-////            newTextView.setText(s);
-//////            newTextView.setTextColor(#0066ff); // for example
-////            newTextView.setOnClickListener(new View.OnClickListener()
-////            {
-////                @Override
-////                public void onClick(View v)
-////                {
-////                    System.out.println("dhgjgf jfgsfjhsgfsjfgdfjh");
-////                }
-////            });
-////
-////            skillTextView.add(newTextView);
-////        }
-////        int viewidsize = 0;
-////        for(TextView tv : skillTextView) {
-////            tv.setId(viewidsize++); // Views must have IDs in order to add them to chain later.
-////            layout.addView(tv);
-////        }
-////        ConstraintSet constraintSet = new ConstraintSet();
-////        constraintSet.clone(layout);
-////        View previousItem = null;
-////        for(TextView tv : skillTextView) {
-////            boolean lastItem =skillTextView.indexOf(tv) ==skillTextView.size() - 1;
-////            if(previousItem == null) {
-////                constraintSet.connect(tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-////            } else {
-////                constraintSet.connect(tv.getId(), ConstraintSet.LEFT, previousItem.getId(), ConstraintSet.RIGHT);
-////                if(lastItem) {
-////                    constraintSet.connect(tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-////                }
-////            }
-////            previousItem = tv;
-////        }
+//    public void display(){
+//        usernameTextView = findViewById(R.id.Username);
+//        usernameTextView.setText(user.getEmail());
+//
+//        List<String> skills = user.getSkills();
+//        for(String s : skills)
+//        {
+//            TextView newTextView = new TextView(this);
+//            newTextView.setText(s);
+////            newTextView.setTextColor(#0066ff); // for example
+//            newTextView.setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    System.out.println("dhgjgf jfgsfjhsgfsjfgdfjh");
+//                }
+//            });
+//
+//            skillTextView.add(newTextView);
+//        }
+//        int viewidsize = 0;
+//        for(TextView tv : skillTextView) {
+//            tv.setId(viewidsize++); // Views must have IDs in order to add them to chain later.
+//            layout.addView(tv);
+//        }
+//        ConstraintSet constraintSet = new ConstraintSet();
+//        constraintSet.clone(layout);
+//        View previousItem = null;
+//        for(TextView tv : skillTextView) {
+//            boolean lastItem =skillTextView.indexOf(tv) ==skillTextView.size() - 1;
+//            if(previousItem == null) {
+//                constraintSet.connect(tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
+//            } else {
+//                constraintSet.connect(tv.getId(), ConstraintSet.LEFT, previousItem.getId(), ConstraintSet.RIGHT);
+//                if(lastItem) {
+//                    constraintSet.connect(tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
+//                }
+//            }
+//            previousItem = tv;
+//        }
 ////        // [1, 2, 3, 4, 5]
 //
 //        int[] viewIds = new int[viewidsize];

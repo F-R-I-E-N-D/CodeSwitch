@@ -29,10 +29,10 @@ public class MainActivity extends ModifiedActivity {
         setContentView(R.layout.activity_main);
 //        ApiTest.testGetCourseList();
 
-        Intent intent = new Intent(this, EditProfileActivity.class);
+      //Intent intent = new Intent(this, EditProfileActivity.class);
 //        intent.putExtra("EXIT", false);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+       // startActivity(intent);
 
 //        dao = ApiManager.getInstance().create(Dao.class);
     }
