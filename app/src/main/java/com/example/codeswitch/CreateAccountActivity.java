@@ -50,13 +50,10 @@ public class CreateAccountActivity extends ModifiedActivity {
             return;
         }
 
-        Toast.makeText(this, "Password & Email OK", Toast.LENGTH_SHORT).show();
-
         // TODO : Authenticate validity of new password
 
         authenticateRegisterNew(newEmail, newPassword);
 
-        // TODO : Display Success / Failure of adding new user
 
     }
 
@@ -66,20 +63,21 @@ public class CreateAccountActivity extends ModifiedActivity {
             public void onResponse(BaseResponse response) {
                 if (response.getSuccess()) {
 
-                    // TODO: Redirect to ProfileActivity with the user's information
                     Log.d("Debug", response.toString());
 
-                    //go to job search - tim
                     try {
                         Log.i (TAG, "SUCCESSFUL NEW USER!!");
 
-                        Intent k = new Intent(CreateAccountActivity.this, JobSearchActivity.class);
-                        startActivity(k);
+                        Intent editProfileIntent = new Intent(thisContext, EditProfileActivity.class);
+
+                        // TODO: Add user to intent
+
+//                        editProfileIntent.putExtra();
+                        startActivity(editProfileIntent);
 
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
-                    //end tim
 
                 } else {
                     Toast.makeText(thisContext, response.getMessage(), Toast.LENGTH_LONG).show();
