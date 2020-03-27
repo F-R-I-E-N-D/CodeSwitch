@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,20 +26,20 @@ import java.util.Date;
 import java.util.List;
 
 public class EditProfileActivity extends ModifiedActivity {
-    User user;
-    String gameState;
-    Intent intent = getIntent();
-    TextView usernameTextView;
-    List<TextView> skillTextView = new ArrayList<>();
 
-    ConstraintLayout layout;
-
-
+    private String gameState;
+    private TextView usernameTextView;
+    private List<TextView> skillTextView = new ArrayList<>();
+    private ConstraintLayout layout;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        currentUser = (User) getIntent().getSerializableExtra("userObject");
+        Log.i("EditProfile:", currentUser.toString());
 
 //        TextView title = (TextView) findViewById(R.id.activityTitle4);
 //        title.setText("This is Edit Profile");
@@ -79,14 +80,14 @@ public class EditProfileActivity extends ModifiedActivity {
         skills.add("SQL");
         skills.add("Java");
         skills.add("YESS");
-        user = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
+        currentUser = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
     }
 
     public void display(){
         usernameTextView = findViewById(R.id.Username);
-        usernameTextView.setText(user.getEmail());
+        usernameTextView.setText(currentUser.getEmail());
         System.out.println("work");
-        List<String> skills = user.getSkills();
+        List<String> skills = currentUser.getSkills();
         for(String s : skills)
         {
             TextView newTextView = new TextView(this);

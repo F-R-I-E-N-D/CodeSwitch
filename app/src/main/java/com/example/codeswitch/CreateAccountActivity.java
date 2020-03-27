@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.BaseResponse;
+import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
@@ -58,21 +60,22 @@ public class CreateAccountActivity extends ModifiedActivity {
     }
 
     private void authenticateRegisterNew(String email, String password) {
-        ApiManager.callApi(dao.createAccount(email, password), new CustomCallback<BaseResponse>() {
+        ApiManager.callApi(dao.createAccount(email, password), new CustomCallback<AuthResponse>() {
             @Override
-            public void onResponse(BaseResponse response) {
+            public void onResponse(AuthResponse response) {
                 if (response.getSuccess()) {
 
                     Log.d("Debug", response.toString());
 
                     try {
-                        Log.i (TAG, "SUCCESSFUL NEW USER!!");
+                        Log.i(TAG, "SUCCESSFUL NEW USER!!");
 
                         Intent editProfileIntent = new Intent(thisContext, EditProfileActivity.class);
-
                         // TODO: Add user to intent
 
-//                        editProfileIntent.putExtra();
+                        User user = response.getUser();
+                        Log.i(TAG, user.toString());
+                        editProfileIntent.putExtra("userObject", user);
                         startActivity(editProfileIntent);
 
                     } catch(Exception e) {
