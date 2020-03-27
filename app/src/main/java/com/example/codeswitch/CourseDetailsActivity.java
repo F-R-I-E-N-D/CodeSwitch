@@ -110,7 +110,6 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
             printPrompt(R.id.courseName, searchResults.getString("title"));
             printPrompt(R.id.courseProvider, searchResults.getString("trainingProviderAlias"));
             printPrompt(R.id.courseDescriptionText, searchResults.getString("content"));
-            printPrompt(R.id.courseURLButton, searchResults.getString("url"));
             printPrompt(R.id.phoneCourseDetails, "Phone:\n" + searchResults.getString("phoneNumber"));
             printPrompt(R.id.emailCourseDetails, "Email:\n" + searchResults.getString("email"));
             printPrompt(R.id.datePosted, "Date Posted: " + searchResults.getString("createDate").substring(0, 10));
