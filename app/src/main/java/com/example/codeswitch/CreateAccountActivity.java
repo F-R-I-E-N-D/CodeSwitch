@@ -2,15 +2,19 @@ package com.example.codeswitch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.BaseResponse;
+import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
+import com.google.gson.Gson;
 
 public class CreateAccountActivity extends ModifiedActivity {
 
@@ -58,23 +62,19 @@ public class CreateAccountActivity extends ModifiedActivity {
     }
 
     private void authenticateRegisterNew(String email, String password) {
-        ApiManager.callApi(dao.createAccount(email, password), new CustomCallback<BaseResponse>() {
+        ApiManager.callApi(dao.createAccount(email, password), new CustomCallback<AuthResponse>() {
             @Override
-            public void onResponse(BaseResponse response) {
+            public void onResponse(AuthResponse response) {
                 if (response.getSuccess()) {
 
-                    Log.d("Debug", response.toString());
+                    Log.d(TAG, response.toString());
 
                     try {
-                        Log.i (TAG, "SUCCESSFUL NEW USER!!");
+                        Log.d(TAG, "Successful New User");
 
-                        Intent editProfileIntent = new Intent(thisContext, EditProfileActivity.class);
-
-                        // TODO: Add user to intent
-
-//                        editProfileIntent.putExtra();
-                        startActivity(editProfileIntent);
-
+                        saveUserToPrefs(response.getUser());
+                        Intent k = new Intent(CreateAccountActivity.this, EditProfileActivity.class);
+                        startActivity(k);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }

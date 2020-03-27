@@ -6,7 +6,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,26 +21,43 @@ import com.example.codeswitch.model.Interest;
 import com.example.codeswitch.model.Skill;
 import com.example.codeswitch.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class EditProfileActivity extends ModifiedActivity {
-    User user;
-    String gameState;
-    Intent intent = getIntent();
-    TextView usernameTextView;
-    List<TextView> skillTextView = new ArrayList<>();
 
-    ConstraintLayout layout;
-
-
+    private String gameState;
+    private TextView usernameTextView;
+    private List<TextView> skillTextView = new ArrayList<>();
+    private ConstraintLayout layout;
+    private User currentUser;
+    private final String TAG = "EditProfile";
+//    private Intent thisIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+//        thisIntent = getIntent();
+
+        Gson gson = new Gson();
+        SharedPreferences mPrefs = getApplicationContext().getSharedPreferences("CurrentUser", MODE_PRIVATE);
+        String json = mPrefs.getString("CurrentUser", null);
+        User user = gson.fromJson(json, User.class);
+        Log.d(TAG, user.toString());
+//        user.toString();
+//
+//        if (thisIntent.hasExtra("userObject")) {
+//            currentUser = (User) getIntent().getSerializableExtra("userObject");
+//            Log.i("EditProfile:", currentUser.toString());
+//        }
+//        else
+//            currentUser = null;
+
+
 
 //        TextView title = (TextView) findViewById(R.id.activityTitle4);
 //        title.setText("This is Edit Profile");
@@ -79,14 +98,16 @@ public class EditProfileActivity extends ModifiedActivity {
         skills.add("SQL");
         skills.add("Java");
         skills.add("YESS");
-        user = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
+        currentUser = new User("hi@example.com", "blah", skills, new ArrayList<String>(), "blah");
     }
+
+
 
     public void display(){
         usernameTextView = findViewById(R.id.Username);
-        usernameTextView.setText(user.getEmail());
+        usernameTextView.setText(currentUser.getEmail());
         System.out.println("work");
-        List<String> skills = user.getSkills();
+        List<String> skills = currentUser.getSkills();
         for(String s : skills)
         {
             TextView newTextView = new TextView(this);
