@@ -34,8 +34,16 @@ public class MainActivity extends ModifiedActivity {
     public void onLoginClick(View view) {
         email = getEditText(R.id.email_login_input);
         password = getEditText(R.id.password_login_input);
+        //hotwire - tim
+        try {
+            Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        //end tim
 
-        authenticateLogin(email, password);
+        //authenticateLogin(email, password);
     }
 
     public void onRegisterNewClick(View view) {
@@ -49,6 +57,7 @@ public class MainActivity extends ModifiedActivity {
      * @param password User's inputted password
      */
     private void authenticateLogin(String email, String password) {
+
         ApiManager.callApi(dao.loginUser(email, password), new CustomCallback<BaseResponse>() {
             @Override
             public void onResponse(BaseResponse response) {

@@ -33,7 +33,7 @@ public class EditProfileActivity extends ModifiedActivity {
                         startActivity(intent_toJS);
                         break;
                     case R.id.ic_course_search:
-                        Intent intent_toCS = new Intent(EditProfileActivity.this, JobSearchActivity.class);
+                        Intent intent_toCS = new Intent(EditProfileActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
                         break;
                     case R.id.ic_saved_jobs:

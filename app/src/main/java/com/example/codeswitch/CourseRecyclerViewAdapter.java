@@ -57,13 +57,21 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
         public ImageView RecyclerImageView;
         public TextView RecyclerTitleText;
-        public TextView RecyclerSkillsList;
+        public TextView RecyclerOrganizationText;
+        public TextView RecyclerModeOfTrainingText;
+
+/*        private int courseImageResource;
+        private String courseTitleText;
+        private String courseReferenceNumberText;
+        private String courseOrganizationText;
+        private String courseModeOfTrainingText;*/
 
         public RecyclerViewHolder(View itemView){
             super(itemView);
             RecyclerImageView = itemView.findViewById(R.id.ImageView);
             RecyclerTitleText = itemView.findViewById(R.id.TitleText);
-            RecyclerSkillsList = itemView.findViewById(R.id.SkillsText);
+            RecyclerOrganizationText = itemView.findViewById(R.id.OrganizationText);
+            RecyclerModeOfTrainingText = itemView.findViewById(R.id.ModeText);
         }
     }
 
@@ -87,7 +95,8 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
 
         holder.RecyclerImageView.setImageResource(currentItem.getCourseImageResource());
         holder.RecyclerTitleText.setText(currentItem.getCourseTitleText());
-        holder.RecyclerSkillsList.setText(currentItem.getCourseSkillsText());
+        holder.RecyclerOrganizationText.setText(currentItem.getCourseOrganizationText());
+        holder.RecyclerModeOfTrainingText.setText(currentItem.getCourseModeText());
     }
 
     @Override

@@ -43,6 +43,8 @@
                 android:id="@+id/bottomNavView_Bar"
                 android:background="@drawable/white_grey_border"
                 app:menu="@menu/bottom_navigation_menu"
+                app:itemHorizontalTranslationEnabled="true"
+                app:labelVisibilityMode="labeled"
                 >
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
