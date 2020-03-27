@@ -51,7 +51,7 @@ public class ApiTest {
      */
     public static void testCreateAccount() {
         // Invalid password
-        ApiManager.callApi(dao.createAccount("adi@example.com", "adi"), new CustomCallback<BaseResponse>() {
+        ApiManager.callApi(dao.createAccount("adi@example.com", "Adi12345"), new CustomCallback<BaseResponse>() {
             @Override
             public void onResponse(BaseResponse response) {
                 if (response != null) {
