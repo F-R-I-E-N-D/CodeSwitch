@@ -27,11 +27,11 @@ public class MainActivity extends ModifiedActivity {
         super.onCreate(savedInstanceState);
 //        ApiTest.testGetCourseDetail();
 //        ApiTest.testCreateAccount();
-        //setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, JobDetailsActivity.class);
-        intent.putExtra("EXIT", false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        setContentView(R.layout.activity_main);
+//        Intent intent = new Intent(this, JobDetailsActivity.class);
+//        intent.putExtra("EXIT", false);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
 
         dao = ApiManager.getInstance().create(Dao.class);
     }
@@ -46,6 +46,8 @@ public class MainActivity extends ModifiedActivity {
     public void onRegisterNewClick(View view) {
         // TODO: Redirect to RegisterActivity
         Log.d("Debug", "Register Button Clicked");
+        Intent k = new Intent(this, CreateAccountActivity.class);
+        startActivity(k);
     }
 
     /**
