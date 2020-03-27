@@ -13,85 +13,55 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/jobURLButton"
-            android:layout_width="243dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="120dp"
-            android:text="Link"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/JobImage" />
-
-        <Button
-            android:id="@+id/skill1"
-            android:layout_width="wrap_content"
+            android:id="@+id/jobLink"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="37dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:text="Skill 1"
-            app:layout_constraintBottom_toBottomOf="@id/areaOfInterest"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/requiredSkill"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/skill2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
-            android:layout_marginLeft="124dp"
-            android:text="Skill 2"
-            app:layout_constraintStart_toStartOf="@id/requiredSkill"
-            app:layout_constraintTop_toTopOf="@id/skill1" />
-
-        <Button
-            android:id="@+id/Interest2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="141dp"
-            android:layout_marginLeft="141dp"
-            android:layout_marginTop="341dp"
-            android:text="Interest 2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/Interest1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="341dp"
-            android:text="Interest 1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/Apply"
-            android:layout_width="158dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="28dp"
             android:text="Apply"
             app:layout_constraintEnd_toStartOf="@+id/saveJob"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/jobDescriptionText" />
 
+        <TextView
+            android:id="@+id/jobDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginLeft="44dp"
+            android:layout_marginTop="20dp"
+            android:text="Job Description:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobSkillsGridLayout" />
+
         <Button
             android:id="@+id/saveJob"
-            android:layout_width="152dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:text="SAVE JOB"
-            app:layout_constraintStart_toEndOf="@id/Apply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/jobLink"
             app:layout_constraintTop_toBottomOf="@id/jobDescriptionText" />
+
+        <TextView
+            android:id="@+id/jobDescriptionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
 
         <Button
             android:id="@+id/jobDetailsBackButton"
@@ -99,28 +69,6 @@
             android:layout_height="48dp"
             android:text="BACK"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/Course1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="444dp"
-            android:text="Course2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/Course2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="168dp"
-            android:layout_marginLeft="168dp"
-            android:layout_marginTop="444dp"
-            android:text="Course2"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -162,45 +110,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="182dp"
+            android:layout_marginTop="32dp"
             android:text="Required Skills:"
-            app:layout_constraintBottom_toTopOf="@+id/skill1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/jobURLButton"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/areaOfInterest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="292dp"
-            android:text="Areas of Interest:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/jobTitle" />
-
-        <TextView
-            android:id="@+id/jobDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="508dp"
-            android:text="Job Description:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/recommendedCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="411dp"
-            android:text="Recommended Courses:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/JobImage" />
 
         <TextView
             android:id="@+id/datePosted"
@@ -213,19 +126,14 @@
             app:layout_constraintStart_toStartOf="@id/JobImage"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/jobDescriptionText"
-            android:layout_width="0dp"
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/jobSkillsGridLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="TextView"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/requiredSkill"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
