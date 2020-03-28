@@ -124,7 +124,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     //get api courses
     public void getCourseItemsFromAPI(String keyword)
     {
-        final long before = currentTimeMillis();
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
         Uri.Builder builder = new Uri.Builder();
@@ -166,11 +165,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getString("modeOfTrainings")));
                             }
-                            long after = currentTimeMillis();
+
                             courseRecyclerAdapter.notifyDataSetChanged();
 
-
-                            Log.d("DEBUG", "Time taken: " + (after-before));
 
                             System.out.println(courseItems.toString());
                         } catch (JSONException e) {

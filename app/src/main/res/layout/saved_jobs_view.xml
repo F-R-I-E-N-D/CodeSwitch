@@ -11,13 +11,13 @@
         android:layout_margin="4dp">
 
         <ImageView
-            android:id="@+id/JobImage"
+            android:id="@+id/SavedJobImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="2dp"/>
 
         <TextView
-            android:id="@+id/JobTitleText"
+            android:id="@+id/SavedJobTitleText"
             android:layout_width="160dp"
             android:layout_height="match_parent"
             android:text="Title 1"
@@ -25,7 +25,7 @@
             android:textStyle="bold"
             android:layout_centerInParent="true"
             android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@+id/JobImage"
+            android:layout_toRightOf="@+id/SavedJobImage"
             android:ellipsize="end"
             android:maxLines="3"/>
 
@@ -34,12 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:layout_toRightOf="@+id/JobTitleText">
+            android:layout_toRightOf="@+id/SavedJobTitleText">
             <TextView
-                android:id="@+id/CompanyText"
-                android:layout_width="match_parent"
+                android:id="@+id/SavedJobCompanyText"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="OrganizationText"
                 android:textSize="9sp"
@@ -49,26 +49,51 @@
                 />
 
             <TextView
-                android:id="@+id/DatePostedText"
+                android:id="@+id/SavedJobDatePostedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/JobTitleText"
+                android:layout_marginLeft="5dp"
                 android:text="ModeText"
                 android:textSize="8sp"/>
 
             <TextView
-                android:id="@+id/QualifiedText"
+                android:id="@+id/SavedJobQualifiedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/SavedJobDatePostedText"
+                android:text="QualifiedText"
+                android:textSize="8sp"/>
+            <TextView
+                android:id="@+id/AppliedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:text="QualifiedText"
+                android:text="Job Applied"
                 android:textSize="8sp"/>
 
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="-1dp">
 
-
+                <ImageView
+                    android:id="@+id/AppliedImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="2dp"/>
+            </RelativeLayout>
 
         </RelativeLayout>
+
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

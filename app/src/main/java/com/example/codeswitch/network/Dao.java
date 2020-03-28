@@ -136,7 +136,7 @@ public interface Dao {
      */
     @FormUrlEncoded
     @PATCH("saved_jobs/{id}")
-    Call<User> applyJob(@Path("id") int id, @Field("is_applied") Boolean is_applied);
+    Call<SavedJob> applyJob(@Path("id") int id, @Field("is_applied") Boolean is_applied);
 
     /**
      * Add jobs to saved jobs.
