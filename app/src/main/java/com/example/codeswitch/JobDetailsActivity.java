@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.codeswitch.model.Course;
-import com.example.codeswitch.model.Interest;
 import com.example.codeswitch.model.Skill;
 
 import java.util.ArrayList;
@@ -17,9 +15,9 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
 
     String gameState, jobTitle, jobDescription, companyName, jobURL, picture_url;
     Date date_posted;
-    ArrayList<Interest> fields;
+//    ArrayList<Interest> fields;
     ArrayList<Skill> requiredSkills;
-    ArrayList<Course> recommendedCourses;
+//    ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;

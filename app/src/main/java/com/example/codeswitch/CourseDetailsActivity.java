@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.codeswitch.model.Course;
 import com.example.codeswitch.model.Skill;
+import com.example.codeswitch.model.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,7 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
     Double price;
     Date date_posted;
     ArrayList<Skill> taughtSkills;
-    ArrayList<Course> recommendedCourses;
+//    ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
     TextView courseNameTextView, courseProviderTextView, courseURLTextView, picture_urlTextView, courseDescriptionTextView, priceTextView;
     Button backButton;
@@ -36,6 +36,7 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
         display();
 
         //Bundle extras =intent.getExtras();
+
 
     }
 
