@@ -2,7 +2,6 @@ package com.example.codeswitch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,24 +18,22 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.example.codeswitch.model.Job;
+import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.*;
 import java.io.*;
 
-public class JobSearchActivity extends AppCompatActivity implements SearchActivity, Serializable, JobRecyclerViewAdapter.OnJobListener {
+public class JobSearchActivity extends ModifiedActivity implements SearchActivity, Serializable, JobRecyclerViewAdapter.OnJobListener {
 
     //set up API call
     private static Dao dao = ApiManager.getInstance().create(Dao.class);
@@ -49,8 +46,8 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
     private ArrayList <String> fieldsToAdd = new ArrayList<String>();
     private List<Job> jobList = new ArrayList();
     private List<Job> filteredJobList = new ArrayList();
-
-    //set up RecyclerView
+    private User thisUser;
+    //set up RecyclerViews
     private RecyclerView jobRecyclerView;
     private JobRecyclerViewAdapter jobRecyclerAdapter;
     private RecyclerView.LayoutManager jobRecyclerManager;
@@ -67,12 +64,11 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_search);
 
-        //fake user info list
-
+        thisUser = getUserFromPrefs();
 
         //Initial Button
         mOrder = findViewById(R.id.job_search_side_menu);
-        //List of Skills. TODO: get skills from Cal
+        //List of Skills. TODO: get skills from Cal API
         menuListItems = getResources().getStringArray(R.array.skills_list);
         //List of Selected Skills
         checkedItems = new boolean[menuListItems.length];
@@ -228,7 +224,8 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                                                 job.getRequiredSkills(),
                                                 job.getTitle(),
                                                 job.getCompany(),
-                                                job.getDatePosted()
+                                                job.getDatePosted(),
+                                                checkIfQualified(job.getRequiredSkills())
                                         )
                                 );
                             }
@@ -280,7 +277,6 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                     }
                 //end of CheckBoxFilter
 
-
                 jobRecyclerAdapter.notifyDataSetChanged();
                 return false;
             }
@@ -329,6 +325,26 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                 return false;
             }
         });
+    }
+
+    private boolean checkIfQualified(List<String> jobSkills)
+    {
+        Set<String> jobSkillsSet = new HashSet<String>(jobSkills);
+        Log.d("DEBUG", "jobSkills: " + jobSkills.toString());
+        Set<String> userSkills = new HashSet<String>(thisUser.getSkills());
+        Log.d("DEBUG", "userSkills: " + thisUser.getSkills().toString());
+
+        jobSkillsSet.removeAll(userSkills);
+        if (jobSkillsSet.size()==0)
+        {
+            Log.d("DEBUG", "qualified");
+            return true;
+        }
+
+        else {
+            Log.d("DEBUG", "not qualified");
+            return false;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

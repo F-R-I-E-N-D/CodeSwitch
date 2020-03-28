@@ -56,6 +56,18 @@
                 android:text="ModeText"
                 android:textSize="8sp"/>
 
+            <TextView
+                android:id="@+id/QualifiedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="QualifiedText"
+                android:textSize="8sp"/>
+
+
+
+
         </RelativeLayout>
     </RelativeLayout>
 

@@ -62,6 +62,7 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
         public TextView RecyclerTitleText;
         public TextView RecyclerCompanyText;
         public TextView RecyclerDatePostedText;
+        public TextView RecyclerQualifiedText;
 
         OnJobListener onJobListener;
 
@@ -71,6 +72,7 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
             RecyclerTitleText = itemView.findViewById(R.id.JobTitleText);
             RecyclerCompanyText = itemView.findViewById(R.id.CompanyText);
             RecyclerDatePostedText = itemView.findViewById(R.id.DatePostedText);
+            RecyclerQualifiedText = itemView.findViewById(R.id.QualifiedText);
 
             this.onJobListener = onJobListener;   //listener is set to the global listener inside each individual viewholder
             itemView.setOnClickListener(this);      //onclicklistener is attached to each individual viewholder
@@ -109,6 +111,9 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
         holder.RecyclerTitleText.setText(currentItem.getJobTitleText());
         holder.RecyclerCompanyText.setText(currentItem.getJobCompanyText());
         holder.RecyclerDatePostedText.setText(currentItem.getJobDatePostedText());
+        String qualified = currentItem.isQualified()? "Qualified" : "Not Qualified";
+        holder.RecyclerQualifiedText.setText(qualified);
+
     }
 
     @Override

@@ -9,14 +9,19 @@ public class JobItem {
     private String jobTitleText;
     private String jobCompanyText;
     private String jobDatePostedText;
+    private boolean qualified;
 
-    public JobItem(int ImageResource, String ReferenceNumberText, List<String> RequiredSkillsList, String TitleText, String CompanyText, String JobDatePostedText){
+    public JobItem(int ImageResource, String ReferenceNumberText,
+                   List<String> RequiredSkillsList,
+                   String TitleText, String CompanyText, String JobDatePostedText,
+                   boolean qualified){
         jobImageResource = ImageResource;
         jobRequiredSkillsList = RequiredSkillsList;
         jobReferenceNumberText = ReferenceNumberText;
         jobTitleText = TitleText;
         jobCompanyText = CompanyText;
         jobDatePostedText = JobDatePostedText;
+        this.qualified = qualified;
     }
 
     public int getJobImageResource(){
@@ -38,4 +43,8 @@ public class JobItem {
     }
 
     public String getJobDatePostedText() { return this.jobDatePostedText; }
+
+    public boolean isQualified() {
+        return qualified;
+    }
 }
