@@ -25,7 +25,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
 
     Job thisJob;
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
-    List<String> requiredSkills, unacquiredSkills, acquiredSkills;
+    List<String> requiredSkills, unacquiredSkills, acquiredSkills, acquiredRelevantSkills;
     Boolean acquired;
     Intent intent;
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
@@ -57,6 +57,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
         requiredSkills = new ArrayList<>();
         unacquiredSkills = new ArrayList<>();
         acquiredSkills = new ArrayList<>();
+        acquiredRelevantSkills = new ArrayList<>();
         jobTitle = thisJob.getTitle();
         jobDescription = thisJob.getDescription();
         companyName = thisJob.getCompany();
@@ -80,6 +81,18 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
                 unacquiredSkills.add(requiredSkill);
             }
         }
+        //get acquired skills that are relevant
+        for(String requiredSkill : requiredSkills){
+            acquired = true;
+            for(String unacquiredSkill: unacquiredSkills){
+                if(unacquiredSkill.contentEquals(requiredSkill)){
+                    acquired = false;
+                }
+            }
+            if(acquired){
+                acquiredRelevantSkills.add(requiredSkill);
+            }
+        }
 
         display();
 
@@ -101,17 +114,17 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
         // set the number of columns used by the grid layout
         acquiredSkillsGridLayout.setColumnCount(2);
         //generate buttons based on the number of skills
-        for (final String acquiredSkill : acquiredSkills) {
+        for (final String acquiredRelevantSkill : acquiredRelevantSkills) {
             Button btn = new Button(this);
             btn.setId(i);
-            btn.setTag(acquiredSkill);
-            btn.setText(acquiredSkill);
+            btn.setTag(acquiredRelevantSkill);
+            btn.setText(acquiredRelevantSkill);
             acquiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
-                    requiredSkillIntent.putExtra("Skill",acquiredSkill);
+                    requiredSkillIntent.putExtra("Skill",acquiredRelevantSkill);
                     startActivity(requiredSkillIntent);
                 }
             });
@@ -163,9 +176,9 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
     public void onClickSaveJob(View view){
         System.out.println(user.getId());
         System.out.println(jobId);
-        ApiManager.callApi(dao.saveJob(user.getId(), jobId), new CustomCallback<AuthResponse>() {
+        ApiManager.callApi(dao.saveJob(user.getId(), jobId), new CustomCallback<Job>() {
             @Override
-            public void onResponse(AuthResponse response) {
+            public void onResponse(Job response) {
                 if (response != null) {
                     Log.d("Debug", response.toString());
                     Toast.makeText(JobDetailsActivity.this, "successfully saved", Toast.LENGTH_LONG).show();
