@@ -25,7 +25,7 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
     List<String> requiredSkills, unacquiredSkills, acquiredSkills;
     Boolean acquired;
-    Intent intent;
+    Intent intent = getIntent();
     private Job serializedJob;
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
@@ -36,7 +36,6 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
 
         // call the super class onCreate to complete the creation of activity like
         // the view hierarchy
-        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         dao = ApiManager.getInstance().create(Dao.class);
