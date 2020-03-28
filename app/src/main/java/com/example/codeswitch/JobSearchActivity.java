@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.example.codeswitch.model.Job;
+import com.example.codeswitch.model.SavedJob;
+import com.example.codeswitch.model.Skill;
 import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
@@ -69,9 +71,30 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         //Initial Button
         mOrder = findViewById(R.id.job_search_side_menu);
         //List of Skills. TODO: get skills from Cal API
-        menuListItems = getResources().getStringArray(R.array.skills_list);
+
+/*
+        new CustomCallback<List<Skill>>() {
+
+            public void onResponse(List<Skill> response)*/
+
         //List of Selected Skills
-        checkedItems = new boolean[menuListItems.length];
+        ApiManager.callApi(dao.getSkillList(), new CustomCallback<List<Skill>>() {
+                    @Override
+                    public void onResponse(List<Skill> response) {
+                        if (response != null){
+                            menuListItems = new String[response.size()];
+                            for(int i=0; i<response.size(); i++){
+                                menuListItems[i] = response.get(i).getName();
+                            }
+                            checkedItems = new boolean[menuListItems.length];
+                        }
+                        else{
+                            Log.d("Debug", "Response was null");
+                        }
+                    }
+        });
+
+
 
 
         //implement side menu
@@ -114,40 +137,24 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                             for (int i = 0; i < mUserItems.size(); i++) {
                                 fieldsToAdd.add(menuListItems[mUserItems.get(i)]);
 
-                                Log.d("DEBUG", "Menu Items Selected:"+menuListItems[mUserItems.get(i)]);
+                                Log.d("DEBUG", "Menu Items Selected:" + menuListItems[mUserItems.get(i)]);
 
                             }
 
-                            //filter Course Items by comparing two lists (does nothing right now)
+                            //filter Course Items by comparing two lists
+                            Log.d("DEBUG", "JobList SizeB: " + jobList.size());
                             for (int i = 0; i < jobItems.size(); i++) {
                                 Set<String> intersection = new HashSet<String>(jobItems.get(i).getJobRequiredSkillsList());
                                 intersection.retainAll(fieldsToAdd);
-                                if (intersection.size() > 0){
+                                if (intersection.size() > 0) {
                                     Log.d("intersection", "Job Item contains " + fieldsToAdd + ", adding to filteredList");
                                     filteredJobItems.add(jobItems.get(i));
                                     filteredJobList.add(jobList.get(i));
                                 }
 
-
-
-
-
-                                /*boolean selected = false;
-                                for (int j = 0; j < fieldsToAdd.size(); j++) {
-                                    //TODO: filter here
-                                    if (jobItems.get(i).getJobRequiredSkillsList().equals(fieldsToAdd.get(j))) {
-                                        selected = true;
-                                        break;
-                                    }
-                                }
-                                if (selected) {
-                                    filteredJobItems.add(jobItems.get(i));
-                                    Log.d("DEBUG", jobItems.get(i).getJobTitleText()+"added");
-                                }*/
                             }
                             jobRecyclerAdapter.notifyDataSetChanged();
-                        }
-                        else{
+                        } else {
                             Log.d("DEBUG", "Checkboxes are empty");
                             filteredJobItems.clear();
                             filteredJobItems.addAll(jobItems);
@@ -202,81 +209,10 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-
-
-                jobItems.clear();
-                jobList.clear();
-                //actual
-                ApiManager.callApi(dao.getJobBySearch(query), new CustomCallback<List<Job>>() {
-                    @Override
-                    public void onResponse(List<Job> response) {
-                        jobList = response;
-                        filteredJobList = response;
-                        if (response != null) {
-                            int i = 0;
-                            for (Job job: response)
-                            {
-                                Log.d("Debug", job.toString());
-                                jobItems.add(
-                                        new JobItem(
-                                                R.drawable.job_img,
-                                                String.valueOf(job.getId()),
-                                                job.getRequiredSkills(),
-                                                job.getTitle(),
-                                                job.getCompany(),
-                                                job.getDatePosted(),
-                                                checkIfQualified(job.getRequiredSkills())
-                                        )
-                                );
-                            }
-                            jobRecyclerAdapter.notifyDataSetChanged();
-                        }
-                        else {
-                            Log.d("Debug", "Response was null");
-                        }
-                    }
-                });
-
+                getJobs(query);
                 jobRecyclerAdapter.notifyDataSetChanged();
 
-                //Start of CheckBoxFilter
-                filteredJobItems.clear();
-                filteredJobList.clear();
-                    if (!mUserItems.isEmpty()) {
-                        Log.d("DEBUG", "mUserItems is not Empty");
-
-                        filteredJobItems.clear();
-                        filteredJobList.clear();
-                        fieldsToAdd.clear();
-                        for (int i = 0; i < mUserItems.size(); i++) {
-                            fieldsToAdd.add(menuListItems[mUserItems.get(i)]);
-
-                            Log.d("DEBUG", "Menu Items Selected:"+menuListItems[mUserItems.get(i)]);
-
-                        }
-
-                        //filter Course Items by comparing two lists (does nothing right now)
-                        for (int i = 0; i < jobItems.size(); i++) {
-                            Set<String> intersection = new HashSet<String>(jobItems.get(i).getJobRequiredSkillsList());
-                            intersection.retainAll(fieldsToAdd);
-                            if (intersection.size() > 0){
-                                Log.d("intersection", "Job Item contains " + fieldsToAdd + ", adding to filteredList");
-                                filteredJobItems.add(jobItems.get(i));
-                                filteredJobList.add(jobList.get(i));
-                            }
-                        }
-                        jobRecyclerAdapter.notifyDataSetChanged();
-                    }
-                    else{
-                        Log.d("DEBUG", "Checkboxes are empty");
-                        filteredJobItems.clear();
-                        filteredJobItems.addAll(jobItems);
-                        filteredJobList.clear();
-                        filteredJobList.addAll(jobList);
-                        jobRecyclerAdapter.notifyDataSetChanged();
-                    }
-                //end of CheckBoxFilter
-
+                applyCheckboxMenuFilter();
                 jobRecyclerAdapter.notifyDataSetChanged();
                 return false;
             }
@@ -326,6 +262,81 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                 }
 
                 return false;
+            }
+        });
+    }
+
+    private void applyCheckboxMenuFilter() {
+        filteredJobItems.clear();
+        filteredJobList.clear();
+        if (!mUserItems.isEmpty()) {
+            Log.d("DEBUG", "mUserItems is not Empty");
+
+            filteredJobItems.clear();
+            filteredJobList.clear();
+            fieldsToAdd.clear();
+            for (int i = 0; i < mUserItems.size(); i++) {
+                fieldsToAdd.add(menuListItems[mUserItems.get(i)]);
+
+                Log.d("DEBUG", "Menu Items Selected:"+menuListItems[mUserItems.get(i)]);
+
+            }
+
+            //filter Course Items by comparing two lists (does nothing right now)
+            for (int i = 0; i < jobItems.size(); i++) {
+                Set<String> intersection = new HashSet<String>(jobItems.get(i).getJobRequiredSkillsList());
+                intersection.retainAll(fieldsToAdd);
+                if (intersection.size() > 0){
+                    Log.d("intersection", "Job Item contains " + fieldsToAdd + ", adding to filteredList");
+                    filteredJobItems.add(jobItems.get(i));
+                    filteredJobList.add(jobList.get(i));
+                }
+            }
+            jobRecyclerAdapter.notifyDataSetChanged();
+        }
+        else{
+            Log.d("DEBUG", "Checkboxes are empty");
+            filteredJobItems.clear();
+            filteredJobItems.addAll(jobItems);
+            filteredJobList.clear();
+            filteredJobList.addAll(jobList);
+            jobRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void getJobs(String query) {
+        jobItems.clear();
+        jobList.clear();
+        //actual
+        ApiManager.callApi(dao.getJobBySearch(query), new CustomCallback<List<Job>>() {
+            @Override
+            public void onResponse(List<Job> response) {
+                jobList.addAll(response);
+                filteredJobList.addAll(response);
+                if (response != null) {
+                    int i = 0;
+                    for (Job job: response)
+                    {
+                        Log.d("Debug", job.toString());
+                        jobItems.add(
+                                new JobItem(
+                                        R.drawable.job_img,
+                                        String.valueOf(job.getId()),
+                                        job.getRequiredSkills(),
+                                        job.getTitle(),
+                                        job.getCompany(),
+                                        job.getDatePosted(),
+                                        checkIfQualified(job.getRequiredSkills()),
+                                        -1
+                                )
+                        );
+                    }
+                    Log.d("DEBUG", "JobList SizeA: " + jobList.size());
+                    jobRecyclerAdapter.notifyDataSetChanged();
+                }
+                else {
+                    Log.d("Debug", "Response was null");
+                }
             }
         });
     }

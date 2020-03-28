@@ -33,15 +33,8 @@ public class MainActivity extends ModifiedActivity {
     }
 
     public void onLoginClick(View view) {
-        email = getTextInputEditText(R.id.email_login_input);
-        password = getTextInputEditText(R.id.password_login_input);
-        //hotwire - yh
-//        try {
-//            Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
-//            startActivity(k);
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
+        email = "cal@example.com";//getEditText(R.id.email_login_input);
+        password = "Cal12345"; //getEditText(R.id.password_login_input);
 
 
         authenticateLogin(email, password);

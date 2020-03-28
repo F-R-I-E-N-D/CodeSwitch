@@ -52,7 +52,6 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
 
     }
 
-
     public void getDetails(){
         requiredSkills = new ArrayList<>();
         unacquiredSkills = new ArrayList<>();
