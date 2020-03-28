@@ -112,6 +112,9 @@ public interface Dao {
     @GET("query_jobs")
     Call<List<Job>> getJobBySearch(@Query("q") String q);
 
+    @GET("jobs/{job_id}")
+    Call<Job> getJob(@Path("job_id") int id);
+
     //endregion
 
     //region SAVED_JOBS

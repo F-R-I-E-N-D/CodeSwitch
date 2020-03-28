@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,11 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
 
         @Override
         public void onClick(View view) {
-            onJobListener.onJobClick(getAdapterPosition());
+            try {
+                onJobListener.onJobClick(getAdapterPosition());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -112,6 +117,6 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
     }
 
     public interface OnJobListener {
-        void onJobClick(int position);
+        void onJobClick(int position) throws IOException;
     }
 }
