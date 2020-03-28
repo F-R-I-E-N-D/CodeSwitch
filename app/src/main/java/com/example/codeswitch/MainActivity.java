@@ -38,14 +38,14 @@ public class MainActivity extends ModifiedActivity {
     public void onLoginClick(View view) {
         email = getEditText(R.id.email_login_input);
         password = getEditText(R.id.password_login_input);
-        //hotwire - tim
+        //hotwire - yh
         try {
             Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
             startActivity(k);
         } catch(Exception e) {
             e.printStackTrace();
         }
-        //end tim
+        //end yh
 
         //authenticateLogin(email, password);
     }

@@ -1,88 +1,143 @@
 package com.example.codeswitch;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.codeswitch.model.Course;
 import com.example.codeswitch.model.Skill;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class CourseDetailsActivity extends ModifiedActivity implements DetailsActivity {
 
-    String gameState, courseName, courseProvider, courseURL, picture_url, courseDescription;
-    Double price;
-    Date date_posted;
-    ArrayList<Skill> taughtSkills;
-    ArrayList<Course> recommendedCourses;
-    Intent intent = getIntent();
-    TextView courseNameTextView, courseProviderTextView, courseURLTextView, picture_urlTextView, courseDescriptionTextView, priceTextView;
-    Button backButton;
+    private Context thisContext = this;
+    private Intent thisIntent;
+    private String referenceNumber;
+    private JSONObject searchResults;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        // call the super class onCreate to complete the creation of activity like
-        // the view hierarchy
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-
-
-        // set the user interface layout for this activity
-        // the layout file is defined in the project res/layout/main_activity.xml file
         setContentView(R.layout.course_details);
+
+        thisIntent = getIntent();
+
+        // TODO : Remove once intent added in course search
+
+        referenceNumber = thisIntent.getStringExtra("referenceNumber");
+//        referenceNumber = "NTU-200604393R-01-NC-IT1024";
+        Log.i ("Reference Num: ", referenceNumber);
+//
         getDetails();
-        display();
-
-        //Bundle extras =intent.getExtras();
-
     }
 
 
+    public void getDetails() {
+        RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
-    public void getDetails(){
+        Uri.Builder builder = new Uri.Builder();
 
-        //tim start
-        Bundle extras = getIntent().getExtras();
-        String courseReferenceNumber = extras.getString("courseSearchReferenceNumber");
+        //https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
 
-        Log.d("onCourseClick", "Received courseReferenceNumber: " + courseReferenceNumber);
+        builder.scheme("https")
+                .authority("w5fe0239ih.execute-api.us-east-1.amazonaws.com")
+                .appendPath("default")
+                .appendPath("CodeSwitch")
+                .appendQueryParameter("searchOrDetails", "details")
+                .appendQueryParameter("referenceNumber", referenceNumber);
 
-        //tim end
+        String myUrl = builder.build().toString();
 
-        courseName = "1";
-        courseDescription = "2";
-        courseProvider = "3";
-        courseURL = "4";
-        date_posted = new Date();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, myUrl, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        searchResults = response;
+//                        try
+//                        {
+                            display();
+//                            Log.i("Course Details", response.toString());
+//                            response.getString("referenceNumber");
+//                            printPrompt(R.id.courseName, searchResults.getString("title"));
+//                            printPrompt(R.id.courseProvider, searchResults.getString("trainingProviderAlias"));
+//                            printPrompt(R.id.courseDescriptionText, searchResults.getString("content"));
+//                            printPrompt(R.id.courseURLButton, searchResults.getString("url"));
+//                            printPrompt(R.id.phoneCourseDetails, "Phone:\n" + searchResults.getString("phoneNumber"));
+//                            printPrompt(R.id.emailCourseDetails, "Email:\n" + searchResults.getString("email"));
+//                            printPrompt(R.id.datePosted, "Date Posted: " + searchResults.getString("createDate").substring(0,10));
+//                            printPrompt(R.id.priceCourseDetails, "Cost per Trainee: SGD " + searchResults.getString("totalCostOfTrainingPerTrainee"));
+
+//                        }
+//                        catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("HTTPS Error: " + error.getMessage());
+                    }
+                });
+
+        ExampleRequestQueue.add(jsonObjectRequest);
     }
 
-    public void display(){
-        courseNameTextView = findViewById(R.id.courseName);
-        courseNameTextView.setText(courseName);
-        courseProviderTextView = findViewById(R.id.courseProvider);
-        courseProviderTextView.setText(courseProvider);
-        courseURLTextView = findViewById(R.id.courseURLButton);
-        courseURLTextView.setText(courseURL);
-        courseDescriptionTextView = findViewById(R.id.courseDescriptionText);
-        courseDescriptionTextView.setText(courseDescription);
-        //priceTextView = findViewById(R.id.);
-        //priceTextView.setText(price.toString());
-        backButton = findViewById(R.id.courseDetailsBackButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
+    public void display() {
+        try {
+            printPrompt(R.id.courseName, searchResults.getString("title"));
+            printPrompt(R.id.courseProvider, searchResults.getString("trainingProviderAlias"));
+            printPrompt(R.id.courseDescriptionText, searchResults.getString("content"));
+            printPrompt(R.id.phoneCourseDetails, "Phone:\n" + searchResults.getString("phoneNumber"));
+            printPrompt(R.id.emailCourseDetails, "Email:\n" + searchResults.getString("email"));
+            printPrompt(R.id.datePosted, "Date Posted: " + searchResults.getString("createDate").substring(0, 10));
+            printPrompt(R.id.priceCourseDetails, "Cost per Trainee: SGD " + searchResults.getString("totalCostOfTrainingPerTrainee"));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    public void OnGetRecommendationClick(){
+    public void onClickURL (View view){
 
+        String thisUrl = null;
+        try {
+            thisUrl = searchResults.getString("url");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        Log.i("Course Details", "Link Clicked: " + thisUrl);
+
+        Intent browserIntent = new Intent (Intent.ACTION_VIEW, Uri.parse(thisUrl));
+        Toast.makeText(thisContext, "Redirecting to website", Toast.LENGTH_SHORT).show();
+        startActivity (browserIntent);
     }
+
 
 
 }
