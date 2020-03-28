@@ -1,4 +1,4 @@
-//package com.example.codeswitch;
+package com.example.codeswitch;
 //
 //import android.app.ActionBar;
 //import android.content.Intent;
