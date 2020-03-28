@@ -22,8 +22,7 @@
             <SearchView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/course_search_view"
-                android:layout_toRightOf="@+id/skill_select_menu"/>
+                android:id="@+id/course_search_view"/>
 
         </RelativeLayout>
 
@@ -63,10 +62,6 @@
 
         </RelativeLayout>
 
-
-
     </RelativeLayout>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

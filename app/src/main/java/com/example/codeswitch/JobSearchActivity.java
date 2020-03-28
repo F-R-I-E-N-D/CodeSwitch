@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class JobSearchActivity extends AppCompatActivity implements SearchActivity, JobRecyclerViewAdapter.OnJobListener {
 
@@ -161,31 +162,40 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                 //dummy
                 jobItems.add(
                         new JobItem(
-                                R.drawable.job_img,
+                                R.drawable.job_img, "100",
+                                new ArrayList<>(Arrays.asList("Skill A", "Skill B")),
                                 "Software Engineer",
                                 "Google",
                                 "20-03-27"));
                 jobItems.add(
                         new JobItem(
                                 R.drawable.job_img,
+                                "101",
+                                new ArrayList<>(Arrays.asList("Skill A", "Skill B", "Skill C")),
                                 "Data Scientist",
                                 "Google",
                                 "20-04-16"));
                 jobItems.add(
                         new JobItem(
                                 R.drawable.job_img,
+                                "102",
+                                new ArrayList<>(Arrays.asList("Skill A")),
                                 "Business Analyst",
                                 "Amazon",
                                 "20-01-31"));
                 jobItems.add(
                         new JobItem(
                                 R.drawable.job_img,
+                                "103",
+                                new ArrayList<>(Arrays.asList("Skill B", "Skill C")),
                                 "Structured Trader",
                                 "Tesla",
                                 "20-02-12"));
                 jobItems.add(
                         new JobItem(
                                 R.drawable.job_img,
+                                "104",
+                                new ArrayList<>(Arrays.asList("Skill A", "Skill C")),
                                 "Wealth Manager",
                                 "Visa",
                                 "20-03-10"));
@@ -246,10 +256,11 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
         //try {
 
             Intent goToJobDetails = new Intent(JobSearchActivity.this, JobDetailsActivity.class);
-            String str = "This is the Job Title.";
-            goToJobDetails.putExtra("Job Title" , str);
+            String str = jobItems.get(position).getJobReferenceNumberText();
+            goToJobDetails.putExtra("jobSearchReferenceNumber" , str);
             startActivity(goToJobDetails);
         /*}
+        //when json has been gotten from cal
         catch (JSONException e) {
             e.printStackTrace();
         }*/
