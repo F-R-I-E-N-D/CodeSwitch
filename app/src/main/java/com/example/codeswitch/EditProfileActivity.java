@@ -267,6 +267,8 @@ public class EditProfileActivity extends ModifiedActivity {
                         if (response != null) {
                             Log.d("Debug", response.toString());
                             Toast.makeText(getApplicationContext(),"Applied",Toast.LENGTH_SHORT).show();
+                            currentUser.setSkills(userUpdatedSkills);
+                            saveUserToPrefs(currentUser);
 
                         }
                         else {
@@ -335,7 +337,7 @@ public class EditProfileActivity extends ModifiedActivity {
             tv.setBackgroundColor(0xFFFDFD96);//set background color
             tv.setPadding(30, 10, 30, 10);
 
-            
+
             sgl.addView(tv);
 
         }
