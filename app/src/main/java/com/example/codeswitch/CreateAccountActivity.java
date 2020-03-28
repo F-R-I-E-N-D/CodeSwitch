@@ -33,9 +33,9 @@ public class CreateAccountActivity extends ModifiedActivity {
 
     public void onRegister (View view)
     {
-        newEmail = getEditText(R.id.email_login_input);
-        newPassword = getEditText(R.id.password_login_input);
-        newConfirmPassword = getEditText(R.id.password_login_input2);
+        newEmail = getTextInputEditText(R.id.email_login_input);
+        newPassword = getTextInputEditText(R.id.password_login_input);
+        newConfirmPassword = getTextInputEditText(R.id.password_login_input2);
 
         if (newEmail.isEmpty() || newPassword.isEmpty() || newConfirmPassword.isEmpty())
         {
@@ -71,6 +71,7 @@ public class CreateAccountActivity extends ModifiedActivity {
                         saveUserToPrefs(response.getUser());
                         Intent k = new Intent(CreateAccountActivity.this, EditProfileActivity.class);
                         startActivity(k);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
@@ -80,6 +81,12 @@ public class CreateAccountActivity extends ModifiedActivity {
                 }
             }
         });
+    }
+
+    public void onLoginActivityClick(View view) {
+        Intent k = new Intent(this, MainActivity.class);
+        startActivity(k);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
 }
