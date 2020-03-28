@@ -75,7 +75,7 @@ public class TestCSA extends ModifiedActivity implements SearchActivity {
 
         courseRecyclerView.setLayoutManager(courseRecyclerManager);
         courseRecyclerView.setAdapter(courseRecyclerAdapter);
-
+*//*
         //skillSelection
         mOrder.setOnClickListener(new View.OnClickListener() {
             @Override
