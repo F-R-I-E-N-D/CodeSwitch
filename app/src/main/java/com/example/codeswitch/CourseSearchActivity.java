@@ -18,19 +18,24 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static java.lang.System.currentTimeMillis;
 
 public class CourseSearchActivity extends ModifiedActivity implements SearchActivity, CourseRecyclerViewAdapter.OnCourseListener {
 
     //set up API call
     Context thisContext = this;
     JSONArray searchResults = null;
+    Intent thisIntent;
 
     //set up CourseItem objects
     private ArrayList<CourseItem> courseItems = new ArrayList<>();
@@ -45,6 +50,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_search);
+        thisIntent = getIntent();
 
         //searchView
         SearchView searchView = findViewById(R.id.course_search_view);
@@ -62,6 +68,11 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             }
         });
 
+        if (thisIntent.hasExtra("Skill"))
+        {
+            String keyword = thisIntent.getStringExtra("Skill");
+            getCourseItemsFromAPI(keyword);
+        }
 
 
         //recyclerview
@@ -75,6 +86,8 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
         //bottomnavigationview
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        MenuItem menuItem = bottomNavigationView.getMenu().getItem(1);
+        menuItem.setChecked(true);
         displayBottomNavigationView(bottomNavigationView);
 
     }
@@ -111,11 +124,14 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     //get api courses
     public void getCourseItemsFromAPI(String keyword)
     {
+        final long before = currentTimeMillis();
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
         Uri.Builder builder = new Uri.Builder();
 
         //https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
+
+        //http://codeswitch-rest-api.herokuapp.com/courses
 
         builder.scheme("https")
                 .authority("w5fe0239ih.execute-api.us-east-1.amazonaws.com")
@@ -126,13 +142,19 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
         String myUrl = builder.build().toString();
 
+//        03-28 10:38:04.828 17475-17475/com.example.codeswitch I/System.out: HTTPS Error: org.json.JSONException: Value {"statusCode":200,"body":"[{\"referenceNumber\": \"SCN-200604346E-01-CRS-N-0046926\", \"trainingProviderAlias\": \"NATIONAL UNIVERSITY OF SINGAPORE\", \"title\": \"Water Quality Engineering\", \"displayImageName\": \"19_5\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SP-T08GB0056A-01-SP-502439\", \"trainingProviderAlias\": \"SINGAPORE POLYTECHNIC\", \"title\": \"Water Efficiency Manager\", \"displayImageName\": \"6_6\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SP-T08GB0056A-01-CRS-N-0014513\", \"trainingProviderAlias\": \"SINGAPORE POLYTECHNIC\", \"title\": \"Water Efficiency Manager\", \"displayImageName\": \"37_10\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"NYP-T08GB0032G-01-CL1008\", \"trainingProviderAlias\": \"NANYANG POLYTECHNIC\", \"title\": \"Introduction to Air & Water Pollution Control Analytics\", \"displayImageName\": \"35_5\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SCN-T08GB0032G-01-CRS-N-0049212\", \"trainingProviderAlias\": \"NANYANG POLYTECHNIC\", \"title\": \"Introduction to Air & Water Pollution Control Analytics\", \"displayImageName\": \"25_1\", \"modeOfTrainings\": \"Full Time\"}, {\"referenceNumber\": \"ITE-T08GB0022B-01-CB1006CS\", \"trainingProviderAlias\": \"INSTITUTE OF TECHNICAL EDUCATION\", \"title\": \"CoC in Plumbing Basics\", \"displayImageName\": \"19_11\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SCN-200604346E-01-CRS-N-0046930\", \"trainingProviderAlias\": \"NATIONAL UNIVERSITY OF SINGAPORE\", \"title\": \"Water Resources Engineering\", \"displayImageName\": \"19_3\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SCN-200604346E-01-CRS-N-0051216\", \"trainingProviderAlias\": \"NATIONAL UNIVERSITY OF SINGAPORE\", \"title\": \"Specialist Certificate Course in Water and the Environment\", \"displayImageName\": \"19_7\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SCN-200604346E-01-CRS-N-0047001\", \"trainingProviderAlias\": \"NATIONAL UNIVERSITY OF SINGAPORE\", \"title\": \"Introduction to Environmental Engineering\", \"displayImageName\": \"19_3\", \"modeOfTrainings\": \"Part Time\"}, {\"referenceNumber\": \"SCN-200604346E-01-CRS-N-0046818\", \"trainingProviderAlias\": \"NATIONAL UNIVERSITY OF SINGAPORE\", \"title\": \"Membrane Science and Engineering\", \"displayImageName\": \"19_1\", \"modeOfTrainings\": \"Part Time\"}]"} of type org.json.JSONObject cannot be converted to JSONArray
+
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                (Request.Method.GET, myUrl, null, new Response.Listener<JSONArray>() {
+                (Request.Method.GET, myUrl, null, new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONArray response) {
-                        searchResults = response;
+                    public void onResponse(JSONObject response) {
                         try {
+                            searchResults = response;
+//                            03-28 10:44:01.250 17639-17639/com.example.codeswitch W/System.err: org.json.JSONException: Value [{"referenceNumber": "SCN-200604346E-01-CRS-N-0046926", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Water Quality Engineering", "displayImageName": "19_5", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SP-T08GB0056A-01-SP-502439", "trainingProviderAlias": "SINGAPORE POLYTECHNIC", "title": "Water Efficiency Manager", "displayImageName": "6_6", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SP-T08GB0056A-01-CRS-N-0014513", "trainingProviderAlias": "SINGAPORE POLYTECHNIC", "title": "Water Efficiency Manager", "displayImageName": "37_10", "modeOfTrainings": "Part Time"}, {"referenceNumber": "NYP-T08GB0032G-01-CL1008", "trainingProviderAlias": "NANYANG POLYTECHNIC", "title": "Introduction to Air & Water Pollution Control Analytics", "displayImageName": "35_5", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-T08GB0032G-01-CRS-N-0049212", "trainingProviderAlias": "NANYANG POLYTECHNIC", "title": "Introduction to Air & Water Pollution Control Analytics", "displayImageName": "25_1", "modeOfTrainings": "Full Time"}, {"referenceNumber": "ITE-T08GB0022B-01-CB1006CS", "trainingProviderAlias": "INSTITUTE OF TECHNICAL EDUCATION", "title": "CoC in Plumbing Basics", "displayImageName": "19_11", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0046930", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Water Resources Engineering", "displayImageName": "19_3", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0051216", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Specialist Certificate Course in Water and the Environment", "displayImageName": "19_7", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0047001", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Introduction to Environmental Engineering", "displayImageName": "19_3", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0046818", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Membrane Science and Engineering", "displayImageName": "19_1", "modeOfTrainings": "Part Time"}] at body of type java.lang.String cannot be converted to JSONArray
+
+
                             courseItems.clear();
                             for (int i = 0; i<searchResults.length();i++){
 
@@ -144,9 +166,11 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getString("modeOfTrainings")));
                             }
-
-
+                            long after = currentTimeMillis();
                             courseRecyclerAdapter.notifyDataSetChanged();
+
+
+                            Log.d("DEBUG", "Time taken: " + (after-before));
 
                             System.out.println(courseItems.toString());
                         } catch (JSONException e) {
@@ -162,6 +186,10 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                 });
 
         ExampleRequestQueue.add(jsonArrayRequest);
+
+
+
+
     }
 
 

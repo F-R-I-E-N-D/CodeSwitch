@@ -60,9 +60,9 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
         //https://w5fe0239ih.execute-api.us-east-1.amazonaws.com/default/CodeSwitch?searchOrDetails=details&referenceNumber=NTU-200604393R-01-NC-IT1024
 
         builder.scheme("https")
-                .authority("w5fe0239ih.execute-api.us-east-1.amazonaws.com")
-                .appendPath("default")
-                .appendPath("CodeSwitch")
+                .authority("10.0.2.2")
+//                .authority("codeswitch-rest-api.herokuapp.com")
+                .appendPath("courses")
                 .appendQueryParameter("searchOrDetails", "details")
                 .appendQueryParameter("referenceNumber", referenceNumber);
 

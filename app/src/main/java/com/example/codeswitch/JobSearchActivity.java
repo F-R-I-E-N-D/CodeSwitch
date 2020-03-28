@@ -300,6 +300,9 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        MenuItem menuItem = bottomNavigationView.getMenu().getItem(0);
+        menuItem.setChecked(true);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

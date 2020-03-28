@@ -106,21 +106,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:id="@+id/relLayoutBotBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:id="@+id/relLayoutBotBar"
             android:layout_alignParentBottom="true">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavView_Bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/bottomNavView_Bar"
                 android:background="@drawable/white_grey_border"
-                app:menu="@menu/bottom_navigation_menu">
+                android:foreground="?attr/selectableItemBackground"
+                app:menu="@menu/bottom_navigation_menu"
+                app:itemHorizontalTranslationEnabled="true"
+                app:labelVisibilityMode="labeled"
+                >
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         </RelativeLayout>
+
 
 
     </RelativeLayout>

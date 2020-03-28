@@ -36,12 +36,12 @@ public class MainActivity extends ModifiedActivity {
         email = getEditText(R.id.email_login_input);
         password = getEditText(R.id.password_login_input);
         //hotwire - yh
-//        try {
-//            Intent k = new Intent(MainActivity.this, JobDetailsActivity.class);
-//            startActivity(k);
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
+            startActivity(k);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
 
         authenticateLogin(email, password);
