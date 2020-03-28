@@ -22,7 +22,8 @@
             <SearchView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/action_search"/>
+                android:id="@+id/course_search_view"/>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -51,17 +52,16 @@
                 android:layout_height="match_parent"
                 android:id="@+id/bottomNavView_Bar"
                 android:background="@drawable/white_grey_border"
+                android:foreground="?attr/selectableItemBackground"
                 app:menu="@menu/bottom_navigation_menu"
+                app:itemHorizontalTranslationEnabled="true"
+                app:labelVisibilityMode="labeled"
                 >
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         </RelativeLayout>
 
-
-
     </RelativeLayout>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,6 +5,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +44,7 @@ public class EditProfileActivity extends ModifiedActivity {
                         startActivity(intent_toJS);
                         break;
                     case R.id.ic_course_search:
-                        Intent intent_toCS = new Intent(EditProfileActivity.this, JobSearchActivity.class);
+                        Intent intent_toCS = new Intent(EditProfileActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
                         break;
                     case R.id.ic_saved_jobs:
@@ -70,63 +72,45 @@ public class EditProfileActivity extends ModifiedActivity {
         usernameTextView = findViewById(R.id.Username);
         usernameTextView.setText(currentUser.getEmail());
         List<String> skills = currentUser.getSkills();
-        if(skills.size() == 0) {
-            TextView newTextView = new TextView(this);
-            newTextView.setText("None");
-//            newTextView.setTextColor(#0066ff); // for example
-            newTextView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    System.out.println("dhgjgf jfgsfjhsgfsjfgdfjh");
-                }
-            });
+        List<String> interests = currentUser.getInterests();
+
+        int i=0;
+        androidx.gridlayout.widget.GridLayout sgl = findViewById(R.id.userSkillsGridLayout);
+        sgl.setColumnCount(3);
+        for (String s: skills) {
+            TextView tv = new TextView(this);
+            tv.setId(i+1000);
+//            btn.setTag(requiredSkill.getName());
+//            btn.setText(requiredSkill.getName());
+            tv.setText(s);
+            tv.setTextSize(20); //set 20sp size of text
+            tv.setBackgroundColor(0xFFFDFD96);//set background color
+            tv.setPadding(10, 10, 10, 10);
+
+
+//            btn.setLayoutParams();
+
+            sgl.addView(tv);
+//            btn.setOnClickListener(new View.OnClickListener() {
+//            });
+//            i++;
         }
-        else {
-            for (String s : skills) {
-                TextView newTextView = new TextView(this);
-                newTextView.setText(s);
-//            newTextView.setTextColor(#0066ff); // for example
-                newTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println("dhgjgf jfgsfjhsgfsjfgdfjh");
-                    }
-                });
-//
-                skillTextView.add(newTextView);
-            }
-            int viewidsize = 0;
-            for (TextView tv : skillTextView) {
-                tv.setId(viewidsize++); // Views must have IDs in order to add them to chain later.
-                layout.addView(tv);
-            }
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(layout);
-            View previousItem = null;
-            for (TextView tv : skillTextView) {
-                boolean lastItem = skillTextView.indexOf(tv) == skillTextView.size() - 1;
-                if (previousItem == null) {
-                    constraintSet.connect(tv.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT);
-                } else {
-                    constraintSet.connect(tv.getId(), ConstraintSet.LEFT, previousItem.getId(), ConstraintSet.RIGHT);
-                    if (lastItem) {
-                        constraintSet.connect(tv.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT);
-                    }
-                }
-                previousItem = tv;
-            }
-//        // [1, 2, 3, 4, 5]
+        androidx.gridlayout.widget.GridLayout igl = findViewById(R.id.userInterestsGridLayout);
+        igl.setColumnCount(3);
 
-            int[] viewIds = new int[viewidsize];
-            int idCount = 0;
-            for (TextView i : skillTextView)
-                viewIds[idCount] = i.getId();
+        for (String in: interests) {
+            TextView tv = new TextView(this);
+            tv.setId(i+1000);
 
-//        int[] viewIds = ByteUtils.toIntArray(new ArrayList<>(Collections2.transform(skillTextView, View::getId)));
-            constraintSet.createHorizontalChain(ConstraintSet.PARENT_ID, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, viewIds, null, ConstraintSet.CHAIN_SPREAD);
-            constraintSet.applyTo(layout);
+//            btn.setTag(requiredSkill.getName());
+//            btn.setText(requiredSkill.getName());
+            tv.setText(in);
+//            btn.setLayoutParams();
+
+            igl.addView(tv);
+//            btn.setOnClickListener(new View.OnClickListener() {
+//            });
+//            i++;
         }
 
     }

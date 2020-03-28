@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class SavedJobsActivity extends ModifiedActivity {
+public class SavedJobsActivity extends ModifiedActivity implements JobRecyclerViewAdapter.OnJobListener {
 
     //recyclerview setup
 
@@ -77,12 +77,12 @@ public class SavedJobsActivity extends ModifiedActivity {
                         startActivity(intent_toJS);
                         break;
                     case R.id.ic_course_search:
-                        Intent intent_toCS = new Intent(SavedJobsActivity.this, JobSearchActivity.class);
+                        Intent intent_toCS = new Intent(SavedJobsActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
                         break;
                     case R.id.ic_saved_jobs:
                         //already here
-                        break;
+                        return true;
                     case R.id.ic_profile:
                         Intent intent_toEP = new Intent(SavedJobsActivity.this, EditProfileActivity.class);
                         startActivity(intent_toEP);
@@ -98,23 +98,23 @@ public class SavedJobsActivity extends ModifiedActivity {
     public void createJobsList(){
         jobItems = new ArrayList<>();
         //dummyJobs
-        jobItems.add(new JobItem(R.drawable.sample_tech_image, "Job 1", "Skill A"));
+        /*jobItems.add(new JobItem(R.drawable.sample_tech_image, "Job 1", "Skill A"));
         jobItems.add(new JobItem(R.drawable.sample_tech_image, "Job 2", "Skill B"));
-        jobItems.add(new JobItem(R.drawable.sample_tech_image, "Job 3", "Skill C"));
+        jobItems.add(new JobItem(R.drawable.sample_tech_image, "Job 3", "Skill C"));*/
     }
 
     public void buildRecyclerView(){
         savedJobsRecyclerView = findViewById(R.id.recyclerView_savedJobs);
         savedJobsRecyclerView.setHasFixedSize(true);
         savedJobsRecyclerManager = new LinearLayoutManager(this);
-        savedJobsRecyclerAdapter = new JobRecyclerViewAdapter(jobItems);
+        savedJobsRecyclerAdapter = new JobRecyclerViewAdapter(jobItems, this);
 
         savedJobsRecyclerView.setLayoutManager(savedJobsRecyclerManager);
         savedJobsRecyclerView.setAdapter(savedJobsRecyclerAdapter);
     }
 
     public void insertItem(int position){
-        jobItems.add(position, new JobItem(R.drawable.sample_tech_image, "New Job: pos "+position, "ReqSkill?"));
+        /*jobItems.add(position, new JobItem(R.drawable.sample_tech_image, "New Job: pos "+position, "ReqSkill?"));*/
         savedJobsRecyclerAdapter.notifyItemInserted(position);
     }
 
@@ -123,4 +123,8 @@ public class SavedJobsActivity extends ModifiedActivity {
         savedJobsRecyclerAdapter.notifyItemRemoved(position);
     }
 
+    @Override
+    public void onJobClick(int position) {
+
+    }
 }
