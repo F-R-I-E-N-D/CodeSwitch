@@ -69,10 +69,6 @@ public class MainActivity extends ModifiedActivity {
                         saveUserToPrefs(response.getUser());
                         Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
                         startActivity(k);
-//                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
-//                        startActivity(k);
-                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
-                        startActivity(k);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }

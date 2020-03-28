@@ -25,82 +25,61 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
     List<String> requiredSkills, unacquiredSkills, acquiredSkills;
     Boolean acquired;
-    Intent intent = getIntent();
-    private Job serializedJob;
+    Intent intent;
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
     User user;
+    androidx.gridlayout.widget.GridLayout acquiredSkillsGridLayout, unacquiredSkillsGridLayout;
     private Dao dao;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         // call the super class onCreate to complete the creation of activity like
         // the view hierarchy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         dao = ApiManager.getInstance().create(Dao.class);
 
+        intent = getIntent();
+        thisJob = new Job();
+        thisJob = (Job)intent.getSerializableExtra("serializedJob");
+        Log.d("DEBUG", Boolean.toString(thisJob==null) );
+        Log.i ("Reference Num: ", thisJob.getTitle());
         getDetails();
 //        display();
-
-        intent = getIntent();
-
-        serializedJob = (Job)intent.getSerializableExtra("serializedJob");
-        Log.d("DEBUG", Boolean.toString(serializedJob==null) );
-        Log.i ("Reference Num: ", serializedJob.getTitle());
 
     }
 
 
     public void getDetails(){
-        //thisJob  = (Job) intent.getSerializableExtra("job");
-        Log.d("Debug", "In get details");
-
-        // TODO: Hi yh you need to do an exception for when the job has no skills + when the user has no skills.
-        // Cos otherwise the for loop wont work.
-        ApiManager.callApi(dao.getJob(5), new CustomCallback<Job>() {
-            @Override
-            public void onResponse(Job response) {
-                Log.d("Debug", response.toString());
-                if (response != null) {
-                    thisJob = response;
-                    Log.d("Debug", thisJob.toString());
-                    jobTitle = thisJob.getTitle();
-                    jobDescription = thisJob.getDescription();
-                    companyName = thisJob.getCompany();
-                    jobURL = thisJob.getApplicationSrc();
-                    date_posted = thisJob.getDatePosted();
-                    requiredSkills = thisJob.getRequiredSkills();
-                    user = getUserFromPrefs();
-                    acquiredSkills = user.getSkills();
-                    //get the unacquired skills
-
-                    requiredSkills = new ArrayList<>();
-                    unacquiredSkills = new ArrayList<>();
-                    acquiredSkills = new ArrayList<>();
+        requiredSkills = new ArrayList<>();
+        unacquiredSkills = new ArrayList<>();
+        acquiredSkills = new ArrayList<>();
+        jobTitle = thisJob.getTitle();
+        jobDescription = thisJob.getDescription();
+        companyName = thisJob.getCompany();
+        jobURL = thisJob.getApplicationSrc();
+        date_posted = thisJob.getDatePosted();
+        requiredSkills = thisJob.getRequiredSkills();
+        user = getUserFromPrefs();
+        acquiredSkills = user.getSkills();
+        //get the unacquired skills
 
 
-                    for(String requiredSkill : requiredSkills){
-                        acquired = false;
-                        for(String acquiredSkill: acquiredSkills){
-                            if(acquiredSkill.contentEquals(requiredSkill)){
-                                acquired = true;
-                            }
-                        }
-                        if(!acquired){
-                            unacquiredSkills.add(requiredSkill);
-                        }
-                    }
 
-                    display();
-                }
-                else {
-                    Log.d("Debug", "Response was null");
+
+        for(String requiredSkill : requiredSkills){
+            acquired = false;
+            for(String acquiredSkill: acquiredSkills){
+                if(acquiredSkill.contentEquals(requiredSkill)){
+                    acquired = true;
                 }
             }
-        });
+            if(!acquired){
+                unacquiredSkills.add(requiredSkill);
+            }
+        }
 
-
+        display();
     }
 
     public void display() {
@@ -115,16 +94,17 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         // dynamically generate requiredSkills
         // i is counter for ID generation
         int i = 0;
-        androidx.gridlayout.widget.GridLayout requiredSkillsGridLayout = findViewById(R.id.acquiredSkillsGridLayout);
+        acquiredSkillsGridLayout = findViewById(R.id.acquiredSkillsGridLayout);
         // set the number of columns used by the grid layout
-        requiredSkillsGridLayout.setColumnCount(2);
+        acquiredSkillsGridLayout.setColumnCount(2);
         //generate buttons based on the number of skills
         for (final String acquiredSkill : acquiredSkills) {
             Button btn = new Button(this);
+            System.out.println("adf");
             btn.setId(i);
             btn.setTag(acquiredSkill);
             btn.setText(acquiredSkill);
-            requiredSkillsGridLayout.addView(btn);
+            acquiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
@@ -136,7 +116,7 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
             i++;
         }
         //generate unacquired skills
-        androidx.gridlayout.widget.GridLayout unacquiredSkillsGridLayout = findViewById(R.id.unacquiredSkillsGridLayout);
+        unacquiredSkillsGridLayout = findViewById(R.id.unacquiredSkillsGridLayout);
         // set the number of columns used by the grid layout
         unacquiredSkillsGridLayout.setColumnCount(2);
         //generate buttons based on the number of skills
@@ -170,9 +150,6 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
 
     //button to go to website
     public void onClickURL (View view){
-
-        String thisUrl = null;
-
 
         Log.i("Job Details", "Link Clicked: " + jobURL);
 
