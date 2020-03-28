@@ -1,228 +1,143 @@
-//package com.example.codeswitch;
-//
-//import android.app.ActionBar;
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.view.View;
-//import android.widget.Button;
-//import android.widget.LinearLayout;
-//import android.widget.TextView;
-//
-//import androidx.constraintlayout.widget.ConstraintLayout;
-//import androidx.gridlayout.widget.GridLayout;
-//
-//import com.example.codeswitch.model.Interest;
-//import com.example.codeswitch.model.Skill;
-//
-//import java.util.ArrayList;
-//import java.util.Date;
-//
-//public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
-//
-//    String jobTitle, jobDescription, companyName, jobURL, picture_url;
-//    Date date_posted;
-//    ArrayList<Interest> fields;
-//    ArrayList<Skill> requiredSkills;
-//    Intent intent = getIntent();
-//    TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
-//    Button backButton;
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//
-//        // call the super class onCreate to complete the creation of activity like
-//        // the view hierarchy
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.job_details);
-//        getDetails();
-////        display();
-//        // set the user interface layout for this activity
-//        // the layout file is defined in the project res/layout/main_activity.xml fil
-//
-//
-//        //Bundle extras =intent.getExtras();
-//
-//
-//
-//
-//    }
-//
-///*
-//    protected void onDestroy();{
-//
-//    }
-//*/
-//    public void getDetails(){
-//
-//        jobTitle = "1";
-//        jobDescription = "sample sample sample sample sample sample sample sample sample sample sample sample sample ";
-//        companyName = "3";
-//        jobURL = "4";
-//        date_posted = new Date();
-//    }
-//
-//    public void display(){
-//        jobTitleTextView = findViewById(R.id.jobTitle);
-//        jobTitleTextView.setText(jobTitle);
-//        companyNameTextView = findViewById(R.id.companyName);
-//        companyNameTextView.setText(companyName);
-//        jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
-//        jobDescriptionTextView.setText(jobDescription);
-//        jobURLTextView = findViewById(R.id.jobURLButton);
-//        jobURLTextView.setText(jobURL);
-//        //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
-//        //picture_urlTextView.set(picture_url);
-//        dateTextView = findViewById(R.id.datePosted);
-//        dateTextView.setText(date_posted.toString());
-//        // dynamically generate requiredSkills
-//        int i = 0;
-//        androidx.gridlayout.widget.GridLayout gl = findViewById(R.id.jobSkillsGridLayout);
-//        gl.setColumnCount(3);
-//        for (i=0;i<20;i++) {
-//            Button btn = new Button(this);
-//            btn.setId(i+1000);
-////            btn.setTag(requiredSkill.getName());
-////            btn.setText(requiredSkill.getName());
-//            btn.setText("test" + i);
-//            int buttonId = btn.getId();
-////            btn.setLayoutParams();
-//
-//            gl.addView(btn);
-////            btn.setOnClickListener(new View.OnClickListener() {
-////            });
-////            i++;
-//        }
-//        backButton = findViewById(R.id.jobDetailsBackButton);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//
-//
-//
-//
-//    }
-//    public void onClickFinish(View view){
-//
-//    }
-//
-//
-///*    public void generateCourses(){
-//        for (Course course : recommendedCourses){
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.MATCH_PARENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT);
-//            Button btn = new Button(this);
-//            btn.setId(i);
-//            final int id_ = btn.getId();
-//            btn.setText("button " + id_);
-//            btn.setBackgroundColor(Color.rgb(70, 80, 90));
-//            linear.addView(btn, params);
-//            btn1 = ((Button) findViewById(id_));
-//            btn1.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View view) {
-//                    Toast.makeText(view.getContext(),
-//                            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-//                            .show();
-//        }
-//    }*/
-//
-//
-//}
-
 package com.example.codeswitch;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.codeswitch.DetailsActivity;
-import com.example.codeswitch.ModifiedActivity;
-import com.example.codeswitch.R;
-import com.example.codeswitch.model.Skill;
+import com.example.codeswitch.model.AuthResponse;
+import com.example.codeswitch.model.Job;
+import com.example.codeswitch.model.User;
+import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.CustomCallback;
+import com.example.codeswitch.network.Dao;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
-public class JobDetailsActivity extends ModifiedActivity implements DetailsActivity {
+public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
 
-    String gameState, jobTitle, jobDescription, companyName, jobURL, picture_url;
-    Date date_posted;
-//    ArrayList<Interest> fields;
-    ArrayList<Skill> requiredSkills;
-//    ArrayList<Course> recommendedCourses;
-    Intent intent = getIntent();
+    Job thisJob;
+    String jobTitle, jobDescription, companyName, jobURL, date_posted;
+    List<String> requiredSkills, unacquiredSkills, acquiredSkills;
+    Boolean acquired;
+    Intent intent;
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
+    User user;
+    androidx.gridlayout.widget.GridLayout acquiredSkillsGridLayout, unacquiredSkillsGridLayout;
+    private Dao dao;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         // call the super class onCreate to complete the creation of activity like
         // the view hierarchy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
+        dao = ApiManager.getInstance().create(Dao.class);
+
+        intent = getIntent();
+        thisJob = new Job();
+        thisJob = (Job)intent.getSerializableExtra("serializedJob");
+        Log.d("DEBUG", Boolean.toString(thisJob==null) );
+        Log.i ("Reference Num: ", thisJob.getTitle());
         getDetails();
-        display();
-        // set the user interface layout for this activity
-        // the layout file is defined in the project res/layout/main_activity.xml fil
-
-
-        //Bundle extras =intent.getExtras();
-
-
-
+//        display();
 
     }
 
-/*
-    protected void onDestroy();{
 
-    }
-*/
     public void getDetails(){
+        requiredSkills = new ArrayList<>();
+        unacquiredSkills = new ArrayList<>();
+        acquiredSkills = new ArrayList<>();
+        jobTitle = thisJob.getTitle();
+        jobDescription = thisJob.getDescription();
+        companyName = thisJob.getCompany();
+        jobURL = thisJob.getApplicationSrc();
+        date_posted = thisJob.getDatePosted();
+        requiredSkills = thisJob.getRequiredSkills();
+        user = getUserFromPrefs();
+        acquiredSkills = user.getSkills();
+        //get the unacquired skills
 
-        jobTitle = "1";
-        jobDescription = "sample sample sample sample sample sample sample sample sample sample sample sample sample ";
-        companyName = "3";
-        jobURL = "4";
-        date_posted = new Date();
+
+
+
+        for(String requiredSkill : requiredSkills){
+            acquired = false;
+            for(String acquiredSkill: acquiredSkills){
+                if(acquiredSkill.contentEquals(requiredSkill)){
+                    acquired = true;
+                }
+            }
+            if(!acquired){
+                unacquiredSkills.add(requiredSkill);
+            }
+        }
+
+        display();
     }
 
-    public void display(){
-        /*jobTitleTextView = findViewById(R.id.jobTitle);
+    public void display() {
+        jobTitleTextView = findViewById(R.id.jobTitleText);
         jobTitleTextView.setText(jobTitle);
-        companyNameTextView = findViewById(R.id.companyName);
+        companyNameTextView = findViewById(R.id.companyNameText);
         companyNameTextView.setText(companyName);
         jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
         jobDescriptionTextView.setText(jobDescription);
-        jobURLTextView = findViewById(R.id.jobURLButton);
-        jobURLTextView.setText(jobURL);
-        //picture_urlTextView = (TextView) findViewById((R.id.JobImage);
-        //picture_urlTextView.set(picture_url);
-        dateTextView = findViewById(R.id.datePosted);
-        dateTextView.setText(date_posted.toString());
+        dateTextView = findViewById(R.id.datePostedText);
+        dateTextView.setText(date_posted);
         // dynamically generate requiredSkills
+        // i is counter for ID generation
         int i = 0;
-        for (Skill requiredSkill : requiredSkills) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+        acquiredSkillsGridLayout = findViewById(R.id.acquiredSkillsGridLayout);
+        // set the number of columns used by the grid layout
+        acquiredSkillsGridLayout.setColumnCount(2);
+        //generate buttons based on the number of skills
+        for (final String acquiredSkill : acquiredSkills) {
             Button btn = new Button(this);
+            System.out.println("adf");
             btn.setId(i);
-            btn.setTag(requiredSkill.getName());
-            btn.setText(requiredSkill.getName());
-            int buttonId = btn.getId();
-            LinearLayout ll = (LinearLayout)findViewById(R.id.bu;
-            ll.addView(btn, params);
-            btn1 = ((Button) findViewById(id_));
-            btn1.setOnClickListener(new View.OnClickListener() {
+            btn.setTag(acquiredSkill);
+            btn.setText(acquiredSkill);
+            acquiredSkillsGridLayout.addView(btn);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
+                    requiredSkillIntent.putExtra("Skill",acquiredSkill);
+                    startActivity(requiredSkillIntent);
+                }
             });
             i++;
         }
+        //generate unacquired skills
+        unacquiredSkillsGridLayout = findViewById(R.id.unacquiredSkillsGridLayout);
+        // set the number of columns used by the grid layout
+        unacquiredSkillsGridLayout.setColumnCount(2);
+        //generate buttons based on the number of skills
+        for (final String unacquiredSkill : unacquiredSkills) {
+            Button btn = new Button(this);
+            btn.setId(i);
+            btn.setTag(unacquiredSkill);
+            btn.setText(unacquiredSkill);
+
+            unacquiredSkillsGridLayout.addView(btn);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
+                    requiredSkillIntent.putExtra("Skill",unacquiredSkill);
+                    startActivity(requiredSkillIntent);
+                }
+            });
+            i++;
+        }
+
         backButton = findViewById(R.id.jobDetailsBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,31 +146,34 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
             }
         });
 
+    }
 
-*/
+    //button to go to website
+    public void onClickURL (View view){
+
+        Log.i("Job Details", "Link Clicked: " + jobURL);
+
+        Intent browserIntent = new Intent (Intent.ACTION_VIEW, Uri.parse(jobURL));
+        Toast.makeText(this, "Redirecting to website", Toast.LENGTH_SHORT).show();
+        startActivity (browserIntent);
+    }
+    //button to save job
+    public void onClickSaveJob(View view){
+        // Invalid password
+        ApiManager.callApi(dao.saveJob(user.getId(), thisJob.getId()), new CustomCallback<AuthResponse>() {
+            @Override
+            public void onResponse(AuthResponse response) {
+                if (response != null) {
+                    Log.d("Debug", response.toString());
+                }
+                else {
+                    Log.d("Debug", "Response was null");
+                }
+            }
+        });
     }
 
 
-/*    public void generateCourses(){
-        for (Course course : recommendedCourses){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            Button btn = new Button(this);
-            btn.setId(i);
-            final int id_ = btn.getId();
-            btn.setText("button " + id_);
-            btn.setBackgroundColor(Color.rgb(70, 80, 90));
-            linear.addView(btn, params);
-            btn1 = ((Button) findViewById(id_));
-            btn1.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(),
-                            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                            .show();
-        }
-    }*/
 
 
 }
-

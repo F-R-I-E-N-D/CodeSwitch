@@ -1,7 +1,7 @@
 package com.example.codeswitch;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,17 +17,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 
+import com.example.codeswitch.model.Job;
+import com.example.codeswitch.model.User;
+import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.CustomCallback;
+import com.example.codeswitch.network.Dao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.io.*;
 
-public class JobSearchActivity extends AppCompatActivity implements SearchActivity, JobRecyclerViewAdapter.OnJobListener {
+public class JobSearchActivity extends ModifiedActivity implements SearchActivity, Serializable, JobRecyclerViewAdapter.OnJobListener {
 
     //set up API call
+    private static Dao dao = ApiManager.getInstance().create(Dao.class);
     Context thisContext = this;
     JSONArray searchResults = null;
 
@@ -34,8 +44,10 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
     private ArrayList<JobItem> jobItems = new ArrayList<>();
     private ArrayList<JobItem> filteredJobItems = new ArrayList<>();
     private ArrayList <String> fieldsToAdd = new ArrayList<String>();
-
-    //set up RecyclerView
+    private List<Job> jobList = new ArrayList();
+    private List<Job> filteredJobList = new ArrayList();
+    private User thisUser;
+    //set up RecyclerViews
     private RecyclerView jobRecyclerView;
     private JobRecyclerViewAdapter jobRecyclerAdapter;
     private RecyclerView.LayoutManager jobRecyclerManager;
@@ -52,8 +64,13 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_search);
 
+        thisUser = getUserFromPrefs();
+
+        //Initial Button
         mOrder = findViewById(R.id.job_search_side_menu);
+        //List of Skills. TODO: get skills from Cal API
         menuListItems = getResources().getStringArray(R.array.skills_list);
+        //List of Selected Skills
         checkedItems = new boolean[menuListItems.length];
 
 
@@ -61,11 +78,14 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
         mOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //set up side menu
                 AlertDialog.Builder skillSelectBuilder = new AlertDialog.Builder(JobSearchActivity.this);
                 skillSelectBuilder.setTitle("Select Skills to Filter Search By");
+                //Create a menu with multiple choice items. Pass in the list of items, and an array to track if they have been checked.
                 skillSelectBuilder.setMultiChoiceItems(menuListItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position, boolean isChecked) {
+                        //implemented checkboxes
                         if (isChecked) {
                             Log.d("SideMenu", position + " was checked");
                             if (!mUserItems.contains(position)) {
@@ -76,15 +96,20 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                         }
                     }
                 });
+
+                //set up buttons
                 skillSelectBuilder.setCancelable(false);
+
+                //Implement OK Button
                 skillSelectBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (!mUserItems.isEmpty()) {
                             Log.d("DEBUG", "mUserItems is not Empty");
-                            //jobRecyclerAdapter.notifyDataSetChanged();
+
 
                             filteredJobItems.clear();
+                            filteredJobList.clear();
                             fieldsToAdd.clear();
                             for (int i = 0; i < mUserItems.size(); i++) {
                                 fieldsToAdd.add(menuListItems[mUserItems.get(i)]);
@@ -92,15 +117,25 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                                 Log.d("DEBUG", "Menu Items Selected:"+menuListItems[mUserItems.get(i)]);
 
                             }
-                            //TODO: this only works for a single skill. Needs to be changed to allow multiple skills
 
                             //filter Course Items by comparing two lists (does nothing right now)
                             for (int i = 0; i < jobItems.size(); i++) {
-                                boolean selected = false;
+                                Set<String> intersection = new HashSet<String>(jobItems.get(i).getJobRequiredSkillsList());
+                                intersection.retainAll(fieldsToAdd);
+                                if (intersection.size() > 0){
+                                    Log.d("intersection", "Job Item contains " + fieldsToAdd + ", adding to filteredList");
+                                    filteredJobItems.add(jobItems.get(i));
+                                    filteredJobList.add(jobList.get(i));
+                                }
 
+
+
+
+
+                                /*boolean selected = false;
                                 for (int j = 0; j < fieldsToAdd.size(); j++) {
-                                    if (jobItems.get(i).getJobCompanyText().equals(fieldsToAdd.get(j))) {
-
+                                    //TODO: filter here
+                                    if (jobItems.get(i).getJobRequiredSkillsList().equals(fieldsToAdd.get(j))) {
                                         selected = true;
                                         break;
                                     }
@@ -108,7 +143,7 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                                 if (selected) {
                                     filteredJobItems.add(jobItems.get(i));
                                     Log.d("DEBUG", jobItems.get(i).getJobTitleText()+"added");
-                                }
+                                }*/
                             }
                             jobRecyclerAdapter.notifyDataSetChanged();
                         }
@@ -116,17 +151,23 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                             Log.d("DEBUG", "Checkboxes are empty");
                             filteredJobItems.clear();
                             filteredJobItems.addAll(jobItems);
+                            filteredJobList.clear();
+                            filteredJobList.addAll(jobList);
                             jobRecyclerAdapter.notifyDataSetChanged();
                         }
 
                     }
                 });
+
+                //implement Cancel Button
                 skillSelectBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
+
+                //implement Clear All Button
                 skillSelectBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -135,19 +176,23 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
                             Log.d("Debug", "checkedItems Length:" + checkedItems.length);
                             mUserItems.clear();
                             //restore full list of courseitems
-                            filteredJobItems.clear();
-                            filteredJobItems.addAll(jobItems);
+
 
                         }
+                        filteredJobItems.clear();
+                        filteredJobItems.addAll(jobItems);
+                        filteredJobList.clear();
+                        filteredJobList.addAll(jobList);
                         jobRecyclerAdapter.notifyDataSetChanged();
                     }
 
                 });
+
+                //Create the Dialog Box
                 AlertDialog mDialog = skillSelectBuilder.create();
+                //Display Dialog Box
                 mDialog.show();
             }
-
-
         });
 
 
@@ -157,50 +202,82 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                jobItems.clear();
 
-                //dummy
-                jobItems.add(
-                        new JobItem(
-                                R.drawable.job_img, "100",
-                                new ArrayList<>(Arrays.asList("Skill A", "Skill B")),
-                                "Software Engineer",
-                                "Google",
-                                "20-03-27"));
-                jobItems.add(
-                        new JobItem(
-                                R.drawable.job_img,
-                                "101",
-                                new ArrayList<>(Arrays.asList("Skill A", "Skill B", "Skill C")),
-                                "Data Scientist",
-                                "Google",
-                                "20-04-16"));
-                jobItems.add(
-                        new JobItem(
-                                R.drawable.job_img,
-                                "102",
-                                new ArrayList<>(Arrays.asList("Skill A")),
-                                "Business Analyst",
-                                "Amazon",
-                                "20-01-31"));
-                jobItems.add(
-                        new JobItem(
-                                R.drawable.job_img,
-                                "103",
-                                new ArrayList<>(Arrays.asList("Skill B", "Skill C")),
-                                "Structured Trader",
-                                "Tesla",
-                                "20-02-12"));
-                jobItems.add(
-                        new JobItem(
-                                R.drawable.job_img,
-                                "104",
-                                new ArrayList<>(Arrays.asList("Skill A", "Skill C")),
-                                "Wealth Manager",
-                                "Visa",
-                                "20-03-10"));
+
+                jobItems.clear();
+                jobList.clear();
+                //actual
+                ApiManager.callApi(dao.getJobBySearch(query), new CustomCallback<List<Job>>() {
+                    @Override
+                    public void onResponse(List<Job> response) {
+                        jobList = response;
+                        filteredJobList = response;
+                        if (response != null) {
+                            int i = 0;
+                            for (Job job: response)
+                            {
+                                Log.d("Debug", job.toString());
+                                jobItems.add(
+                                        new JobItem(
+                                                R.drawable.job_img,
+                                                String.valueOf(job.getId()),
+                                                job.getRequiredSkills(),
+                                                job.getTitle(),
+                                                job.getCompany(),
+                                                job.getDatePosted(),
+                                                checkIfQualified(job.getRequiredSkills())
+                                        )
+                                );
+                            }
+                            jobRecyclerAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            Log.d("Debug", "Response was null");
+                        }
+                    }
+                });
+
                 jobRecyclerAdapter.notifyDataSetChanged();
 
+                //Start of CheckBoxFilter
+                filteredJobItems.clear();
+                filteredJobList.clear();
+                    if (!mUserItems.isEmpty()) {
+                        Log.d("DEBUG", "mUserItems is not Empty");
+
+                        filteredJobItems.clear();
+                        filteredJobList.clear();
+                        fieldsToAdd.clear();
+                        for (int i = 0; i < mUserItems.size(); i++) {
+                            fieldsToAdd.add(menuListItems[mUserItems.get(i)]);
+
+                            Log.d("DEBUG", "Menu Items Selected:"+menuListItems[mUserItems.get(i)]);
+
+                        }
+
+                        //filter Course Items by comparing two lists (does nothing right now)
+                        for (int i = 0; i < jobItems.size(); i++) {
+                            Set<String> intersection = new HashSet<String>(jobItems.get(i).getJobRequiredSkillsList());
+                            intersection.retainAll(fieldsToAdd);
+                            if (intersection.size() > 0){
+                                Log.d("intersection", "Job Item contains " + fieldsToAdd + ", adding to filteredList");
+                                filteredJobItems.add(jobItems.get(i));
+                                filteredJobList.add(jobList.get(i));
+                            }
+                        }
+                        jobRecyclerAdapter.notifyDataSetChanged();
+                    }
+                    else{
+                        Log.d("DEBUG", "Checkboxes are empty");
+                        filteredJobItems.clear();
+                        filteredJobItems.addAll(jobItems);
+                        filteredJobList.clear();
+                        filteredJobList.addAll(jobList);
+                        jobRecyclerAdapter.notifyDataSetChanged();
+                    }
+                //end of CheckBoxFilter
+
+                jobRecyclerAdapter.notifyDataSetChanged();
                 return false;
             }
 
@@ -250,21 +327,46 @@ public class JobSearchActivity extends AppCompatActivity implements SearchActivi
         });
     }
 
+    private boolean checkIfQualified(List<String> jobSkills)
+    {
+        Set<String> jobSkillsSet = new HashSet<String>(jobSkills);
+        Log.d("DEBUG", "jobSkills: " + jobSkills.toString());
+        Set<String> userSkills = new HashSet<String>(thisUser.getSkills());
+        Log.d("DEBUG", "userSkills: " + thisUser.getSkills().toString());
+
+        jobSkillsSet.removeAll(userSkills);
+        if (jobSkillsSet.size()==0)
+        {
+            Log.d("DEBUG", "qualified");
+            return true;
+        }
+
+        else {
+            Log.d("DEBUG", "not qualified");
+            return false;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void onJobClick(int position) {
+    public void onJobClick(int position) throws IOException {
         //when you click on a job
         //try {
 
             Intent goToJobDetails = new Intent(JobSearchActivity.this, JobDetailsActivity.class);
-            String str = jobItems.get(position).getJobReferenceNumberText();
-            goToJobDetails.putExtra("jobSearchReferenceNumber" , str);
+            Job serializableJob = filteredJobList.get(position);
+            goToJobDetails.putExtra("serializedJob",serializableJob);
+            Log.d("DEBUG Before", Boolean.toString(serializableJob==null) );
             startActivity(goToJobDetails);
+
         /*}
         //when json has been gotten from cal
         catch (JSONException e) {
             e.printStackTrace();
         }*/
     }
+
+
 
     @Override
     public void fetchDisplayItems(String keyword) {

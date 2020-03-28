@@ -84,46 +84,44 @@ public interface Dao {
     @GET("skills")
     Call<List<Skill>> getSkillList();
 
-
     /**
-     * TODO
      * Get list of GROUPS of skills.
      *
      * @param
      * @return
      */
-    @GET("skills/{id}")
-    Call<Skill> getSkillGroupList();
+    @GET("skills/groups")
+    Call<List<String>> getSkillGroupList();
 
     /**
-     * TODO
      * Get list of skills of a certain group.
      *
      * @return
      */
-    @GET("skills/groups/{id}")
-    Call<List<Skill>> getSkillsInGroup();
+    @GET("query_skill_group")
+    Call<List<Skill>> getSkillsInGroup(@Query("q") String group);
     //endregion
 
     //region JOBS
 
     /**
-     * TODO: Is it too much data in one go?
      * Get a list of jobs based on query keyword.
-     *
      * @param q What the user types in the search bar.
      * @return List<Job>
      */
     @GET("query_jobs")
     Call<List<Job>> getJobBySearch(@Query("q") String q);
 
+    @GET("jobs/{job_id}")
+    Call<Job> getJob(@Path("job_id") int id);
+
     //endregion
 
     //region SAVED_JOBS
 
     /**
-     * Get list of ALL jobs that the user saved.
-     *
+     * Get list of ALL jobs that this specific user saved.
+     * It should be split by qualified or not based on Tim's algo.
      * @param id user id
      * @return list of saved jobs
      */
@@ -131,8 +129,7 @@ public interface Dao {
     Call<List<SavedJob>> getUserSavedJobs(@Path("user_id") int id);
 
     /**
-     * When you click apply job, we should change is_applied=True
-     *
+     * When you click apply job, we should change is_applied=True.
      * @param id
      * @param is_applied
      * @return
@@ -143,18 +140,16 @@ public interface Dao {
 
     /**
      * Add jobs to saved jobs.
-     *
      * @param userId
      * @param jobId
      * @return
      */
     @FormUrlEncoded
     @POST("saved_jobs")
-    Call<Job> saveJob(@Path("user") int userId, @Path("job") int jobId);
+    Call<Job> saveJob(@Field("user") int userId, @Field("job") int jobId);
 
     /**
-     * Remove job from saved jobs
-     *
+     * Remove job from saved jobs. I think it can only be done from saved jobs.
      * @param id Saved job id (different from job id)
      * @return
      */

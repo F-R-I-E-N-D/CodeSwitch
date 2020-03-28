@@ -1,29 +1,34 @@
 package com.example.codeswitch;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class JobItem {
     private int jobImageResource;
     private String jobReferenceNumberText;
-    private ArrayList<String> jobRequiredSkillsList;
+    private List<String> jobRequiredSkillsList;
     private String jobTitleText;
     private String jobCompanyText;
     private String jobDatePostedText;
+    private boolean qualified;
 
-    public JobItem(int ImageResource, String ReferenceNumberText, ArrayList<String> RequiredSkillsList, String TitleText, String CompanyText, String JobDatePostedText){
+    public JobItem(int ImageResource, String ReferenceNumberText,
+                   List<String> RequiredSkillsList,
+                   String TitleText, String CompanyText, String JobDatePostedText,
+                   boolean qualified){
         jobImageResource = ImageResource;
         jobRequiredSkillsList = RequiredSkillsList;
         jobReferenceNumberText = ReferenceNumberText;
         jobTitleText = TitleText;
         jobCompanyText = CompanyText;
         jobDatePostedText = JobDatePostedText;
+        this.qualified = qualified;
     }
 
     public int getJobImageResource(){
         return jobImageResource;
     }
 
-    public ArrayList<String> getJobRequiredSkillsList(){ return jobRequiredSkillsList; }
+    public List<String> getJobRequiredSkillsList(){ return jobRequiredSkillsList; }
 
     public String getJobReferenceNumberText(){
         return jobReferenceNumberText;
@@ -38,4 +43,8 @@ public class JobItem {
     }
 
     public String getJobDatePostedText() { return this.jobDatePostedText; }
+
+    public boolean isQualified() {
+        return qualified;
+    }
 }
