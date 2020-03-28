@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/JobTitleText"
-            android:layout_width="180dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:text="Title 1"
             android:textSize= "18sp"
