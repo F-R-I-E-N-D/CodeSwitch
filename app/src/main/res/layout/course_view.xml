@@ -37,7 +37,7 @@
             android:layout_margin="4dp"
             android:layout_toRightOf="@+id/TitleText">
             <TextView
-                android:id="@+id/OrganizationText"
+                android:id="@+id/CompanyText"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
@@ -48,7 +48,7 @@
                 android:maxLines="3"/>
 
             <TextView
-                android:id="@+id/ModeText"
+                android:id="@+id/DatePostedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

@@ -1,15 +1,10 @@
 package com.example.codeswitch.network;
 
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.appcompat.widget.AppCompatImageButton;
-
-import com.example.codeswitch.JobSearchActivity;
-import com.example.codeswitch.MainActivity;
+import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.BaseObject;
-import com.example.codeswitch.model.BaseResponse;
+import com.example.codeswitch.model.Job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +46,9 @@ public class ApiTest {
      */
     public static void testCreateAccount() {
         // Invalid password
-        ApiManager.callApi(dao.createAccount("adi@example.com", "Adi12345"), new CustomCallback<BaseResponse>() {
+        ApiManager.callApi(dao.createAccount("adi@example.com", "Adi12345"), new CustomCallback<AuthResponse>() {
             @Override
-            public void onResponse(BaseResponse response) {
+            public void onResponse(AuthResponse response) {
                 if (response != null) {
                     Log.d("Debug", response.toString());
                 }
@@ -64,39 +59,17 @@ public class ApiTest {
         });
     }
 
-    /**
-     * Testing getCourseList()
-     * It should be around the same as the rest of the getXList() functions
-     * [response] -- A list of all the courses in the database
-     */
-    public static void testGetCourseList() {
-        ApiManager.callApi(dao.getCourseList(), new CustomCallback<List<BaseObject>>() {
+    public static void testGetJobs()
+    {
+        // Invalid password
+        ApiManager.callApi(dao.getJobBySearch("Software Engineer"), new CustomCallback<List<Job>>() {
             @Override
-            public void onResponse(List<BaseObject> response) {
+            public void onResponse(List<Job> response) {
                 if (response != null) {
-                    for (BaseObject obj : response) {
-                        Log.d("Debug", obj.toString());
+                    for (Job job: response)
+                    {
+                        Log.d("Debug", job.toString());
                     }
-                }
-                else {
-                    Log.d("Debug", "Response was null");
-                }
-            }
-        });
-    }
-
-    /**
-     * Testing getCourseDetail(courseId)
-     * It should be around the same as the rest of the getXDetail(id) functions
-     * [response] -- Course object corresponding to courseId
-     */
-    public static void testGetCourseDetail() {
-        // id = 2
-        ApiManager.callApi(dao.getCourseDetail(2), new CustomCallback<List<BaseObject>>() {
-            @Override
-            public void onResponse(List<BaseObject> response) {
-                if (response != null) {
-                    Log.d("Debug", response.toString());
                 }
                 else {
                     Log.d("Debug", "Response was null");

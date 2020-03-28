@@ -4,19 +4,13 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 // Schema is still subject to change
-public class UserJob extends BaseObject {
+public class SavedJob extends BaseObject {
     @SerializedName("user")
     @Expose
     private Integer userId;
     @SerializedName("job")
     @Expose
-    private Integer jobId;
-    @SerializedName("is_saved")
-    @Expose
-    private Boolean isSaved;
-    @SerializedName("is_qualified")
-    @Expose
-    private Boolean isQualified;
+    private Job job;
     @SerializedName("has_applied")
     @Expose
     private Boolean hasApplied;
@@ -29,28 +23,12 @@ public class UserJob extends BaseObject {
         this.userId = userId;
     }
 
-    public Integer getJobId() {
-        return jobId;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobId(Integer jobId) {
-        this.jobId = jobId;
-    }
-
-    public Boolean getIsSaved() {
-        return isSaved;
-    }
-
-    public void setIsSaved(Boolean isSaved) {
-        this.isSaved = isSaved;
-    }
-
-    public Boolean getIsQualified() {
-        return isQualified;
-    }
-
-    public void setIsQualified(Boolean isQualified) {
-        this.isQualified = isQualified;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public Boolean getHasApplied() {
@@ -65,9 +43,7 @@ public class UserJob extends BaseObject {
     public String toString() {
         return "UserJob{" +
                 "userId=" + userId +
-                ", jobId=" + jobId +
-                ", isSaved=" + isSaved +
-                ", isQualified=" + isQualified +
+                ", jobId=" + job.toString() +
                 ", hasApplied=" + hasApplied +
                 ", id=" + id +
                 '}';

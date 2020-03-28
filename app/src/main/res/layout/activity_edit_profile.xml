@@ -32,27 +32,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Username" />
 
-    <TextView
-        android:id="@+id/areaOfInterest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="10dp"
-        android:text="Areas of Interest:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/UpdateSkill" />
-
     <Button
         android:id="@+id/Reset"
         android:layout_width="167dp"
         android:layout_height="86dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="26dp"
         android:layout_marginRight="26dp"
         android:text="RESET"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/UpdateInterest" />
+        app:layout_constraintTop_toBottomOf="@id/AddSkill"
+        tools:layout_editor_absoluteY="337dp" />
 
     <Button
         android:id="@+id/Apply"
@@ -60,10 +49,10 @@
         android:layout_height="86dp"
         android:layout_marginStart="21dp"
         android:layout_marginLeft="21dp"
-        android:layout_marginTop="10dp"
         android:text="APPLY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/UpdateInterest" />
+        app:layout_constraintTop_toBottomOf="@id/AddSkill"
+        tools:layout_editor_absoluteY="337dp" />
 
     <TextView
         android:id="@+id/Username"
@@ -78,25 +67,24 @@
         app:layout_constraintTop_toBottomOf="@id/Title" />
 
     <Button
-        android:id="@+id/UpdateInterest"
+        android:id="@+id/AddSkill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
         android:layout_marginLeft="21dp"
         android:layout_marginTop="10dp"
-        android:text="Update Interests"
+        android:text="Add Skills"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userInterestsGridLayout" />
-
+        app:layout_constraintTop_toBottomOf="@id/userSkillsGridLayout" />
     <Button
-        android:id="@+id/UpdateSkill"
+        android:id="@+id/RemoveSkill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
         android:layout_marginLeft="21dp"
         android:layout_marginTop="10dp"
-        android:text="Update Skills"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Remove Skills"
+        app:layout_constraintStart_toEndOf="@id/AddSkill"
         app:layout_constraintTop_toBottomOf="@id/userSkillsGridLayout" />
 
     <androidx.gridlayout.widget.GridLayout
@@ -107,15 +95,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Skills" />
-
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/userInterestsGridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/areaOfInterest" />
 
     <RelativeLayout
         android:id="@+id/relLayout"

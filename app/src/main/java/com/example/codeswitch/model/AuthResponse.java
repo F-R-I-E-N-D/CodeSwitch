@@ -3,10 +3,16 @@ package com.example.codeswitch.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AuthResponse extends BaseResponse {
+public class AuthResponse {
     @SerializedName("user")
     @Expose
     private User user;
+    @SerializedName("success")
+    @Expose
+    protected Boolean success;
+    @SerializedName("message")
+    @Expose
+    protected String message;
 
     public User getUser() {
         return user;
@@ -16,7 +22,22 @@ public class AuthResponse extends BaseResponse {
         this.user = user;
     }
 
-    @Override
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public String toString() {
         return "AuthResponse{" +
                 "user=" + user +

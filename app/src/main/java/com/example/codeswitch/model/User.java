@@ -17,19 +17,11 @@ public class User extends BaseObject implements Serializable {
     @SerializedName("skills")
     @Expose
     private List<String> skills = null;
-    @SerializedName("interests")
-    @Expose
-    private List<String> interests = null;
-    @SerializedName("url")
-    @Expose
-    private String url;
 
-    public User(String email, String password, List<String> skills, List<String> interests, String url) {
+    public User(String email, String password, List<String> skills) {
         this.email = email;
         this.password = password;
         this.skills = skills;
-        this.interests = interests;
-        this.url = url;
     }
 
     public String getEmail() {
@@ -56,30 +48,12 @@ public class User extends BaseObject implements Serializable {
         this.skills = skills;
     }
 
-    public List<String> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(List<String> interests) {
-        this.interests = interests;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", skills=" + skills +
-                ", interests=" + interests +
-                ", url='" + url + '\'' +
                 ", id=" + id +
                 '}';
     }
