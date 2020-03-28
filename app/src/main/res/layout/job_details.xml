@@ -20,7 +20,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="28dp"
             android:onClick="onClickURL"
-            android:text="Link"
+            android:text="Apply"
             app:layout_constraintEnd_toStartOf="@+id/saveJob"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

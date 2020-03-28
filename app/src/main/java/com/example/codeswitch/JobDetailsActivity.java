@@ -3,6 +3,7 @@ package com.example.codeswitch;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,10 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
         dao = ApiManager.getInstance().create(Dao.class);
         intent = getIntent();
         thisJob = new Job();
+
+        TextView descriptionBox = (TextView) findViewById(R.id.jobDescriptionText);
+        descriptionBox.setMovementMethod(new ScrollingMovementMethod());
+
         thisJob = (Job)intent.getSerializableExtra("serializedJob");
         Log.i("test", thisJob.getId()+" "+thisJob.getTitle());
         Log.d("DEBUG", Boolean.toString(thisJob==null) );
