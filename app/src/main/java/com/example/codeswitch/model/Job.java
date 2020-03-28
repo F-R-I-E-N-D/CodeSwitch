@@ -1,10 +1,11 @@
 package com.example.codeswitch.model;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Job extends  BaseObject {
+public class Job extends BaseObject implements Serializable {
     @SerializedName("required_skills")
     @Expose
     private List<String> requiredSkills;

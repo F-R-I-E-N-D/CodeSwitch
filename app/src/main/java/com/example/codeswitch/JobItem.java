@@ -1,16 +1,16 @@
 package com.example.codeswitch;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class JobItem {
     private int jobImageResource;
     private String jobReferenceNumberText;
-    private ArrayList<String> jobRequiredSkillsList;
+    private List<String> jobRequiredSkillsList;
     private String jobTitleText;
     private String jobCompanyText;
     private String jobDatePostedText;
 
-    public JobItem(int ImageResource, String ReferenceNumberText, ArrayList<String> RequiredSkillsList, String TitleText, String CompanyText, String JobDatePostedText){
+    public JobItem(int ImageResource, String ReferenceNumberText, List<String> RequiredSkillsList, String TitleText, String CompanyText, String JobDatePostedText){
         jobImageResource = ImageResource;
         jobRequiredSkillsList = RequiredSkillsList;
         jobReferenceNumberText = ReferenceNumberText;
@@ -23,7 +23,7 @@ public class JobItem {
         return jobImageResource;
     }
 
-    public ArrayList<String> getJobRequiredSkillsList(){ return jobRequiredSkillsList; }
+    public List<String> getJobRequiredSkillsList(){ return jobRequiredSkillsList; }
 
     public String getJobReferenceNumberText(){
         return jobReferenceNumberText;

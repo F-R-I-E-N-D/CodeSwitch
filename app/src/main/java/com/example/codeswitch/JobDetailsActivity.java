@@ -24,7 +24,8 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
     List<String> requiredSkills, unacquiredSkills, acquiredSkills;
     Boolean acquired;
-    Intent intent = getIntent();
+    Intent intent;
+    private Job serializedJob;
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
     User user;
@@ -40,6 +41,12 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
 
         getDetails();
 //        display();
+
+        intent = getIntent();
+
+        serializedJob = (Job)intent.getSerializableExtra("serializedJob");
+        Log.d("DEBUG", Boolean.toString(serializedJob==null) );
+        Log.i ("Reference Num: ", serializedJob.getTitle());
 
     }
 
