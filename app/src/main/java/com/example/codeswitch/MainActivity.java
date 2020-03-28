@@ -29,22 +29,22 @@ public class MainActivity extends ModifiedActivity {
         dao = ApiManager.getInstance().create(Dao.class);
 
         Log.d("Debug", "Hello!");
-        ApiTest.testGetJobs();
+//        ApiTest.testGetJobs();
     }
 
     public void onLoginClick(View view) {
         email = getEditText(R.id.email_login_input);
         password = getEditText(R.id.password_login_input);
         //hotwire - yh
-        try {
-            Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
-            startActivity(k);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        //end yh
+//        try {
+//            Intent k = new Intent(MainActivity.this, JobDetailsActivity.class);
+//            startActivity(k);
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
 
-        //authenticateLogin(email, password);
+
+        authenticateLogin(email, password);
     }
 
     public void onRegisterNewClick(View view) {
@@ -64,11 +64,13 @@ public class MainActivity extends ModifiedActivity {
                 if (response.getSuccess()) {
                     Log.d("Debug", response.toString());
 
-                    //go to job search - tim
+                    //go to job search - tim, yh details
                     try {
                         saveUserToPrefs(response.getUser());
-                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
+                        Intent k = new Intent(MainActivity.this, JobDetailsActivity.class);
                         startActivity(k);
+//                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
+//                        startActivity(k);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }

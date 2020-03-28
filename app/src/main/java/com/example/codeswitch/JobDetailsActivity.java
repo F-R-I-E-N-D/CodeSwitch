@@ -9,21 +9,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.User;
+import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.CustomCallback;
+import com.example.codeswitch.network.Dao;
 
 import java.util.List;
 
 public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
 
-    Job job = new Job();
-
+    Job thisJob;
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
     List<String> requiredSkills, unacquiredSkills, acquiredSkills;
     Boolean acquired;
     Intent intent = getIntent();
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
+    User user;
+    private Dao dao;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -31,55 +36,57 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         // the view hierarchy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
-        referenceNumber = thisIntent.getStringExtra("referenceNumber");
-//        referenceNumber = "NTU-200604393R-01-NC-IT1024";
-        Log.i ("Reference Num: ", referenceNumber);
+        dao = ApiManager.getInstance().create(Dao.class);
+
         getDetails();
 //        display();
-        // set the user interface layout for this activity
-        // the layout file is defined in the project res/layout/main_activity.xml fil
-
-
-        //
-
-
-
 
     }
 
-/*
-    protected void onDestroy();{
 
-    }
-*/
     public void getDetails(){
-        Job thisJob  = (Job) intent.getSerializableExtra("job");
+        //thisJob  = (Job) intent.getSerializableExtra("job");
+        Log.d("Debug", "In get details");
 
-        jobTitle = "1";
-        jobDescription = "sample sample sample sample sample sample sample sample sample sample sample sample sample ";
-        companyName = "3";
-        jobURL = "4";
+        // TODO: Hi yh you need to do an exception for when the job has no skills + when the user has no skills.
+        // Cos otherwise the for loop wont work.
+        ApiManager.callApi(dao.getJob(5), new CustomCallback<Job>() {
+            @Override
+            public void onResponse(Job response) {
+                Log.d("Debug", response.toString());
+                if (response != null) {
+                    thisJob = response;
+                    Log.d("Debug", thisJob.toString());
+                    jobTitle = thisJob.getTitle();
+                    jobDescription = thisJob.getDescription();
+                    companyName = thisJob.getCompany();
+                    jobURL = thisJob.getApplicationSrc();
+                    date_posted = thisJob.getDatePosted();
+                    requiredSkills = thisJob.getRequiredSkills();
+                    user = getUserFromPrefs();
+                    acquiredSkills = user.getSkills();
+                    //get the unacquired skills
 
-        jobTitle = thisJob.getTitle();
-        jobDescription = thisJob.getDescription();
-        companyName = thisJob.getCompany();
-        jobURL = thisJob.getApplicationSrc();
-        date_posted = thisJob.getDatePosted();
-        requiredSkills = thisJob.getRequiredSkills();
-        User user = getUserFromPrefs();
-        acquiredSkills = user.getSkills();
-        //get the unacquired skills
 
-        for(String requiredSkill : requiredSkills){
-            for(String acquiredSkill: acquiredSkills){
-                if(acquiredSkill.contentEquals(requiredSkill)){
-                    acquired = true;
+                    for(String requiredSkill : requiredSkills){
+                        for(String acquiredSkill: acquiredSkills){
+                            if(acquiredSkill.contentEquals(requiredSkill)){
+                                acquired = true;
+                            }
+                        }
+                        if(!acquired){
+                            unacquiredSkills.add(requiredSkill);
+                        }
+                    }
+
+                    display();
+                }
+                else {
+                    Log.d("Debug", "Response was null");
                 }
             }
-            if(!acquired){
-                unacquiredSkills.add(requiredSkill);
-            }
-        }
+        });
+
 
     }
 
@@ -98,15 +105,14 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         androidx.gridlayout.widget.GridLayout requiredSkillsGridLayout = findViewById(R.id.requiredSkillsGridLayout);
         // set the number of columns used by the grid layout
         requiredSkillsGridLayout.setColumnCount(3);
+
+
         //generate buttons based on the number of skills
         for (final String requiredSkill : requiredSkills) {
             Button btn = new Button(this);
             btn.setId(i);
             btn.setTag(requiredSkill);
             btn.setText(requiredSkill);
-            int buttonId = btn.getId();
-            btn.setLayoutParams();
-
             requiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -165,8 +171,18 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     }
     //button to save job
     public void onClickSaveJob(View view){
-        user.;
-
+        // Invalid password
+        ApiManager.callApi(dao.saveJob(user.getId(), thisJob.getId()), new CustomCallback<AuthResponse>() {
+            @Override
+            public void onResponse(AuthResponse response) {
+                if (response != null) {
+                    Log.d("Debug", response.toString());
+                }
+                else {
+                    Log.d("Debug", "Response was null");
+                }
+            }
+        });
     }
 
 
