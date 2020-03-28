@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Job extends BaseObject implements Serializable {
+public class Job extends BaseObject {
     @SerializedName("required_skills")
     @Expose
     private List<String> requiredSkills;
@@ -82,6 +82,7 @@ public class Job extends BaseObject implements Serializable {
                 ", description='" + description + '\'' +
                 ", datePosted='" + datePosted + '\'' +
                 ", applicationSrc='" + applicationSrc + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

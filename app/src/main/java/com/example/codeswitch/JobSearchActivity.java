@@ -300,6 +300,9 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        MenuItem menuItem = bottomNavigationView.getMenu().getItem(0);
+        menuItem.setChecked(true);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -355,6 +358,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
             Intent goToJobDetails = new Intent(JobSearchActivity.this, JobDetailsActivity.class);
             Job serializableJob = filteredJobList.get(position);
+            Log.i("Cal", serializableJob.getId()+"");
             goToJobDetails.putExtra("serializedJob",serializableJob);
             Log.d("DEBUG Before", Boolean.toString(serializableJob==null) );
             startActivity(goToJobDetails);
