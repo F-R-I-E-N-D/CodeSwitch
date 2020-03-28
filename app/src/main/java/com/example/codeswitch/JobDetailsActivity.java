@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.User;
@@ -19,7 +21,7 @@ import com.example.codeswitch.network.Dao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
+public class JobDetailsActivity extends ModifiedActivity  implements DetailsActivity {
 
     Job thisJob;
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
@@ -29,6 +31,7 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
     User user;
+    int jobId;
     androidx.gridlayout.widget.GridLayout acquiredSkillsGridLayout, unacquiredSkillsGridLayout;
     private Dao dao;
     @Override
@@ -38,14 +41,14 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         dao = ApiManager.getInstance().create(Dao.class);
-
         intent = getIntent();
         thisJob = new Job();
         thisJob = (Job)intent.getSerializableExtra("serializedJob");
+        Log.i("test", thisJob.getId()+" "+thisJob.getTitle());
         Log.d("DEBUG", Boolean.toString(thisJob==null) );
         Log.i ("Reference Num: ", thisJob.getTitle());
         getDetails();
-//        display();
+
 
     }
 
@@ -60,12 +63,11 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         jobURL = thisJob.getApplicationSrc();
         date_posted = thisJob.getDatePosted();
         requiredSkills = thisJob.getRequiredSkills();
+        jobId = thisJob.getId();
+        System.out.println(jobId);
         user = getUserFromPrefs();
         acquiredSkills = user.getSkills();
         //get the unacquired skills
-
-
-
 
         for(String requiredSkill : requiredSkills){
             acquired = false;
@@ -80,6 +82,7 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         }
 
         display();
+
     }
 
     public void display() {
@@ -100,7 +103,6 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
         //generate buttons based on the number of skills
         for (final String acquiredSkill : acquiredSkills) {
             Button btn = new Button(this);
-            System.out.println("adf");
             btn.setId(i);
             btn.setTag(acquiredSkill);
             btn.setText(acquiredSkill);
@@ -159,12 +161,14 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     }
     //button to save job
     public void onClickSaveJob(View view){
-        // Invalid password
-        ApiManager.callApi(dao.saveJob(user.getId(), thisJob.getId()), new CustomCallback<AuthResponse>() {
+        System.out.println(user.getId());
+        System.out.println(jobId);
+        ApiManager.callApi(dao.saveJob(user.getId(), jobId), new CustomCallback<AuthResponse>() {
             @Override
             public void onResponse(AuthResponse response) {
                 if (response != null) {
                     Log.d("Debug", response.toString());
+                    Toast.makeText(JobDetailsActivity.this, "successfully saved", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Log.d("Debug", "Response was null");
