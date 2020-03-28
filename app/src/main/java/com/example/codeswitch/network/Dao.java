@@ -84,25 +84,22 @@ public interface Dao {
     @GET("skills")
     Call<List<Skill>> getSkillList();
 
-
     /**
-     * TODO
      * Get list of GROUPS of skills.
      *
      * @param
      * @return
      */
-    @GET("skills/{id}")
-    Call<Skill> getSkillGroupList();
+    @GET("skills/groups")
+    Call<List<String>> getSkillGroupList();
 
     /**
-     * TODO
      * Get list of skills of a certain group.
      *
      * @return
      */
-    @GET("skills/groups/{id}")
-    Call<List<Skill>> getSkillsInGroup();
+    @GET("query_skill_group")
+    Call<List<Skill>> getSkillsInGroup(@Query("q") String group);
     //endregion
 
     //region JOBS
