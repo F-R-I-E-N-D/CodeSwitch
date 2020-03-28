@@ -6,9 +6,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.codeswitch.model.User;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 public class ModifiedActivity extends Activity {
+
+    public String getTextInputEditText(int editTextId)
+    {
+        TextInputEditText editText = (TextInputEditText) findViewById(editTextId);
+        return editText.getText().toString();
+
+    }
 
     public String getEditText(int editTextId)
     {
