@@ -131,6 +131,8 @@
 //
 //}
 
+package com.example.codeswitch;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -138,6 +140,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.codeswitch.DetailsActivity;
+import com.example.codeswitch.ModifiedActivity;
+import com.example.codeswitch.R;
 import com.example.codeswitch.model.Skill;
 
 import java.util.ArrayList;

@@ -62,7 +62,7 @@ public class ApiTest {
     public static void testGetJobs()
     {
         // Invalid password
-        ApiManager.callApi(dao.getJobBySearch("Commonwealth Bank"), new CustomCallback<List<Job>>() {
+        ApiManager.callApi(dao.getJobBySearch("Software Engineer"), new CustomCallback<List<Job>>() {
             @Override
             public void onResponse(List<Job> response) {
                 if (response != null) {

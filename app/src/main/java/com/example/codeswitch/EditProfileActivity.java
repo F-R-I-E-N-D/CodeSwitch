@@ -72,7 +72,7 @@ public class EditProfileActivity extends ModifiedActivity {
         usernameTextView = findViewById(R.id.Username);
         usernameTextView.setText(currentUser.getEmail());
         List<String> skills = currentUser.getSkills();
-        List<String> interests = currentUser.getInterests();
+//        List<String> interests = currentUser.getInterests();
 
         int i=0;
         androidx.gridlayout.widget.GridLayout sgl = findViewById(R.id.userSkillsGridLayout);
@@ -98,20 +98,20 @@ public class EditProfileActivity extends ModifiedActivity {
         androidx.gridlayout.widget.GridLayout igl = findViewById(R.id.userInterestsGridLayout);
         igl.setColumnCount(3);
 
-        for (String in: interests) {
-            TextView tv = new TextView(this);
-            tv.setId(i+1000);
-
-//            btn.setTag(requiredSkill.getName());
-//            btn.setText(requiredSkill.getName());
-            tv.setText(in);
-//            btn.setLayoutParams();
-
-            igl.addView(tv);
-//            btn.setOnClickListener(new View.OnClickListener() {
-//            });
-//            i++;
-        }
+//        for (String in: interests) {
+//            TextView tv = new TextView(this);
+//            tv.setId(i+1000);
+//
+////            btn.setTag(requiredSkill.getName());
+////            btn.setText(requiredSkill.getName());
+//            tv.setText(in);
+////            btn.setLayoutParams();
+//
+//            igl.addView(tv);
+////            btn.setOnClickListener(new View.OnClickListener() {
+////            });
+////            i++;
+//        }
 
     }
 
