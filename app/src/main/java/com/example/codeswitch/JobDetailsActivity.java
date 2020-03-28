@@ -68,7 +68,9 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
                     acquiredSkills = user.getSkills();
                     //get the unacquired skills
 
+                    requiredSkills = new ArrayList<>();
                     unacquiredSkills = new ArrayList<>();
+                    acquiredSkills = new ArrayList<>();
 
 
                     for(String requiredSkill : requiredSkills){
