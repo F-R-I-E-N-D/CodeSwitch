@@ -27,13 +27,15 @@
         <TextView
             android:id="@+id/courseName"
             android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="36dp"
             android:text="NOW LOADING "
             android:textAllCaps="true"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/CourseImage"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,14 +55,14 @@
             android:id="@+id/courseURLButton"
             android:layout_width="300dp"
             android:layout_height="42dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             android:onClick="onClickURL"
             android:text="GO TO THE COURSE"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CourseImage" />
+            app:layout_constraintTop_toBottomOf="@+id/datePosted" />
 
         <ImageView
             android:id="@+id/CourseImage"
