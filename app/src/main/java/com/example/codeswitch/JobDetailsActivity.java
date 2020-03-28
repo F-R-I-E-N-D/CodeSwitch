@@ -16,6 +16,7 @@ import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobDetailsActivity extends ModifiedActivity {// implements DetailsActivity {
@@ -24,7 +25,6 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     String jobTitle, jobDescription, companyName, jobURL, date_posted;
     List<String> requiredSkills, unacquiredSkills, acquiredSkills;
     Boolean acquired;
-    Intent intent = getIntent();
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
     User user;
@@ -34,6 +34,7 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
 
         // call the super class onCreate to complete the creation of activity like
         // the view hierarchy
+        Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
         dao = ApiManager.getInstance().create(Dao.class);
@@ -67,8 +68,11 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
                     acquiredSkills = user.getSkills();
                     //get the unacquired skills
 
+                    unacquiredSkills = new ArrayList<>();
+
 
                     for(String requiredSkill : requiredSkills){
+                        acquired = false;
                         for(String acquiredSkill: acquiredSkills){
                             if(acquiredSkill.contentEquals(requiredSkill)){
                                 acquired = true;
@@ -91,56 +95,54 @@ public class JobDetailsActivity extends ModifiedActivity {// implements DetailsA
     }
 
     public void display() {
-        jobTitleTextView = findViewById(R.id.jobTitle);
+        jobTitleTextView = findViewById(R.id.jobTitleText);
         jobTitleTextView.setText(jobTitle);
-        companyNameTextView = findViewById(R.id.companyName);
+        companyNameTextView = findViewById(R.id.companyNameText);
         companyNameTextView.setText(companyName);
         jobDescriptionTextView = findViewById(R.id.jobDescriptionText);
         jobDescriptionTextView.setText(jobDescription);
-        dateTextView = findViewById(R.id.datePosted);
+        dateTextView = findViewById(R.id.datePostedText);
         dateTextView.setText(date_posted);
         // dynamically generate requiredSkills
         // i is counter for ID generation
         int i = 0;
-        androidx.gridlayout.widget.GridLayout requiredSkillsGridLayout = findViewById(R.id.requiredSkillsGridLayout);
+        androidx.gridlayout.widget.GridLayout requiredSkillsGridLayout = findViewById(R.id.acquiredSkillsGridLayout);
         // set the number of columns used by the grid layout
-        requiredSkillsGridLayout.setColumnCount(3);
-
-
+        requiredSkillsGridLayout.setColumnCount(2);
         //generate buttons based on the number of skills
-        for (final String requiredSkill : requiredSkills) {
+        for (final String acquiredSkill : acquiredSkills) {
             Button btn = new Button(this);
             btn.setId(i);
-            btn.setTag(requiredSkill);
-            btn.setText(requiredSkill);
+            btn.setTag(acquiredSkill);
+            btn.setText(acquiredSkill);
             requiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
-                    requiredSkillIntent.putExtra("Skill",requiredSkill);
+                    requiredSkillIntent.putExtra("Skill",acquiredSkill);
                     startActivity(requiredSkillIntent);
                 }
             });
             i++;
         }
         //generate unacquired skills
-        androidx.gridlayout.widget.GridLayout unacquiredSkillsGridLayout = findViewById(R.id.requiredSkillsGridLayout);
+        androidx.gridlayout.widget.GridLayout unacquiredSkillsGridLayout = findViewById(R.id.unacquiredSkillsGridLayout);
         // set the number of columns used by the grid layout
-        unacquiredSkillsGridLayout.setColumnCount(3);
+        unacquiredSkillsGridLayout.setColumnCount(2);
         //generate buttons based on the number of skills
-        for (final String requiredSkill : requiredSkills) {
+        for (final String unacquiredSkill : unacquiredSkills) {
             Button btn = new Button(this);
             btn.setId(i);
-            btn.setTag(requiredSkill);
-            btn.setText(requiredSkill);
+            btn.setTag(unacquiredSkill);
+            btn.setText(unacquiredSkill);
 
             unacquiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
-                    requiredSkillIntent.putExtra("Skill",requiredSkill);
+                    requiredSkillIntent.putExtra("Skill",unacquiredSkill);
                     startActivity(requiredSkillIntent);
                 }
             });
