@@ -32,13 +32,15 @@ public class EditProfileActivity extends ModifiedActivity {
 
     private String gameState;
     private TextView usernameTextView;
-    private List<TextView> skillTextView = new ArrayList<>();
+    private List<String> userUpdatedSkills;
+//    private List<TextView> skillTextView = new ArrayList<>();
     private ConstraintLayout layout;
     private User currentUser;
     private final String TAG = "EditProfile";
     private Dao dao;
 
-//    private Intent thisIntent;
+
+    //    private Intent thisIntent;
     Button addskill;
     //TextView textview;
     ///dummy data for categories
@@ -57,25 +59,30 @@ public class EditProfileActivity extends ModifiedActivity {
         setContentView(R.layout.activity_edit_profile);
         dao = ApiManager.getInstance().create(Dao.class);
         addskill = (Button)findViewById(R.id.AddSkill);
+        getDetails();
+//        List<String> userUpdatedSkills = new ArrayList<>();
+        userUpdatedSkills = currentUser.getSkills();
 
 
 
         addskill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final List<String> userTempSkills = new ArrayList<>();
 
-                AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(EditProfileActivity.this);
+                final AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(EditProfileActivity.this);
 
 
                 alertdialogbuilder.setTitle("Select A Field ");
+
 
                 alertdialogbuilder.setItems(SkillGroups, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, final int which) {
                         final String selectedField = Arrays.asList(SkillGroups).get(which);
                         //pass selectedField to retrieve list of associated skills
-                        System.out.println("Chosen:" + selectedField);
                         final List<String> skillsArray = new ArrayList<>();
+
 
                         //=============================================================
                         ApiManager.callApi(dao.getSkillList(), new CustomCallback<List<Skill>>() {
@@ -83,21 +90,60 @@ public class EditProfileActivity extends ModifiedActivity {
                             public void onResponse(List<Skill> response) {
                                 if (response != null) {
 //                                    int i = 0;
-                                    System.out.println("henlo");
 
-                                    for (Skill skill: response)
-                                    {
-                                        if(skill.getGroup() == selectedField){
-//                                            String[] skillsArray = new String[finalsize];
-//                                            skillsArray[i] = skill.getName();
-//                                            i++;
-                                            System.out.println("skillgrp: " + skill.getGroup());
-                                            skillsArray.add(skill.getName());
+                                    ApiManager.callApi(dao.getSkillsInGroup(selectedField), new CustomCallback<List<Skill>>() {
+                                        @Override
+                                        public void onResponse(List<Skill> response) {
+                                            List<String> skillNames = new ArrayList<>();
+                                            for (Skill skill: response) {
+                                                skillsArray.add(skill.getName());
+                                            }
                                             String[] finalSkillsArray = new String[skillsArray.size()];
                                             finalSkillsArray = skillsArray.toArray(finalSkillsArray);
-                                            filteredSkills(finalSkillsArray);
 
-                                        }                                    }
+//                                            filteredSkills(finalSkillsArray); //returns String Array of selected
+
+                                                final AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+
+                                                final boolean[] checkedItems = new boolean[finalSkillsArray.length];
+                                                Arrays.fill(checkedItems, Boolean.FALSE);
+                                                builder.setMultiChoiceItems(finalSkillsArray, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                                                    }
+                                                });
+                                                builder.setCancelable(false);
+                                                builder.setTitle("Select Skill To Add");
+                                            final String[] finalSkillsArray1 = finalSkillsArray;
+                                            builder.setNeutralButton("Back", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        int a = 0;
+                                                        while(a < checkedItems.length)
+                                                        {
+                                                            boolean value = checkedItems[a];
+
+                                                            if(value){
+                                                                userTempSkills.add(finalSkillsArray1[a]);
+                                                                //store selected skills!! wew!!
+                                                            }
+
+                                                            a++;
+                                                        }
+                                                    alertdialogbuilder.show();
+                                                    }
+                                                });
+                                                AlertDialog dialog = builder.create();
+
+                                                dialog.show();
+
+                                            }
+
+
+                                    });
+
+//
 
                                 }
                                 else {
@@ -110,6 +156,26 @@ public class EditProfileActivity extends ModifiedActivity {
 
                     }
                 });
+                alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //store selected values!! wew!!
+//                        userUpdatedSkills.addAll(userTempSkills);
+                        List<String> tempCopy = new ArrayList<>(userTempSkills);
+                        tempCopy.removeAll(userUpdatedSkills);
+                        userUpdatedSkills.addAll(tempCopy);
+                        display();
+
+                    }
+                });
+
+                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        display();
+                    }
+                });
+
 
                 AlertDialog dialog = alertdialogbuilder.create();
 
@@ -122,8 +188,8 @@ public class EditProfileActivity extends ModifiedActivity {
         removeskill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] userSkillsArray = new String[currentUser.getSkills().size()];
-                userSkillsArray = currentUser.getSkills().toArray(userSkillsArray);
+                String[] userSkillsArray = new String[userUpdatedSkills.size()];
+                userSkillsArray = userUpdatedSkills.toArray(userSkillsArray);
 
 
                 AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(EditProfileActivity.this);
@@ -175,19 +241,18 @@ public class EditProfileActivity extends ModifiedActivity {
             }
         });
         layout = (ConstraintLayout)findViewById(R.id.relLayoutMiddle);
-        getDetails();
         display();
 
     }
     public void getDetails(){
         currentUser = getUserFromPrefs();
+
     }
 
     public void display(){
         usernameTextView = findViewById(R.id.Username);
         usernameTextView.setText(currentUser.getEmail());
-        List<String> skills = currentUser.getSkills();
-//        List<String> interests = currentUser.getInterests();
+        List<String> skills = userUpdatedSkills;
 
         int i=0;
         androidx.gridlayout.widget.GridLayout sgl = findViewById(R.id.userSkillsGridLayout);
@@ -195,46 +260,18 @@ public class EditProfileActivity extends ModifiedActivity {
         for (String s: skills) {
             TextView tv = new TextView(this);
             tv.setId(i+1000);
-//            btn.setTag(requiredSkill.getName());
-//            btn.setText(requiredSkill.getName());
             tv.setText(s);
             tv.setTextSize(20); //set 20sp size of text
             tv.setBackgroundColor(0xFFFDFD96);//set background color
             tv.setPadding(10, 10, 10, 10);
 
 
-//            btn.setLayoutParams();
 
             sgl.addView(tv);
-//            btn.setOnClickListener(new View.OnClickListener() {
-//            });
-//            i++;
+
         }
 
     }
-    public void filteredSkills(String[] finalSkillsArray){
 
-
-                AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(EditProfileActivity.this);
-
-
-                alertdialogbuilder.setTitle("Select Skill To Add");
-
-                alertdialogbuilder.setItems(finalSkillsArray, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String selectedSkill = currentUser.getSkills().get(which);
-                        //remove selectedSkill from user's set of skills
-                        //confirmation?
-
-
-                    }
-                });
-
-        System.out.println(finalSkillsArray.length);
-        AlertDialog dialog = alertdialogbuilder.create();
-
-        dialog.show();
-    }
 
 }
