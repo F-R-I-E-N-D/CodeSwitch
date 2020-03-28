@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.codeswitch.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -145,7 +143,7 @@ public class EditProfileActivity extends ModifiedActivity {
         usernameTextView = findViewById(R.id.Username);
         usernameTextView.setText(currentUser.getEmail());
         List<String> skills = currentUser.getSkills();
-        List<String> interests = currentUser.getInterests();
+//        List<String> interests = currentUser.getInterests();
 
         int i=0;
         androidx.gridlayout.widget.GridLayout sgl = findViewById(R.id.userSkillsGridLayout);
@@ -168,7 +166,6 @@ public class EditProfileActivity extends ModifiedActivity {
 //            });
 //            i++;
         }
-
 
     }
 

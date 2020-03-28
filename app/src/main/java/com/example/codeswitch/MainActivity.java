@@ -2,22 +2,16 @@ package com.example.codeswitch;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.AuthResponse;
-import com.example.codeswitch.model.BaseResponse;
-import com.example.codeswitch.model.Course;
-import com.example.codeswitch.model.Job;
-import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.ApiTest;
 import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
-import com.google.gson.Gson;
 
 public class MainActivity extends ModifiedActivity {
     private String email;
@@ -33,6 +27,9 @@ public class MainActivity extends ModifiedActivity {
 
         // This code must be here if you want to use the API.
         dao = ApiManager.getInstance().create(Dao.class);
+
+        Log.d("Debug", "Hello!");
+        ApiTest.testGetJobs();
     }
 
     public void onLoginClick(View view) {

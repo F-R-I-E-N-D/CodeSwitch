@@ -131,6 +131,8 @@ package com.example.codeswitch;
 //
 //}
 
+package com.example.codeswitch;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -138,8 +140,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.codeswitch.model.Course;
-import com.example.codeswitch.model.Interest;
+import com.example.codeswitch.DetailsActivity;
+import com.example.codeswitch.ModifiedActivity;
+import com.example.codeswitch.R;
 import com.example.codeswitch.model.Skill;
 
 import java.util.ArrayList;
@@ -149,9 +152,9 @@ public class JobDetailsActivity extends ModifiedActivity implements DetailsActiv
 
     String gameState, jobTitle, jobDescription, companyName, jobURL, picture_url;
     Date date_posted;
-    ArrayList<Interest> fields;
+//    ArrayList<Interest> fields;
     ArrayList<Skill> requiredSkills;
-    ArrayList<Course> recommendedCourses;
+//    ArrayList<Course> recommendedCourses;
     Intent intent = getIntent();
     TextView jobTitleTextView, jobDescriptionTextView, companyNameTextView, jobURLTextView, picture_urlTextView, dateTextView;
     Button backButton;
