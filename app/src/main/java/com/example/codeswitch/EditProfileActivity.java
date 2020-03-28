@@ -4,18 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.codeswitch.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EditProfileActivity extends ModifiedActivity {
@@ -26,12 +30,79 @@ public class EditProfileActivity extends ModifiedActivity {
     private ConstraintLayout layout;
     private User currentUser;
     private final String TAG = "EditProfile";
+
 //    private Intent thisIntent;
+    Button addskill;
+    //TextView textview;
+    ///dummy data for categories
+    String[] value = new String[]{
+            "Android",
+            "Php",
+            "Blogger",
+            "WordPress"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        addskill = (Button)findViewById(R.id.AddSkill);
+
+
+        addskill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(EditProfileActivity.this);
+
+
+                alertdialogbuilder.setTitle("Select A Field ");
+
+                alertdialogbuilder.setItems(value, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String selectedField = Arrays.asList(value).get(which);
+                        //pass selectedField to retrieve list of associated skills
+
+
+                    }
+                });
+
+                AlertDialog dialog = alertdialogbuilder.create();
+
+                dialog.show();
+            }
+        });
+
+        Button removeskill;
+        removeskill = (Button)findViewById(R.id.RemoveSkill);
+        removeskill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] userSkillsArray = new String[currentUser.getSkills().size()];
+                userSkillsArray = currentUser.getSkills().toArray(userSkillsArray);
+
+                AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(EditProfileActivity.this);
+
+
+                alertdialogbuilder.setTitle("Select Skill To Remove");
+
+                alertdialogbuilder.setItems(userSkillsArray, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String selectedSkill = currentUser.getSkills().get(which);
+                        //remove selectedSkill from user's set of skills
+                        //confirmation?
+
+
+                    }
+                });
+
+                AlertDialog dialog = alertdialogbuilder.create();
+
+                dialog.show();
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -95,23 +166,6 @@ public class EditProfileActivity extends ModifiedActivity {
 //            });
 //            i++;
         }
-        androidx.gridlayout.widget.GridLayout igl = findViewById(R.id.userInterestsGridLayout);
-        igl.setColumnCount(3);
-
-//        for (String in: interests) {
-//            TextView tv = new TextView(this);
-//            tv.setId(i+1000);
-//
-////            btn.setTag(requiredSkill.getName());
-////            btn.setText(requiredSkill.getName());
-//            tv.setText(in);
-////            btn.setLayoutParams();
-//
-//            igl.addView(tv);
-////            btn.setOnClickListener(new View.OnClickListener() {
-////            });
-////            i++;
-//        }
 
     }
 

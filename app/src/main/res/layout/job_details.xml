@@ -19,6 +19,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="28dp"
+            android:onClick="onClickURL"
             android:text="Apply"
             app:layout_constraintEnd_toStartOf="@+id/saveJob"
             app:layout_constraintHorizontal_bias="0.0"
@@ -29,12 +30,12 @@
             android:id="@+id/jobDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="44dp"
             android:text="Job Description:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jobSkillsGridLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/unacquiredSkillsGridLayout" />
 
         <Button
             android:id="@+id/saveJob"
@@ -43,6 +44,7 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:onClick="onClickSaveJob"
             android:text="SAVE JOB"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/jobLink"
@@ -108,8 +110,8 @@
             android:id="@+id/requiredSkill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
             android:layout_marginTop="32dp"
             android:text="Required Skills:"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,13 +129,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.gridlayout.widget.GridLayout
-            android:id="@+id/jobSkillsGridLayout"
+            android:id="@+id/requiredSkillsGridLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/requiredSkill"/>
+
+        <TextView
+            android:id="@+id/unacquiredSkill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="24dp"
+            android:text="Unacquired Skills"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/requiredSkillsGridLayout" />
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/unacquiredSkillsGridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unacquiredSkill">
+
+        </androidx.gridlayout.widget.GridLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
