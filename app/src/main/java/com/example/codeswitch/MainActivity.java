@@ -17,7 +17,7 @@ public class MainActivity extends ModifiedActivity {
     private String email;
     private String password;
     private Dao dao;
-    
+
     Context thisContext = this;
 
     @Override
@@ -67,7 +67,9 @@ public class MainActivity extends ModifiedActivity {
                     //go to job search - tim, yh details
                     try {
                         saveUserToPrefs(response.getUser());
-//                        Intent k = new Intent(MainActivity.this, JobDetailsActivity.class);
+                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
+                        startActivity(k);
+//                        Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
 //                        startActivity(k);
                         Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
                         startActivity(k);
