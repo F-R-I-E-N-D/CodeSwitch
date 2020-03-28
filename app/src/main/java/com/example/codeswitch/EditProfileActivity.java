@@ -1,6 +1,7 @@
 package com.example.codeswitch;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -9,13 +10,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.codeswitch.model.BaseObject;
 import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.Skill;
 import com.example.codeswitch.model.User;
@@ -40,10 +46,8 @@ public class EditProfileActivity extends ModifiedActivity {
     private Dao dao;
 
 
-    //    private Intent thisIntent;
     Button addskill;
-    //TextView textview;
-    ///dummy data for categories
+    ///categories
     String[] SkillGroups = new String[]{
             "Artificial Intelligence",
             "Database",
@@ -53,15 +57,20 @@ public class EditProfileActivity extends ModifiedActivity {
             "Web Development"
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         dao = ApiManager.getInstance().create(Dao.class);
         addskill = (Button)findViewById(R.id.AddSkill);
+
         getDetails();
 //        List<String> userUpdatedSkills = new ArrayList<>();
-        userUpdatedSkills = currentUser.getSkills();
+        List<String> savedSkills = currentUser.getSkills();
+        userUpdatedSkills = new ArrayList<String>(savedSkills);
+
+
 
 
 
@@ -89,24 +98,30 @@ public class EditProfileActivity extends ModifiedActivity {
                             @Override
                             public void onResponse(List<Skill> response) {
                                 if (response != null) {
-//                                    int i = 0;
 
                                     ApiManager.callApi(dao.getSkillsInGroup(selectedField), new CustomCallback<List<Skill>>() {
                                         @Override
                                         public void onResponse(List<Skill> response) {
                                             List<String> skillNames = new ArrayList<>();
                                             for (Skill skill: response) {
+                                                if(!(userUpdatedSkills.contains(skill.getName())))
                                                 skillsArray.add(skill.getName());
                                             }
                                             String[] finalSkillsArray = new String[skillsArray.size()];
                                             finalSkillsArray = skillsArray.toArray(finalSkillsArray);
 
-//                                            filteredSkills(finalSkillsArray); //returns String Array of selected
 
                                                 final AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
 
                                                 final boolean[] checkedItems = new boolean[finalSkillsArray.length];
-                                                Arrays.fill(checkedItems, Boolean.FALSE);
+//                                                Arrays.fill(checkedItems, Boolean.FALSE);
+                                                for(int i=0; i<finalSkillsArray.length; i++){
+                                                    if(userTempSkills.contains(finalSkillsArray[i])){
+                                                        checkedItems[i] = true;
+                                                    }
+                                                    else checkedItems[i] = false;
+
+                                                }
                                                 builder.setMultiChoiceItems(finalSkillsArray, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -124,9 +139,13 @@ public class EditProfileActivity extends ModifiedActivity {
                                                         {
                                                             boolean value = checkedItems[a];
 
-                                                            if(value){
+                                                            if(!value){
+                                                                userTempSkills.remove(finalSkillsArray1[a]);
+                                                            }
+                                                            else if(userTempSkills.contains(finalSkillsArray1[a])){
+                                                            }
+                                                            else if(value){
                                                                 userTempSkills.add(finalSkillsArray1[a]);
-                                                                //store selected skills!! wew!!
                                                             }
 
                                                             a++;
@@ -164,6 +183,9 @@ public class EditProfileActivity extends ModifiedActivity {
                         List<String> tempCopy = new ArrayList<>(userTempSkills);
                         tempCopy.removeAll(userUpdatedSkills);
                         userUpdatedSkills.addAll(tempCopy);
+                        ViewGroup myViewGroup = (ViewGroup) findViewById (R.id.userSkillsGridLayout);
+                        myViewGroup.removeAllViews();
+                        myViewGroup.refreshDrawableState();
                         display();
 
                     }
@@ -172,7 +194,6 @@ public class EditProfileActivity extends ModifiedActivity {
                 alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        display();
                     }
                 });
 
@@ -200,7 +221,13 @@ public class EditProfileActivity extends ModifiedActivity {
                 alertdialogbuilder.setItems(userSkillsArray, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String selectedSkill = currentUser.getSkills().get(which);
+                        String selectedSkill = userUpdatedSkills.get(which);
+                        userUpdatedSkills.remove(selectedSkill);
+                        ViewGroup myViewGroup = (ViewGroup) findViewById (R.id.userSkillsGridLayout);
+                        myViewGroup.removeAllViews();
+                        myViewGroup.refreshDrawableState();
+                        display();
+
                         //remove selectedSkill from user's set of skills
                         //confirmation?
 
@@ -214,6 +241,42 @@ public class EditProfileActivity extends ModifiedActivity {
             }
         });
 
+        Button reset;
+        reset = (Button)findViewById(R.id.Reset);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userUpdatedSkills.clear();
+                List<String> savedSkills = currentUser.getSkills();
+                userUpdatedSkills = new ArrayList<String>(savedSkills);
+                ViewGroup myViewGroup = (ViewGroup) findViewById (R.id.userSkillsGridLayout);
+                myViewGroup.removeAllViews();
+                myViewGroup.refreshDrawableState();
+                display();
+            }
+        });
+        Button apply;
+        reset = (Button)findViewById(R.id.Apply);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ApiManager.callApi(dao.updateUserSkills(currentUser.getId(), userUpdatedSkills), new CustomCallback<BaseObject>() {
+                    @Override
+                    public void onResponse(BaseObject response) {
+                        if (response != null) {
+                            Log.d("Debug", response.toString());
+                            Toast.makeText(getApplicationContext(),"Applied",Toast.LENGTH_SHORT).show();
+
+                        }
+                        else {
+                            Log.d("Debug", "Response was null");
+                        }
+                    }
+                });
+
+            }
+        });
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         MenuItem menuItem = bottomNavigationView.getMenu().getItem(3);
         menuItem.setChecked(true);
@@ -252,6 +315,7 @@ public class EditProfileActivity extends ModifiedActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void display(){
         usernameTextView = findViewById(R.id.Username);
         usernameTextView.setText(currentUser.getEmail());
@@ -264,12 +328,14 @@ public class EditProfileActivity extends ModifiedActivity {
             TextView tv = new TextView(this);
             tv.setId(i+1000);
             tv.setText(s);
+//            GradientDrawable shape =  new GradientDrawable();
+//            shape.setCornerRadius( 8 );
+//            tv.setBackground(shape);
             tv.setTextSize(20); //set 20sp size of text
             tv.setBackgroundColor(0xFFFDFD96);//set background color
-            tv.setPadding(10, 10, 10, 10);
+            tv.setPadding(30, 10, 30, 10);
 
-
-
+            
             sgl.addView(tv);
 
         }
