@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/courseProvider"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -75,7 +75,7 @@
 
         <TextView
             android:id="@+id/datePosted"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
