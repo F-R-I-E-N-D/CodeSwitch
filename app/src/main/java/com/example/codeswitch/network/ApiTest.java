@@ -5,9 +5,14 @@ import android.util.Log;
 import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.BaseObject;
 import com.example.codeswitch.model.Job;
+import com.example.codeswitch.model.SavedJob;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.Path;
 
 /**
  * Just for me to test that the API integration works
@@ -15,6 +20,21 @@ import java.util.List;
  */
 public class ApiTest {
     private static Dao dao = ApiManager.getInstance().create(Dao.class);
+
+    public static void testApplyJob() {
+
+        ApiManager.callApi(dao.applyJob(6, true), new CustomCallback<SavedJob>() {
+            @Override
+            public void onResponse(SavedJob response) {
+                if (response != null) {
+                    Log.d("Debug", response.toString());
+                }
+                else {
+                    Log.d("Debug", "Response was null");
+                }
+            }
+        });
+    }
 
     /**
      * Testing updateUserSkills(userId, newSkillsList)
