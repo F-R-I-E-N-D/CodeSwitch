@@ -208,11 +208,13 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
             ApiManager.callApi(dao.applyJob(savedJobItems.get(position).getSavedJobID(), false), new CustomCallback<SavedJob>()  {
                 @Override
                 public void onResponse(SavedJob response) {
-                    Toast.makeText(getApplicationContext(), "Job Removed!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(), "Job Unapplied!", Toast.LENGTH_SHORT).show();
                 }
             });
             savedJobItems.get(position).setAppliedStatus(false);
             savedJobsRecyclerAdapter.notifyDataSetChanged();
+            System.out.println("SavedJobID:" +savedJobItems.get(position).getSavedJobID());
         }
         else{
             ApiManager.callApi(dao.applyJob(savedJobItems.get(position).getSavedJobID(), true), new CustomCallback<SavedJob>()  {
