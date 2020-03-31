@@ -17,12 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/relLayoutTopBar"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:hint="Start Searching for Jobs!">
 
             <SearchView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/course_search_view"/>
+                android:id="@+id/course_search_view"
+                android:theme="@style/SearchViewTheme"/>
 
         </RelativeLayout>
 
@@ -39,6 +41,15 @@
                 android:layout_height="match_parent"
                 android:padding="4dp"
                 android:background="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/course_search_blank_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Search for a Course!"
+                android:gravity="center" />
         </RelativeLayout>
 
         <RelativeLayout

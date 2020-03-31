@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.Skill;
@@ -302,6 +303,8 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                 jobList.addAll(response);
                 filteredJobList.addAll(response);
                 if (response != null) {
+                    TextView blankText = findViewById(R.id.job_search_blank_text);
+                    blankText.setText("");
                     int i = 0;
                     for (Job job: response)
                     {
@@ -341,6 +344,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         jobSkillsSet.removeAll(userSkills);
         if (jobSkillsSet.size()==0)
         {
+
             Log.d("DEBUG", "qualified");
             return true;
         }

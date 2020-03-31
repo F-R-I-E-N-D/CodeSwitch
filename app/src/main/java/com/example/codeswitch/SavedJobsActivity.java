@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.Job;
@@ -57,12 +58,13 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
         createJobsList();
         buildRecyclerView();
 
-        buttonInsert = findViewById(R.id.button_insert);
+        //removed Insert/Remove functionality
+/*        buttonInsert = findViewById(R.id.button_insert);
         buttonRemove = findViewById(R.id.button_remove);
         editTextInsert = findViewById(R.id.edittext_insert);
-        editTextRemove = findViewById(R.id.edittext_remove);
+        editTextRemove = findViewById(R.id.edittext_remove);*/
 
-        buttonInsert.setOnClickListener(new View.OnClickListener() {
+/*        buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = Integer.parseInt(editTextInsert.getText().toString());
@@ -76,7 +78,7 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                 int position = Integer.parseInt(editTextRemove.getText().toString());
                 removeItem(position);
             }
-        });
+        });*/
 
         //recyclerview
         //recyclerview
@@ -146,6 +148,8 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                         Log.d("AppliedJobs", "AppliedStatus: "+ currentJobItem.getAppliedStatus());
                         Log.d("Debug", savedJob.getJob().toString());
                     }
+                    TextView blankText = findViewById(R.id.saved_jobs_blank_text);
+                    blankText.setText("");
                     savedJobsRecyclerAdapter.notifyDataSetChanged();
                 }
                 else {
@@ -199,9 +203,9 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
         savedJobsRecyclerAdapter.notifyItemRemoved(position);
     }
 
-    @Override
-    public void onJobClick(int position) throws IOException {
+    public void onJobLongClick(int position) throws IOException{
 
+        //
         Log.d("AppliedJobs", "AppliedStatus: "+ savedJobItems.get(position).getAppliedStatus());
 
         if(savedJobItems.get(position).getAppliedStatus()){
@@ -226,20 +230,23 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
             savedJobItems.get(position).setAppliedStatus(true);
             savedJobsRecyclerAdapter.notifyDataSetChanged();
         }
-/*
-        public Boolean getHasApplied() {
-            return hasApplied;
-        }
+        //
+    }
 
-        public void setHasApplied(Boolean hasApplied) {
-            this.hasApplied = hasApplied;
-        }*/
-
-/*        ApiManager.callApi(dao.applyJob(savedJobItems.get(position).getSavedJobID(), true), new CustomCallback<SavedJob>()  {
+    @Override
+    public void onJobClick(final int position) throws IOException {
+        //
+        ApiManager.callApi((dao.getUserSavedJobs(thisUser.getId())), new CustomCallback<List<SavedJob>>() {
             @Override
-            public void onResponse(SavedJob response) {
-                Toast.makeText(getApplicationContext(), "Job Applied!", Toast.LENGTH_SHORT).show();
+            public void onResponse(List<SavedJob> response) {
+                Intent goToJobDetails = new Intent(SavedJobsActivity.this, JobDetailsActivity.class);
+                Job serializableJob = response.get(position).getJob();
+                Log.i("Cal", serializableJob.getId()+"");
+                goToJobDetails.putExtra("serializedJob",serializableJob);
+                Log.d("DEBUG Before", Boolean.toString(serializableJob==null) );
+                startActivity(goToJobDetails);
             }
-        });*/
+        });
+        //
     }
 }

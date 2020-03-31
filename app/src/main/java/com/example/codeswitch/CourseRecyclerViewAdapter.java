@@ -67,7 +67,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
         public RecyclerViewHolder(View itemView, OnCourseListener onCourseListener){
             super(itemView);
             RecyclerImageView = itemView.findViewById(R.id.ImageView);
-            RecyclerTitleText = itemView.findViewById(R.id.TitleText);
+            RecyclerTitleText = itemView.findViewById(R.id.CourseTitleText);
             RecyclerOrganizationText = itemView.findViewById(R.id.CompanyText);
             RecyclerModeOfTrainingText = itemView.findViewById(R.id.DatePostedText);
 

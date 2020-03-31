@@ -18,4 +18,10 @@
 
     <color name="background">#FAFAFA</color>
 
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView.ActionBar">
+        <item name="colorControlNormal">@color/material_light_active_icon</item>
+        <item name="colorControlHighlight">@color/material_ripple_light</item>
+        <item name="android:maxWidth">9999dp</item>
+    </style>
+
 </resources>

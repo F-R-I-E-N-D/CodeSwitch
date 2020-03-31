@@ -57,7 +57,7 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
         }
     };
 
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         public ImageView RecyclerImageView;
         public TextView RecyclerTitleText;
         public TextView RecyclerCompanyText;
@@ -81,7 +81,7 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
 
             this.onJobListener = onJobListener;   //listener is set to the global listener inside each individual viewholder
             itemView.setOnClickListener(this);      //onclicklistener is attached to each individual viewholder
-
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -91,6 +91,16 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            try {
+                onJobListener.onJobLongClick(getAdapterPosition());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
         }
     }
 
@@ -132,5 +142,6 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
 
     public interface OnJobListener {
         void onJobClick(int position) throws IOException;
+        void onJobLongClick(int position) throws IOException;
     }
 }
