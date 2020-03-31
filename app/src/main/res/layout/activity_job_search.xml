@@ -46,9 +46,7 @@
             android:layout_above="@+id/relLayoutBotBar">
 
 
-
-
-        <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_jobSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -63,6 +61,24 @@
                 android:layout_centerVertical="true"
                 android:text="Search for a Job!"
                 android:gravity="center" />
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/loadingPanel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:gravity="center">-->
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="@android:style/Widget.ProgressBar.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="true"
+                    android:visibility="gone" />
+<!--            </RelativeLayout>-->
 
         </RelativeLayout>
 

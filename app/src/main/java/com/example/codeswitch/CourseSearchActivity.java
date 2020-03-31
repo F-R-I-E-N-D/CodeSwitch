@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     Context thisContext = this;
     JSONArray searchResults = null;
     Intent thisIntent;
+    String TAG = "CourseSearchActivity";
 
     //set up CourseItem objects
     private ArrayList<CourseItem> courseItems = new ArrayList<>();
@@ -58,8 +60,11 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+                Log.d(TAG, "here");
                 getCourseItemsFromAPI(query);
+                Log.d(TAG, "here2");
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 return false;
             }
 

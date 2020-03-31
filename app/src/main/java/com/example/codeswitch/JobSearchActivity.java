@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -61,12 +62,17 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
     boolean[] checkedItems;   //selectedSkillsBoolean
     ArrayList<Integer> mUserItems = new ArrayList<>();  //userSelectedSkills
 
+    ProgressBar spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_search);
 
         thisUser = getUserFromPrefs();
+
+        spinner = findViewById(R.id.progressBar1);
+
 
         //Side Menu Button
         mOrder = findViewById(R.id.job_search_side_menu);
@@ -202,8 +208,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                getJobs(query);
+                spinner.setVisibility(View.VISIBLE);
                 jobRecyclerAdapter.notifyDataSetChanged();
                 return false;
             }
@@ -297,6 +302,9 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         jobItems.clear();
         jobList.clear();
         //actual
+
+        Log.d("DEBUGPLS", "huh");
+
         ApiManager.callApi(dao.getJobBySearch(query), new CustomCallback<List<Job>>() {
             @Override
             public void onResponse(List<Job> response) {
@@ -305,6 +313,8 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                 if (response != null) {
                     TextView blankText = findViewById(R.id.job_search_blank_text);
                     blankText.setText("");
+                    spinner.setVisibility(View.GONE);
+                    Log.d("DEBUGPLS", "work");
                     int i = 0;
                     for (Job job: response)
                     {
@@ -326,12 +336,15 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
                     applyCheckboxMenuFilter();
                     jobRecyclerAdapter.notifyDataSetChanged();
+
                 }
                 else {
                     Log.d("Debug", "Response was null");
+
                 }
             }
         });
+
     }
 
     private boolean checkIfQualified(List<String> jobSkills)
