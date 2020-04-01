@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -90,6 +91,8 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         menuItem.setChecked(true);
         displayBottomNavigationView(bottomNavigationView);
 
+        String hardcoded = "machine learning";
+        getCourseItemsFromAPI(hardcoded);
     }
 
     public void displayBottomNavigationView(BottomNavigationView bottomNavigationView){
@@ -124,7 +127,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     //get api courses
     public void getCourseItemsFromAPI(String keyword)
     {
-        final long before = currentTimeMillis();
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
         Uri.Builder builder = new Uri.Builder();
@@ -166,11 +168,10 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getString("modeOfTrainings")));
                             }
-                            long after = currentTimeMillis();
+                            TextView blankText = findViewById(R.id.course_search_blank_text);
+                            blankText.setText("");
                             courseRecyclerAdapter.notifyDataSetChanged();
 
-
-                            Log.d("DEBUG", "Time taken: " + (after-before));
 
                             System.out.println(courseItems.toString());
                         } catch (JSONException e) {

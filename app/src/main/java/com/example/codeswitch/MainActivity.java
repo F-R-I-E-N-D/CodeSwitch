@@ -33,16 +33,8 @@ public class MainActivity extends ModifiedActivity {
     }
 
     public void onLoginClick(View view) {
-        email = getEditText(R.id.email_login_input);
-        password = getEditText(R.id.password_login_input);
-
-        //hotwire - yh
-//        try {
-//            Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
-//            startActivity(k);
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
+        email = "cal@example.com";//getEditText(R.id.email_login_input);
+        password = "Cal12345"; //getEditText(R.id.password_login_input);
 
 
         authenticateLogin(email, password);
@@ -51,6 +43,7 @@ public class MainActivity extends ModifiedActivity {
     public void onRegisterNewClick(View view) {
         Intent k = new Intent(this, CreateAccountActivity.class);
         startActivity(k);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     /**
@@ -70,6 +63,7 @@ public class MainActivity extends ModifiedActivity {
                         saveUserToPrefs(response.getUser());
                         Intent k = new Intent(MainActivity.this, JobSearchActivity.class);
                         startActivity(k);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     } catch(Exception e) {
                         e.printStackTrace();
                     }

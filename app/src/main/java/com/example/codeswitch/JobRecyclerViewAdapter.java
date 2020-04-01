@@ -1,5 +1,7 @@
 package com.example.codeswitch;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -63,6 +66,7 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
         public TextView RecyclerCompanyText;
         public TextView RecyclerDatePostedText;
         public TextView RecyclerQualifiedText;
+        public View RecyclerCard;
 
         OnJobListener onJobListener;
 
@@ -73,6 +77,7 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
             RecyclerCompanyText = itemView.findViewById(R.id.CompanyText);
             RecyclerDatePostedText = itemView.findViewById(R.id.DatePostedText);
             RecyclerQualifiedText = itemView.findViewById(R.id.QualifiedText);
+            RecyclerCard = itemView;
 
             this.onJobListener = onJobListener;   //listener is set to the global listener inside each individual viewholder
             itemView.setOnClickListener(this);      //onclicklistener is attached to each individual viewholder
@@ -113,7 +118,13 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
         holder.RecyclerDatePostedText.setText(currentItem.getJobDatePostedText());
         String qualified = currentItem.isQualified()? "Qualified" : "Not Qualified";
         holder.RecyclerQualifiedText.setText(qualified);
-
+        if (currentItem.isQualified()){
+            holder.RecyclerCard.setBackgroundColor(Color.parseColor("#EEFFEF"));
+        } else{
+            holder.RecyclerCard.setBackgroundColor(Color.parseColor("#FFFFEB"));
+        }
+/*    <color name="pale_green">#EEFFEF</color>
+    <color name="pale_yellow">#FFFFEB</color>*/
     }
 
     @Override

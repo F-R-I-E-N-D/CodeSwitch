@@ -10,11 +10,15 @@ public class JobItem {
     private String jobCompanyText;
     private String jobDatePostedText;
     private boolean qualified;
+    private int savedJobID;
+    private boolean appliedStatus;
 
     public JobItem(int ImageResource, String ReferenceNumberText,
                    List<String> RequiredSkillsList,
                    String TitleText, String CompanyText, String JobDatePostedText,
-                   boolean qualified){
+                   boolean qualified, int savedJobID){
+        this.appliedStatus = false;
+        this.savedJobID = savedJobID;
         jobImageResource = ImageResource;
         jobRequiredSkillsList = RequiredSkillsList;
         jobReferenceNumberText = ReferenceNumberText;
@@ -22,6 +26,7 @@ public class JobItem {
         jobCompanyText = CompanyText;
         jobDatePostedText = JobDatePostedText;
         this.qualified = qualified;
+
     }
 
     public int getJobImageResource(){
@@ -47,4 +52,9 @@ public class JobItem {
     public boolean isQualified() {
         return qualified;
     }
+
+    public int getSavedJobID() {return savedJobID;}
+
+    public Boolean getAppliedStatus() {return appliedStatus;}
+    public void setAppliedStatus(Boolean appliedStatus) {this.appliedStatus = appliedStatus;}
 }
