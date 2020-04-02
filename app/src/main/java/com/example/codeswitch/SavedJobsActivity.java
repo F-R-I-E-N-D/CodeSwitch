@@ -30,7 +30,6 @@ import java.util.Set;
 
 public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecyclerViewAdapter.OnJobListener {
 
-    //recyclerview setup
 
     private ArrayList<JobItem> savedJobItems = new ArrayList<>();
 
@@ -61,10 +60,13 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
         MenuItem menuItem = bottomNavigationView.getMenu().getItem(2);
         menuItem.setChecked(true);
 
+        displayBottomNavigationView(bottomNavigationView);
+    }
+
+    private void displayBottomNavigationView(BottomNavigationView bottomNavigationView) {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
                 switch (menuItem.getItemId()){
                     case R.id.ic_job_search:
                         Intent intent_toJS = new Intent(SavedJobsActivity.this, JobSearchActivity.class);
@@ -86,9 +88,9 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                 return false;
             }
         });
-
     }
-//Call<User> applyJob(@Path("id") int id, @Field("is_applied") Boolean is_applied);
+
+    //Call<User> applyJob(@Path("id") int id, @Field("is_applied") Boolean is_applied);
     private void createJobsList() {
         ApiManager.callApi(dao.getUserSavedJobs(thisUser.getId()), new CustomCallback<List<SavedJob>>() {
 
@@ -124,10 +126,6 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                 }
             }
         });
-    }
-
-    public void createSavedJobsList(){
-
     }
 
     public void buildRecyclerView(){
