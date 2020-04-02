@@ -69,8 +69,8 @@ public class CreateAccountActivity extends ModifiedActivity {
                         Log.d(TAG, "Successful New User");
 
                         saveUserToPrefs(response.getUser());
-                        Intent k = new Intent(CreateAccountActivity.this, EditProfileActivity.class);
-                        startActivity(k);
+                        Intent goToEditProfileActivity = new Intent(CreateAccountActivity.this, EditProfileActivity.class);
+                        startActivity(goToEditProfileActivity);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     } catch(Exception e) {
                         e.printStackTrace();
