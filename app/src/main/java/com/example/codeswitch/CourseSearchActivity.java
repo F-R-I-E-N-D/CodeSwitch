@@ -72,6 +72,8 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         if (thisIntent.hasExtra("Skill"))
         {
             String keyword = thisIntent.getStringExtra("Skill");
+            SearchView searchView1 = (SearchView) findViewById(R.id.course_search_view);
+            searchView1.setQueryHint(keyword);
             fetchDisplayItems(keyword);
         }
 
