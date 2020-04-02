@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -26,8 +25,6 @@ import com.example.codeswitch.network.CustomCallback;
 import com.example.codeswitch.network.Dao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONArray;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,8 +36,6 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
     //set up API call
     private static Dao dao = ApiManager.getInstance().create(Dao.class);
-/*    Context thisContext = this;
-    JSONArray searchResults = null;*/
 
     //set up JobItem objects
     private ArrayList<JobItem> jobItems = new ArrayList<>();
@@ -49,11 +44,11 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
     private List<Job> jobList = new ArrayList();
     private List<Job> filteredJobList = new ArrayList();
     private User thisUser;
+
     //set up RecyclerViews
     private RecyclerView jobRecyclerView;
     private JobRecyclerViewAdapter jobRecyclerAdapter;
     private RecyclerView.LayoutManager jobRecyclerManager;
-
 
     //set up button menu selection
     Button mOrder;  //skillSelectButton
@@ -71,8 +66,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         //Side Menu Button
         mOrder = findViewById(R.id.job_search_side_menu);
 
-
-        //List of Selected Skills
+        //Get List of Selected Skills
         ApiManager.callApi(dao.getSkillList(), new CustomCallback<List<Skill>>() {
                     @Override
                     public void onResponse(List<Skill> response) {
@@ -89,10 +83,80 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                     }
         });
 
-
-
-
         //Implement side menu
+        implementSkillSelectMenu();
+
+        //Set up SearchView
+        SearchView searchView = findViewById(R.id.job_search_view);
+
+        //Implement Search
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                fetchDisplayItems(query);
+                jobRecyclerAdapter.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+        //recyclerview
+        displayItems(filteredJobItems);
+
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        MenuItem menuItem = bottomNavigationView.getMenu().getItem(0);
+        menuItem.setChecked(true);
+
+        displayBottomNavigationView(bottomNavigationView);
+
+    }
+
+    @Override
+    public void displayItems(ArrayList filteredJobItems) {
+        jobRecyclerView = findViewById(R.id.recyclerView_jobSearch);
+        jobRecyclerView.setHasFixedSize(true);
+        jobRecyclerManager = new LinearLayoutManager(this);
+        jobRecyclerAdapter = new JobRecyclerViewAdapter(filteredJobItems, this);   //pass the interface to the adapter
+
+        jobRecyclerView.setLayoutManager(jobRecyclerManager);
+        jobRecyclerView.setAdapter(jobRecyclerAdapter);
+    }
+
+    private void displayBottomNavigationView(BottomNavigationView bottomNavigationView) {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.ic_job_search:
+                        //already here
+                        break;
+                    case R.id.ic_course_search:
+                        Intent intent_toCS = new Intent(JobSearchActivity.this, CourseSearchActivity.class);
+                        startActivity(intent_toCS);
+                        break;
+                    case R.id.ic_saved_jobs:
+                        Intent intent_toSJ = new Intent(JobSearchActivity.this, SavedJobsActivity.class);
+                        startActivity(intent_toSJ);
+                        break;
+                    case R.id.ic_profile:
+                        Intent intent_toEP = new Intent(JobSearchActivity.this, EditProfileActivity.class);
+                        startActivity(intent_toEP);
+                        break;
+                }
+
+                return false;
+            }
+        });
+    }
+
+    private void implementSkillSelectMenu() {
         mOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,67 +257,6 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                 mDialog.show();
             }
         });
-
-
-        //Set up SearchView
-        SearchView searchView = findViewById(R.id.job_search_view);
-
-        //Implement Search
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                getJobs(query);
-                jobRecyclerAdapter.notifyDataSetChanged();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-
-        //recyclerview
-        jobRecyclerView = findViewById(R.id.recyclerView_jobSearch);
-        jobRecyclerView.setHasFixedSize(true);
-        jobRecyclerManager = new LinearLayoutManager(this);
-        jobRecyclerAdapter = new JobRecyclerViewAdapter(filteredJobItems, this);   //pass the interface to the adapter
-
-        jobRecyclerView.setLayoutManager(jobRecyclerManager);
-        jobRecyclerView.setAdapter(jobRecyclerAdapter);
-
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        MenuItem menuItem = bottomNavigationView.getMenu().getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.ic_job_search:
-                        //already here
-                        break;
-                    case R.id.ic_course_search:
-                        Intent intent_toCS = new Intent(JobSearchActivity.this, CourseSearchActivity.class);
-                        startActivity(intent_toCS);
-                        break;
-                    case R.id.ic_saved_jobs:
-                        Intent intent_toSJ = new Intent(JobSearchActivity.this, SavedJobsActivity.class);
-                        startActivity(intent_toSJ);
-                        break;
-                    case R.id.ic_profile:
-                        Intent intent_toEP = new Intent(JobSearchActivity.this, EditProfileActivity.class);
-                        startActivity(intent_toEP);
-                        break;
-                }
-
-                return false;
-            }
-        });
     }
 
     private void applyCheckboxMenuFilter() {
@@ -293,7 +296,8 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         }
     }
 
-    private void getJobs(String query) {
+    @Override
+    public void fetchDisplayItems(String query) {
         jobItems.clear();
         jobList.clear();
         //actual
@@ -373,18 +377,6 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         catch (JSONException e) {
             e.printStackTrace();
         }*/
-    }
-
-
-
-    @Override
-    public void fetchDisplayItems(String keyword) {
-
-    }
-
-    @Override
-    public void displayItems() {
-
     }
 
 

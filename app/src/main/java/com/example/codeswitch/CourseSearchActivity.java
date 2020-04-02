@@ -1,6 +1,5 @@
 package com.example.codeswitch;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,17 +18,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import static java.lang.System.currentTimeMillis;
+import java.util.List;
 
 public class CourseSearchActivity extends ModifiedActivity implements SearchActivity, CourseRecyclerViewAdapter.OnCourseListener {
 
@@ -46,37 +42,49 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     private CourseRecyclerViewAdapter courseRecyclerAdapter;
     private RecyclerView.LayoutManager courseRecyclerManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_search);
         thisIntent = getIntent();
 
-        //searchView
+        //set up searchView
         SearchView searchView = findViewById(R.id.course_search_view);
+
+        //execute search
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                getCourseItemsFromAPI(query);
+                fetchDisplayItems(query);
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
-
+        
+        //get skill from jobDetails
         if (thisIntent.hasExtra("Skill"))
         {
             String keyword = thisIntent.getStringExtra("Skill");
-            getCourseItemsFromAPI(keyword);
+            fetchDisplayItems(keyword);
         }
 
+        //set up recyclerview
+        displayItems(courseItems);
 
-        //recyclerview
+        //set up bottomnavigationview
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        MenuItem menuItem = bottomNavigationView.getMenu().getItem(1);
+        menuItem.setChecked(true);
+
+        //display bottomNavigationView
+        displayBottomNavigationView(bottomNavigationView);
+    }
+
+    @Override
+    public void displayItems(ArrayList courseItems) {
         courseRecyclerView = findViewById(R.id.recyclerView_courseSearch);
         courseRecyclerView.setHasFixedSize(true);
         courseRecyclerManager = new LinearLayoutManager(this);
@@ -84,15 +92,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
         courseRecyclerView.setLayoutManager(courseRecyclerManager);
         courseRecyclerView.setAdapter(courseRecyclerAdapter);
-
-        //bottomnavigationview
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        MenuItem menuItem = bottomNavigationView.getMenu().getItem(1);
-        menuItem.setChecked(true);
-        displayBottomNavigationView(bottomNavigationView);
-
-        String hardcoded = "machine learning";
-        getCourseItemsFromAPI(hardcoded);
     }
 
     public void displayBottomNavigationView(BottomNavigationView bottomNavigationView){
@@ -122,10 +121,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         });
     }
 
-
-
     //get api courses
-    public void getCourseItemsFromAPI(String keyword)
+    @Override
+    public void fetchDisplayItems(String keyword)
     {
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
@@ -166,7 +164,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("title"),
                                                 searchResults.getJSONObject(i).getString("referenceNumber"),
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
-                                                searchResults.getJSONObject(i).getString("modeOfTrainings")));
+                                                searchResults.getJSONObject(i).getJSONArray("modeOfTrainings").getJSONObject(0).getString("description")));
                             }
                             TextView blankText = findViewById(R.id.course_search_blank_text);
                             blankText.setText("");
@@ -187,23 +185,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                 });
 
         ExampleRequestQueue.add(jsonArrayRequest);
-
-
-
-
     }
-
-
-    @Override
-    public void fetchDisplayItems(String keyword) {
-
-    }
-
-    @Override
-    public void displayItems() {
-
-    }
-
 
     @Override
     public void onCourseClick(int position) {
