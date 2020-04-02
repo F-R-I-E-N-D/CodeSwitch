@@ -64,9 +64,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             }
         });
 
-        //hardcoded, remove this
-        String hardcoded = "machine learning";
-        fetchDisplayItems(hardcoded);
+//        //hardcoded, remove this
+//        String hardcoded = "machine learning";
+//        fetchDisplayItems(hardcoded);
 
         //get skill from jobDetails
         if (thisIntent.hasExtra("Skill"))
