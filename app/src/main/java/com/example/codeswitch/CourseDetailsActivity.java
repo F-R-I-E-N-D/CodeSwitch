@@ -34,6 +34,8 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
     private Intent thisIntent;
     private String referenceNumber;
     private JSONObject searchResults;
+    Button backButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -130,6 +132,13 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
         {
             e.printStackTrace();
         }
+        backButton = findViewById(R.id.courseDetailsBackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void onClickURL (View view){

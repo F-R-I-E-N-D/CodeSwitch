@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -326,19 +328,20 @@ public class EditProfileActivity extends ModifiedActivity {
         int i=0;
         androidx.gridlayout.widget.GridLayout sgl = findViewById(R.id.userSkillsGridLayout);
         sgl.setColumnCount(3);
+
         for (String s: skills) {
             TextView tv = new TextView(this);
             tv.setId(i+1000);
             tv.setText(s);
-//            GradientDrawable shape =  new GradientDrawable();
-//            shape.setCornerRadius( 8 );
-//            tv.setBackground(shape);
-            tv.setTextSize(20); //set 20sp size of text
-            tv.setBackgroundColor(0xFFFDFD96);//set background color
-            tv.setPadding(30, 10, 30, 10);
+            tv.setTextSize(18); //set size of text
+            tv.setTextColor(0xff333333);//set text color
+            tv.setBackgroundResource(R.drawable.skills_border);
+            Typeface font = Typeface.createFromAsset(getAssets(), "lato.ttf");
+            tv.setTypeface(font);
 
 
             sgl.addView(tv);
+
 
         }
 

@@ -1,6 +1,7 @@
 package com.example.codeswitch;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -118,6 +119,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
             btn.setId(i);
             btn.setTag(acquiredRelevantSkill);
             btn.setText(acquiredRelevantSkill);
+
             acquiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
