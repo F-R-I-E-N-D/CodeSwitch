@@ -44,7 +44,6 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
         dao = ApiManager.getInstance().create(Dao.class);
         intent = getIntent();
         thisJob = new Job();
-
         TextView descriptionBox = (TextView) findViewById(R.id.jobDescriptionText);
         descriptionBox.setMovementMethod(new ScrollingMovementMethod());
 
@@ -149,21 +148,13 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
-                    requiredSkillIntent.putExtra("Skill",unacquiredSkill);
-                    startActivity(requiredSkillIntent);
+                    Intent goToCourseSearch = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
+                    goToCourseSearch.putExtra("Skill",unacquiredSkill);
+                    startActivity(goToCourseSearch);
                 }
             });
             i++;
         }
-
-        backButton = findViewById(R.id.jobDetailsBackButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
     }
 
@@ -192,6 +183,10 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
                 }
             }
         });
+    }
+
+    public void saveJob(){
+
     }
 
 
