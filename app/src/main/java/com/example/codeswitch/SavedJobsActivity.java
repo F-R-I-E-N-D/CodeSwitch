@@ -43,7 +43,6 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
     private EditText editTextInsert;
     private EditText editTextRemove;
 
-
     private User thisUser;
     private Dao dao;
 
@@ -57,38 +56,6 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
 
         createJobsList();
         buildRecyclerView();
-
-        //removed Insert/Remove functionality
-/*        buttonInsert = findViewById(R.id.button_insert);
-        buttonRemove = findViewById(R.id.button_remove);
-        editTextInsert = findViewById(R.id.edittext_insert);
-        editTextRemove = findViewById(R.id.edittext_remove);*/
-
-/*        buttonInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = Integer.parseInt(editTextInsert.getText().toString());
-                insertItem(position);
-            }
-        });
-
-        buttonRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = Integer.parseInt(editTextRemove.getText().toString());
-                removeItem(position);
-            }
-        });*/
-
-        //recyclerview
-        //recyclerview
-        buildRecyclerView();
-
-        // ==================================
-
-
-
-        // ==================================
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         MenuItem menuItem = bottomNavigationView.getMenu().getItem(2);
@@ -193,15 +160,15 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
         }
     }
 
-    public void insertItem(int position){
-        /*jobItems.add(position, new JobItem(R.drawable.sample_tech_image, "New Job: pos "+position, "ReqSkill?"));*/
+/*    public void insertItem(int position){
+        *//*jobItems.add(position, new JobItem(R.drawable.sample_tech_image, "New Job: pos "+position, "ReqSkill?"));*//*
         savedJobsRecyclerAdapter.notifyItemInserted(position);
     }
 
     public void removeItem(int position){
         savedJobItems.remove(position);
         savedJobsRecyclerAdapter.notifyItemRemoved(position);
-    }
+    }*/
 
     public void onJobLongClick(int position) throws IOException{
 
