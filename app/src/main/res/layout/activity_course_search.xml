@@ -21,10 +21,11 @@
             android:hint="Start Searching for Jobs!">
 
             <SearchView
+                android:id="@+id/course_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/course_search_view"
-                android:theme="@style/SearchViewTheme"/>
+                android:iconifiedByDefault="false"
+                android:theme="@style/SearchViewTheme" />
 
         </RelativeLayout>
 

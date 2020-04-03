@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +18,8 @@ import com.example.codeswitch.model.SavedJob;
 import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
+import com.example.codeswitch.network.SavedJobDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
@@ -30,7 +30,6 @@ import java.util.Set;
 
 public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecyclerViewAdapter.OnJobListener {
 
-    //recyclerview setup
 
     private ArrayList<JobItem> savedJobItems = new ArrayList<>();
 
@@ -43,61 +42,32 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
     private EditText editTextInsert;
     private EditText editTextRemove;
 
-
     private User thisUser;
-    private Dao dao;
+    private SavedJobDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_jobs);
-        dao = ApiManager.getInstance().create(Dao.class);
+        DaoFactory daoFactory = new DaoFactory();
+        dao = daoFactory.getSavedJobDao();
 
         thisUser = getUserFromPrefs();
 
         createJobsList();
         buildRecyclerView();
 
-        //removed Insert/Remove functionality
-/*        buttonInsert = findViewById(R.id.button_insert);
-        buttonRemove = findViewById(R.id.button_remove);
-        editTextInsert = findViewById(R.id.edittext_insert);
-        editTextRemove = findViewById(R.id.edittext_remove);*/
-
-/*        buttonInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = Integer.parseInt(editTextInsert.getText().toString());
-                insertItem(position);
-            }
-        });
-
-        buttonRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = Integer.parseInt(editTextRemove.getText().toString());
-                removeItem(position);
-            }
-        });*/
-
-        //recyclerview
-        //recyclerview
-        buildRecyclerView();
-
-        // ==================================
-
-
-
-        // ==================================
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         MenuItem menuItem = bottomNavigationView.getMenu().getItem(2);
         menuItem.setChecked(true);
 
+        displayBottomNavigationView(bottomNavigationView);
+    }
+
+    private void displayBottomNavigationView(BottomNavigationView bottomNavigationView) {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
                 switch (menuItem.getItemId()){
                     case R.id.ic_job_search:
                         Intent intent_toJS = new Intent(SavedJobsActivity.this, JobSearchActivity.class);
@@ -119,9 +89,9 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                 return false;
             }
         });
-
     }
-//Call<User> applyJob(@Path("id") int id, @Field("is_applied") Boolean is_applied);
+
+    //Call<User> applyJob(@Path("id") int id, @Field("is_applied") Boolean is_applied);
     private void createJobsList() {
         ApiManager.callApi(dao.getUserSavedJobs(thisUser.getId()), new CustomCallback<List<SavedJob>>() {
 
@@ -159,10 +129,6 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
         });
     }
 
-    public void createSavedJobsList(){
-
-    }
-
     public void buildRecyclerView(){
         savedJobsRecyclerView = findViewById(R.id.recyclerView_savedJobs);
         savedJobsRecyclerView.setHasFixedSize(true);
@@ -193,15 +159,15 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
         }
     }
 
-    public void insertItem(int position){
-        /*jobItems.add(position, new JobItem(R.drawable.sample_tech_image, "New Job: pos "+position, "ReqSkill?"));*/
+/*    public void insertItem(int position){
+        *//*jobItems.add(position, new JobItem(R.drawable.sample_tech_image, "New Job: pos "+position, "ReqSkill?"));*//*
         savedJobsRecyclerAdapter.notifyItemInserted(position);
     }
 
     public void removeItem(int position){
         savedJobItems.remove(position);
         savedJobsRecyclerAdapter.notifyItemRemoved(position);
-    }
+    }*/
 
     public void onJobLongClick(int position) throws IOException{
 

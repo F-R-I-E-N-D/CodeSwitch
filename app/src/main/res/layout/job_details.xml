@@ -12,9 +12,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:titleTextColor="@android:color/white"
+            android:background="#3F51B5"
+            app:layout_constraintBottom_toTopOf="@id/jobTitle">
+        </androidx.appcompat.widget.Toolbar>
+        <TextView
+            android:id="@+id/JobDetailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="70dp"
+            android:text="Job Details"
+            android:textSize="30sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#fff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/jobLink"
-            android:layout_width="0dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -32,14 +56,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="44dp"
-            android:text="Job Description:"
+            android:layout_marginTop="30dp"
+            android:text="Job Description"
+            android:textAllCaps="true"
+            android:textColor="#212121"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/unacquiredSkillsGridLayout" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/saveJob"
-            android:layout_width="0dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
@@ -65,11 +94,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/jobDetailsBackButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_marginTop="6dp"
             android:text="BACK"
+            android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,25 +108,47 @@
             android:id="@+id/jobTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="28dp"
-            android:text="Job Title:"
+            android:text="Job Title"
+            android:textAllCaps="true"
+            android:textColor="#212121"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
         <TextView
             android:id="@+id/companyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:text="Company Name:"
+            android:text="Company Name"
+            android:textAllCaps="true"
+            android:textColor="#212121"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/jobTitleText" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="#999999"
+            android:id="@+id/view"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePostedText"
+            app:layout_constraintBottom_toTopOf="@+id/AcquiredSkill"
 
+            />
         <TextView
             android:id="@+id/AcquiredSkill"
             android:layout_width="wrap_content"
@@ -103,7 +156,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="18dp"
-            android:text="Acquired Skills:"
+            android:text="Acquired Skills"
+            android:textAllCaps="true"
+            android:textColor="#212121"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/datePostedText" />
 
@@ -111,10 +169,15 @@
             android:id="@+id/datePosted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:text="Date Posted:"
+            android:text="Date Posted"
+            android:textAllCaps="true"
+            android:textColor="#212121"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/companyNameText" />
 
@@ -124,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -137,8 +200,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="30dp"
             android:text="Unacquired Skills"
+            android:textAllCaps="true"
+            android:textColor="#212121"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/acquiredSkillsGridLayout" />
 
@@ -148,7 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"

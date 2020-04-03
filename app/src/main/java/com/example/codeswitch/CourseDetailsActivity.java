@@ -34,6 +34,8 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
     private Intent thisIntent;
     private String referenceNumber;
     private JSONObject searchResults;
+    Button backButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,6 +80,7 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
                     @Override
                     public void onResponse(JSONObject response) {
                         searchResults = response;
+//                        Log.i("Response: ", response.toString());
 //                        try
 //                        {
                             display();
@@ -110,18 +113,32 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
 
     public void display() {
         try {
+            System.out.println(searchResults.toString());
+
             printPrompt(R.id.courseName, searchResults.getString("title"));
             printPrompt(R.id.courseProvider, searchResults.getString("trainingProviderAlias"));
             printPrompt(R.id.courseDescriptionText, searchResults.getString("content"));
-            printPrompt(R.id.phoneCourseDetails, "Phone:\n" + searchResults.getString("phoneNumber"));
-            printPrompt(R.id.emailCourseDetails, "Email:\n" + searchResults.getString("email"));
-            printPrompt(R.id.datePosted, "Date Posted: " + searchResults.getString("createDate").substring(0, 10));
+            printPrompt(R.id.phoneCourseDetails, "Phone:\n" + searchResults.getJSONArray("contactPerson").getJSONObject(0).optJSONObject("telephone").getString("number"));
+            printPrompt(R.id.emailCourseDetails, "Email:\n" + searchResults.getJSONArray("contactPerson").getJSONObject(0).optJSONObject("email").getString("full"));
+            printPrompt(R.id.datePosted, "Date Posted: " + searchResults.optJSONObject("meta").getString("createDate").substring(0, 10));
             printPrompt(R.id.priceCourseDetails, "Cost per Trainee: SGD " + searchResults.getString("totalCostOfTrainingPerTrainee"));
+
+//            filteredData['phoneNumber'] = details['contactPerson'][0]['telephone']['number']
+//            filteredData['email'] = details['contactPerson'][0]['email']['full']
+//            filteredData['modeOfTrainings'] = details['modeOfTrainings'][0]['description']
+//            filteredData['createDate'] = details['meta']['createDate']
         }
         catch (JSONException e)
         {
             e.printStackTrace();
         }
+        backButton = findViewById(R.id.courseDetailsBackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void onClickURL (View view){
