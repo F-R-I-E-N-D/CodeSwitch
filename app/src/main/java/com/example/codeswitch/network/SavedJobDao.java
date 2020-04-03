@@ -32,7 +32,7 @@ public interface SavedJobDao {
      */
     @FormUrlEncoded
     @POST("saved_jobs")
-    Call<SavedJob> saveJob(@Field("user") int userId, @Field("job") int jobId);
+    Call<Job> saveJob(@Field("user") int userId, @Field("job") int jobId);
 
     /**
      * When you click apply job, we should change is_applied=True.
