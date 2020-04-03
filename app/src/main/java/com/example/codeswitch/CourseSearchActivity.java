@@ -170,6 +170,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                     public void onResponse(JSONArray response) {
                         try {
                             searchResults = response;
+                            Log.d("DEBUG", "Response: "+response.toString());
 //                            03-28 10:44:01.250 17639-17639/com.example.codeswitch W/System.err: org.json.JSONException: Value [{"referenceNumber": "SCN-200604346E-01-CRS-N-0046926", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Water Quality Engineering", "displayImageName": "19_5", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SP-T08GB0056A-01-SP-502439", "trainingProviderAlias": "SINGAPORE POLYTECHNIC", "title": "Water Efficiency Manager", "displayImageName": "6_6", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SP-T08GB0056A-01-CRS-N-0014513", "trainingProviderAlias": "SINGAPORE POLYTECHNIC", "title": "Water Efficiency Manager", "displayImageName": "37_10", "modeOfTrainings": "Part Time"}, {"referenceNumber": "NYP-T08GB0032G-01-CL1008", "trainingProviderAlias": "NANYANG POLYTECHNIC", "title": "Introduction to Air & Water Pollution Control Analytics", "displayImageName": "35_5", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-T08GB0032G-01-CRS-N-0049212", "trainingProviderAlias": "NANYANG POLYTECHNIC", "title": "Introduction to Air & Water Pollution Control Analytics", "displayImageName": "25_1", "modeOfTrainings": "Full Time"}, {"referenceNumber": "ITE-T08GB0022B-01-CB1006CS", "trainingProviderAlias": "INSTITUTE OF TECHNICAL EDUCATION", "title": "CoC in Plumbing Basics", "displayImageName": "19_11", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0046930", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Water Resources Engineering", "displayImageName": "19_3", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0051216", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Specialist Certificate Course in Water and the Environment", "displayImageName": "19_7", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0047001", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Introduction to Environmental Engineering", "displayImageName": "19_3", "modeOfTrainings": "Part Time"}, {"referenceNumber": "SCN-200604346E-01-CRS-N-0046818", "trainingProviderAlias": "NATIONAL UNIVERSITY OF SINGAPORE", "title": "Membrane Science and Engineering", "displayImageName": "19_1", "modeOfTrainings": "Part Time"}] at body of type java.lang.String cannot be converted to JSONArray
 
 
@@ -184,11 +185,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getJSONArray("modeOfTrainings").getJSONObject(0).getString("description")));
                             }
-                            TextView blankText = findViewById(R.id.course_search_blank_text);
-                            if(courseItems.size() > 0){
-                                blankText.setText("");}
-                            else{
-                                blankText.setText("We did not find any Courses with that Search.");}
 
                             courseRecyclerAdapter.notifyDataSetChanged();
 
@@ -198,6 +194,14 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            TextView blankText = findViewById(R.id.course_search_blank_text);
+                            blankText.setText("We did not find any Courses with that Search.");
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
+                        } catch (Exception e)
+                        {
+                            TextView blankText = findViewById(R.id.course_search_blank_text);
+                            blankText.setText("We did not find any Courses with that Search.");
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
                         }
                     }
                 }, new Response.ErrorListener() {
