@@ -9,14 +9,14 @@ import android.widget.Toast;
 
 import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.network.ApiManager;
-import com.example.codeswitch.network.ApiTest;
+import com.example.codeswitch.network.AuthResponseDao;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
 
 public class MainActivity extends ModifiedActivity {
     private String email;
     private String password;
-    private Dao dao;
+    private AuthResponseDao dao;
 
     Context thisContext = this;
 
@@ -26,7 +26,8 @@ public class MainActivity extends ModifiedActivity {
         setContentView(R.layout.activity_main);
 
         // This code must be here if you want to use the API.
-        dao = ApiManager.getInstance().create(Dao.class);
+        DaoFactory daoFactory = new DaoFactory();
+        dao = daoFactory.getAuthResponseDao();
 
         Log.d("Debug", "Hello!");
 //        ApiTest.testGetJobs();

@@ -3,15 +3,11 @@ package com.example.codeswitch;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,17 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.codeswitch.model.BaseObject;
-import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.Skill;
 import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
+import com.example.codeswitch.network.SkillDao;
+import com.example.codeswitch.network.UserDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -45,8 +41,8 @@ public class EditProfileActivity extends ModifiedActivity {
     private ConstraintLayout layout;
     private User currentUser;
     private final String TAG = "EditProfile";
-    private Dao dao;
-
+    private UserDao userDao;
+    private SkillDao skillDao;
 
     Button addskill;
     ///categories
@@ -64,7 +60,10 @@ public class EditProfileActivity extends ModifiedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        dao = ApiManager.getInstance().create(Dao.class);
+        DaoFactory daoFactory = new DaoFactory();
+        userDao = daoFactory.getUserDao();
+        skillDao = daoFactory.getSkillDao();
+
         addskill = (Button)findViewById(R.id.AddSkill);
 
         getDetails();
@@ -96,12 +95,12 @@ public class EditProfileActivity extends ModifiedActivity {
 
 
                         //=============================================================
-                        ApiManager.callApi(dao.getSkillList(), new CustomCallback<List<Skill>>() {
+                        ApiManager.callApi(skillDao.getSkillList(), new CustomCallback<List<Skill>>() {
                             @Override
                             public void onResponse(List<Skill> response) {
                                 if (response != null) {
 
-                                    ApiManager.callApi(dao.getSkillsInGroup(selectedField), new CustomCallback<List<Skill>>() {
+                                    ApiManager.callApi(skillDao.getSkillsInGroup(selectedField), new CustomCallback<List<Skill>>() {
                                         @Override
                                         public void onResponse(List<Skill> response) {
                                             List<String> skillNames = new ArrayList<>();
@@ -263,7 +262,7 @@ public class EditProfileActivity extends ModifiedActivity {
             @Override
             public void onClick(View v) {
 
-                ApiManager.callApi(dao.updateUserSkills(currentUser.getId(), userUpdatedSkills), new CustomCallback<BaseObject>() {
+                ApiManager.callApi(userDao.updateUserSkills(currentUser.getId(), userUpdatedSkills), new CustomCallback<BaseObject>() {
                     @Override
                     public void onResponse(BaseObject response) {
                         if (response != null) {

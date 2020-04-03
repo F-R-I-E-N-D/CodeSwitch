@@ -22,7 +22,9 @@ import com.example.codeswitch.model.Skill;
 import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
+import com.example.codeswitch.network.JobDao;
+import com.example.codeswitch.network.SkillDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.Serializable;
@@ -33,10 +35,6 @@ import java.util.Set;
 import java.io.*;
 
 public class JobSearchActivity extends ModifiedActivity implements SearchActivity, Serializable, JobRecyclerViewAdapter.OnJobListener {
-
-    //set up API call
-    private static Dao dao = ApiManager.getInstance().create(Dao.class);
-
     //set up JobItem objects
     private ArrayList<JobItem> jobItems = new ArrayList<>();
     private ArrayList<JobItem> filteredJobItems = new ArrayList<>();
@@ -56,6 +54,9 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
     boolean[] checkedItems;   //selectedSkillsBoolean
     ArrayList<Integer> mUserItems = new ArrayList<>();  //userSelectedSkills
 
+    SkillDao skillDao;
+    JobDao jobDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,12 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         //Side Menu Button
         mOrder = findViewById(R.id.job_search_side_menu);
 
+        DaoFactory daoFactory = new DaoFactory();
+        skillDao = daoFactory.getSkillDao();
+        jobDao = daoFactory.getJobDao();
+
         //Get List of Selected Skills
-        ApiManager.callApi(dao.getSkillList(), new CustomCallback<List<Skill>>() {
+        ApiManager.callApi(skillDao.getSkillList(), new CustomCallback<List<Skill>>() {
                     @Override
                     public void onResponse(List<Skill> response) {
                         if (response != null){
@@ -301,7 +306,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         jobItems.clear();
         jobList.clear();
         //actual
-        ApiManager.callApi(dao.getJobBySearch(query), new CustomCallback<List<Job>>() {
+        ApiManager.callApi(jobDao.getJobBySearch(query), new CustomCallback<List<Job>>() {
             @Override
             public void onResponse(List<Job> response) {
                 jobList.addAll(response);
