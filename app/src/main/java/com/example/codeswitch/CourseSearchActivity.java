@@ -196,7 +196,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                             TextView blankText = findViewById(R.id.course_search_blank_text);
                             blankText.setText("We did not find any Courses with that Search.");
                             findViewById(R.id.progressBar).setVisibility(View.GONE);
-                        } 
+                        }
                     }
                 }, new Response.ErrorListener() {
 
