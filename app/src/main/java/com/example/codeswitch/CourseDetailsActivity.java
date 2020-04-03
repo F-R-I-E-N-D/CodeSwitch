@@ -118,7 +118,12 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
             printPrompt(R.id.courseName, searchResults.getString("title"));
             printPrompt(R.id.courseProvider, searchResults.getString("trainingProviderAlias"));
             printPrompt(R.id.courseDescriptionText, searchResults.getString("content"));
-            printPrompt(R.id.phoneCourseDetails, "Phone:\n" + searchResults.getJSONArray("contactPerson").getJSONObject(0).optJSONObject("telephone").getString("number"));
+
+            String phone = searchResults.getJSONArray("contactPerson").getJSONObject(0).optJSONObject("telephone").getString("number");
+            if (phone.equals("0"))
+                phone = "Not Available";
+
+            printPrompt(R.id.phoneCourseDetails, "Phone:\n" + phone);
             printPrompt(R.id.emailCourseDetails, "Email:\n" + searchResults.getJSONArray("contactPerson").getJSONObject(0).optJSONObject("email").getString("full"));
             printPrompt(R.id.datePosted, "Date Posted: " + searchResults.optJSONObject("meta").getString("createDate").substring(0, 10));
             printPrompt(R.id.priceCourseDetails, "Cost per Trainee: SGD " + searchResults.getString("totalCostOfTrainingPerTrainee"));
