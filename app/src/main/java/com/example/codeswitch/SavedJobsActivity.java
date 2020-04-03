@@ -101,6 +101,8 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
             @Override
             public void onResponse(List<SavedJob> response) {
                 if (response != null) {
+                    TextView blankText = findViewById(R.id.saved_jobs_blank_text);
+                    blankText.setText("Retrieving Saved Jobs...");
                     for (SavedJob savedJob: response)
                     {
                         JobItem currentJobItem = new JobItem(
@@ -121,11 +123,12 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                         Log.d("AppliedJobs", "AppliedStatus: "+ currentJobItem.getAppliedStatus());
                         Log.d("Debug", savedJob.getJob().toString());
                     }
-                    TextView blankText = findViewById(R.id.saved_jobs_blank_text);
-                    blankText.setText("");
+
                     savedJobsRecyclerAdapter.notifyDataSetChanged();
                 }
                 else {
+                    TextView blankText = findViewById(R.id.saved_jobs_blank_text);
+                    blankText.setText("You have not saved any jobs yet");
                     Log.d("Debug", "Response was null");
                 }
             }

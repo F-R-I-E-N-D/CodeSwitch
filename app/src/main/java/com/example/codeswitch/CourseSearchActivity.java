@@ -77,7 +77,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             fetchDisplayItems(keyword);
         }
 
-        //set up recyclerview
+
+
+        //implement recyclerview
         displayItems(courseItems);
 
         //set up bottomnavigationview
@@ -134,6 +136,13 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     @Override
     public void fetchDisplayItems(String keyword)
     {
+        courseItems.clear();
+        courseRecyclerAdapter.notifyDataSetChanged();
+
+        TextView blankText = findViewById(R.id.course_search_blank_text);
+        //blankText.setText("Now Searching...");
+        blankText.setText("");
+
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
         Uri.Builder builder = new Uri.Builder();
@@ -175,6 +184,11 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getJSONArray("modeOfTrainings").getJSONObject(0).getString("description")));
                             }
+                            TextView blankText = findViewById(R.id.course_search_blank_text);
+                            if(courseItems.size() > 0){
+                                blankText.setText("");}
+                            else{
+                                blankText.setText("We did not find any Courses with that Search.");}
 
                             courseRecyclerAdapter.notifyDataSetChanged();
 

@@ -54,6 +54,8 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
     boolean[] checkedItems;   //selectedSkillsBoolean
     ArrayList<Integer> mUserItems = new ArrayList<>();  //userSelectedSkills
 
+
+
     SkillDao skillDao;
     JobDao jobDao;
 
@@ -70,6 +72,8 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         DaoFactory daoFactory = new DaoFactory();
         skillDao = daoFactory.getSkillDao();
         jobDao = daoFactory.getJobDao();
+
+
 
         //Get List of Selected Skills
         ApiManager.callApi(skillDao.getSkillList(), new CustomCallback<List<Skill>>() {
@@ -210,7 +214,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
                             }
 
-                            //filter Course Items by comparing two lists
+                            //filter Job Items by comparing two lists
                             Log.d("DEBUG", "JobList SizeB: " + jobList.size());
                             for (int i = 0; i < jobItems.size(); i++) {
                                 Set<String> intersection = new HashSet<String>(jobItems.get(i).getJobRequiredSkillsList());
@@ -250,7 +254,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                             checkedItems[i] = false;
                             Log.d("Debug", "checkedItems Length:" + checkedItems.length);
                             mUserItems.clear();
-                            //restore full list of courseitems
+                            //restore full list of jobItems
 
 
                         }
@@ -310,12 +314,19 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
     @Override
     public void fetchDisplayItems(String query) {
+
+        //blankText.setText("Now Searching...");
+        TextView blankText = findViewById(R.id.job_search_blank_text);
+
+        blankText.setText("");
+
         jobItems.clear();
         jobList.clear();
         //actual
         ApiManager.callApi(jobDao.getJobBySearch(query), new CustomCallback<List<Job>>() {
             @Override
             public void onResponse(List<Job> response) {
+
                 jobList.addAll(response);
                 filteredJobList.addAll(response);
                 if (response != null) {
@@ -339,14 +350,26 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                     filteredJobItems.addAll(jobItems);
 
                     applyCheckboxMenuFilter();
+
+                    TextView resultText = findViewById(R.id.job_search_blank_text);
+                    if(filteredJobItems.size() > 0)
+
+                        resultText.setText("");
+                    else
+                        resultText.setText("We did not find any Jobs with that Search.");
+
                     jobRecyclerAdapter.notifyDataSetChanged();
                     findViewById(R.id.progressBar2).setVisibility(View.GONE);
                 }
                 else {
                     Log.d("Debug", "Response was null");
+
                 }
+
             }
         });
+
+
     }
 
     private boolean checkIfQualified(List<String> jobSkills)
