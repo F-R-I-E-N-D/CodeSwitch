@@ -10,14 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.model.Job;
 import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
+import com.example.codeswitch.network.SavedJobDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +32,16 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
     User user;
     int jobId;
     androidx.gridlayout.widget.GridLayout acquiredSkillsGridLayout, unacquiredSkillsGridLayout;
-    private Dao dao;
+    private SavedJobDao dao;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // call the super class onCreate to complete the creation of activity like
         // the view hierarchy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_details);
-        dao = ApiManager.getInstance().create(Dao.class);
+        DaoFactory daoFactory = new DaoFactory();
+        dao = daoFactory.getSavedJobDao();
         intent = getIntent();
         thisJob = new Job();
         TextView descriptionBox = (TextView) findViewById(R.id.jobDescriptionText);
@@ -52,8 +52,6 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
         Log.d("DEBUG", Boolean.toString(thisJob==null) );
         Log.i ("Reference Num: ", thisJob.getTitle());
         getDetails();
-
-
     }
 
     public void getDetails(){
@@ -122,6 +120,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
             btn.setId(i);
             btn.setTag(acquiredRelevantSkill);
             btn.setText(acquiredRelevantSkill);
+
             acquiredSkillsGridLayout.addView(btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override

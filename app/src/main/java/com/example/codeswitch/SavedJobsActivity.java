@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +18,8 @@ import com.example.codeswitch.model.SavedJob;
 import com.example.codeswitch.model.User;
 import com.example.codeswitch.network.ApiManager;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
+import com.example.codeswitch.network.SavedJobDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
@@ -43,13 +43,14 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
     private EditText editTextRemove;
 
     private User thisUser;
-    private Dao dao;
+    private SavedJobDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_jobs);
-        dao = ApiManager.getInstance().create(Dao.class);
+        DaoFactory daoFactory = new DaoFactory();
+        dao = daoFactory.getSavedJobDao();
 
         thisUser = getUserFromPrefs();
 

@@ -9,8 +9,9 @@ import android.widget.Toast;
 
 import com.example.codeswitch.model.AuthResponse;
 import com.example.codeswitch.network.ApiManager;
+import com.example.codeswitch.network.AuthResponseDao;
 import com.example.codeswitch.network.CustomCallback;
-import com.example.codeswitch.network.Dao;
+import com.example.codeswitch.network.DaoFactory;
 
 public class CreateAccountActivity extends ModifiedActivity {
 
@@ -19,7 +20,7 @@ public class CreateAccountActivity extends ModifiedActivity {
     private String newEmail;
     private String newPassword;
     private String newConfirmPassword;
-    private Dao dao;
+    private AuthResponseDao dao;
     private Context thisContext = this;
 
     @Override
@@ -27,8 +28,8 @@ public class CreateAccountActivity extends ModifiedActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
-        dao = ApiManager.getInstance().create(Dao.class);
-
+        DaoFactory daoFactory = new DaoFactory();
+        dao = daoFactory.getAuthResponseDao();
     }
 
     public void onRegister (View view)
