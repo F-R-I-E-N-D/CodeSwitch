@@ -73,6 +73,7 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
                 .appendQueryParameter("referenceNumber", referenceNumber);
 
         String myUrl = builder.build().toString();
+        findViewById(R.id.progressBar3).setVisibility(View.VISIBLE);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, myUrl, null, new Response.Listener<JSONObject>() {
@@ -98,6 +99,15 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
 //                        }
 //                        catch (JSONException e) {
 //                            e.printStackTrace();
+                        findViewById(R.id.progressBar3).setVisibility(View.GONE);
+                        TextView pricingTitle = findViewById(R.id.pricingTitle);
+                        pricingTitle.setText("Pricing");
+                        TextView descriptionTitle = findViewById(R.id.descriptionTitle);
+                        descriptionTitle.setText("Description");
+                        TextView contactTitle = findViewById(R.id.contactTitle);
+                        contactTitle.setText("Contact");
+
+
 //                        }
                     }
                 }, new Response.ErrorListener() {
@@ -162,7 +172,4 @@ public class CourseDetailsActivity extends ModifiedActivity implements DetailsAc
         Toast.makeText(thisContext, "Redirecting to website", Toast.LENGTH_SHORT).show();
         startActivity (browserIntent);
     }
-
-
-
 }

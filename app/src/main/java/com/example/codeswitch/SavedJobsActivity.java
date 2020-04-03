@@ -118,6 +118,7 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                         if(savedJob.getHasApplied()){
                             currentJobItem.setAppliedStatus(true);
                         }
+                        blankText.setText("");
 
                         savedJobItems.add(currentJobItem);
                         Log.d("AppliedJobs", "AppliedStatus: "+ currentJobItem.getAppliedStatus());
