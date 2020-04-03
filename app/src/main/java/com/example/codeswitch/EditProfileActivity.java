@@ -326,7 +326,7 @@ public class EditProfileActivity extends ModifiedActivity {
 
         int i=0;
         androidx.gridlayout.widget.GridLayout sgl = findViewById(R.id.userSkillsGridLayout);
-        sgl.setColumnCount(3);
+        sgl.setColumnCount(2);
 
         for (String s: skills) {
             TextView tv = new TextView(this);
