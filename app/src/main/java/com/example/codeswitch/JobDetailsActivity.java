@@ -156,6 +156,13 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
             });
             i++;
         }
+        backButton = findViewById(R.id.jobDetailsBackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
