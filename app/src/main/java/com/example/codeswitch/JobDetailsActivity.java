@@ -128,6 +128,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
                     Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
                     requiredSkillIntent.putExtra("Skill",acquiredRelevantSkill);
                     startActivity(requiredSkillIntent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 }
             });
             i++;
@@ -147,9 +148,10 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    Intent goToCourseSearch = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
-                    goToCourseSearch.putExtra("Skill",unacquiredSkill);
-                    startActivity(goToCourseSearch);
+                    Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
+                    requiredSkillIntent.putExtra("Skill",unacquiredSkill);
+                    startActivity(requiredSkillIntent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 }
             });
             i++;

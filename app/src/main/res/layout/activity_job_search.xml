@@ -64,6 +64,20 @@
                 android:text="Search for a Job!"
                 android:gravity="center" />
 
+            <RelativeLayout
+                android:id="@+id/loadingPanel2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center" >
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <RelativeLayout

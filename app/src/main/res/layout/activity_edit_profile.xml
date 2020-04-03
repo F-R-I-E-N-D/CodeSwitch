@@ -17,12 +17,26 @@
         android:background="#3F51B5"
         app:layout_constraintBottom_toTopOf="@id/Username">
     </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:id="@+id/TitleBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="65dp"
+        android:text="My Skills"
+        android:textSize="30sp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="70dp"
         android:text="My Skills"
         android:textSize="30sp"

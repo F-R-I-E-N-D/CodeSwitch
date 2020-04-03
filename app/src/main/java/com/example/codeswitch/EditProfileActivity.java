@@ -292,14 +292,17 @@ public class EditProfileActivity extends ModifiedActivity {
                     case R.id.ic_job_search:
                         Intent intent_toJS = new Intent(EditProfileActivity.this, JobSearchActivity.class);
                         startActivity(intent_toJS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_course_search:
                         Intent intent_toCS = new Intent(EditProfileActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_saved_jobs:
                         Intent intent_toSJ = new Intent(EditProfileActivity.this, SavedJobsActivity.class);
                         startActivity(intent_toSJ);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_profile:
                         //already here

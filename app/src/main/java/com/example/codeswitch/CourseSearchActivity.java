@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -55,6 +56,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                TextView blankText = findViewById(R.id.course_search_blank_text);
+                blankText.setText("");
                 fetchDisplayItems(query);
                 return false;
             }
@@ -63,10 +67,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                 return false;
             }
         });
-
-//        //hardcoded, remove this
-//        String hardcoded = "machine learning";
-//        fetchDisplayItems(hardcoded);
 
         //get skill from jobDetails
         if (thisIntent.hasExtra("Skill"))
@@ -108,6 +108,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                     case R.id.ic_job_search:
                         Intent intent_toJS = new Intent(CourseSearchActivity.this, JobSearchActivity.class);
                         startActivity(intent_toJS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_course_search:
                         //already here
@@ -115,10 +116,12 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                     case R.id.ic_saved_jobs:
                         Intent intent_toSJ = new Intent(CourseSearchActivity.this, SavedJobsActivity.class);
                         startActivity(intent_toSJ);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         return true;
                     case R.id.ic_profile:
                         Intent intent_toEP = new Intent(CourseSearchActivity.this, EditProfileActivity.class);
                         startActivity(intent_toEP);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         return true;
                 }
 
@@ -172,12 +175,13 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getJSONArray("modeOfTrainings").getJSONObject(0).getString("description")));
                             }
-                            TextView blankText = findViewById(R.id.course_search_blank_text);
-                            blankText.setText("");
+
                             courseRecyclerAdapter.notifyDataSetChanged();
 
 
                             System.out.println(courseItems.toString());
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -201,6 +205,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             String str = searchResults.getJSONObject(position).getString("referenceNumber");
             goToCourseDetails.putExtra("referenceNumber" , str);
             startActivity(goToCourseDetails);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         } catch (JSONException e) {
             e.printStackTrace();
         }
