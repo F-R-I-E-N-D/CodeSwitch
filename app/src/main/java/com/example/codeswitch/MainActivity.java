@@ -34,9 +34,10 @@ public class MainActivity extends ModifiedActivity {
     }
 
     public void onLoginClick(View view) {
-        email = "cal@example.com";//getEditText(R.id.email_login_input);
-        password = "Cal12345"; //getEditText(R.id.password_login_input);
-
+//        email = "cal@example.com";
+        email = getEditText(R.id.email_login_input);
+//        password = "Cal12345";
+        password = getEditText(R.id.password_login_input);
 
         authenticateLogin(email, password);
     }
