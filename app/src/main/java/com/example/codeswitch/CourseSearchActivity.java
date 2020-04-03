@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -55,6 +56,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                TextView blankText = findViewById(R.id.course_search_blank_text);
+                blankText.setText("");
                 fetchDisplayItems(query);
                 return false;
             }
@@ -172,12 +176,13 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                                                 searchResults.getJSONObject(i).getString("trainingProviderAlias"),
                                                 searchResults.getJSONObject(i).getJSONArray("modeOfTrainings").getJSONObject(0).getString("description")));
                             }
-                            TextView blankText = findViewById(R.id.course_search_blank_text);
-                            blankText.setText("");
+
                             courseRecyclerAdapter.notifyDataSetChanged();
 
 
                             System.out.println(courseItems.toString());
+                            findViewById(R.id.progressBar).setVisibility(View.GONE);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

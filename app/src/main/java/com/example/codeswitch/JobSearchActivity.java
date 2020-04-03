@@ -98,6 +98,10 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                findViewById(R.id.progressBar2).setVisibility(View.VISIBLE);
+                TextView blankText = findViewById(R.id.job_search_blank_text);
+                blankText.setText("");
+
                 fetchDisplayItems(query);
                 jobRecyclerAdapter.notifyDataSetChanged();
                 return false;
@@ -312,8 +316,6 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                 jobList.addAll(response);
                 filteredJobList.addAll(response);
                 if (response != null) {
-                    TextView blankText = findViewById(R.id.job_search_blank_text);
-                    blankText.setText("");
                     int i = 0;
                     for (Job job: response)
                     {
@@ -335,6 +337,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
 
                     applyCheckboxMenuFilter();
                     jobRecyclerAdapter.notifyDataSetChanged();
+                    findViewById(R.id.progressBar2).setVisibility(View.GONE);
                 }
                 else {
                     Log.d("Debug", "Response was null");
