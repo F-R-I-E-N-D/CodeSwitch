@@ -123,8 +123,7 @@ public class JobRecyclerViewAdapter extends RecyclerView.Adapter<JobRecyclerView
         } else{
             holder.RecyclerCard.setBackgroundColor(Color.parseColor("#FFFFEB"));
         }
-/*    <color name="pale_green">#EEFFEF</color>
-    <color name="pale_yellow">#FFFFEB</color>*/
+
     }
 
     @Override

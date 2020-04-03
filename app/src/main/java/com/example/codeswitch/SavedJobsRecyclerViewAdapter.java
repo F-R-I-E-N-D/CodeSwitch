@@ -1,5 +1,6 @@
 package com.example.codeswitch;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
         public TextView RecyclerQualifiedText;
         public TextView RecyclerAppliedTextView;
         public ImageView RecyclerAppliedImageView;
+        public View RecyclerCard;
 
         OnJobListener onJobListener;
 
@@ -77,6 +79,7 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
             RecyclerQualifiedText = itemView.findViewById(R.id.SavedJobQualifiedText);
             RecyclerAppliedTextView = itemView.findViewById(R.id.AppliedText);
             RecyclerAppliedImageView = itemView.findViewById(R.id.AppliedImage);
+            RecyclerCard = itemView;
 
 
             this.onJobListener = onJobListener;   //listener is set to the global listener inside each individual viewholder
@@ -132,6 +135,11 @@ public class SavedJobsRecyclerViewAdapter extends RecyclerView.Adapter<SavedJobs
         holder.RecyclerAppliedTextView.setText(appliedText);
         int appliedImage = currentItem.getAppliedStatus()? R.drawable.applied_image : R.drawable.not_applied_image;
         holder.RecyclerAppliedImageView.setImageResource(appliedImage);
+        if (currentItem.isQualified()){
+            holder.RecyclerCard.setBackgroundColor(Color.parseColor("#EEFFEF"));
+        } else{
+            holder.RecyclerCard.setBackgroundColor(Color.parseColor("#FFFFEB"));
+        }
 
     }
 
