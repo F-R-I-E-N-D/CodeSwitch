@@ -149,14 +149,17 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
                     case R.id.ic_course_search:
                         Intent intent_toCS = new Intent(JobSearchActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_saved_jobs:
                         Intent intent_toSJ = new Intent(JobSearchActivity.this, SavedJobsActivity.class);
                         startActivity(intent_toSJ);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_profile:
                         Intent intent_toEP = new Intent(JobSearchActivity.this, EditProfileActivity.class);
                         startActivity(intent_toEP);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                 }
 
@@ -379,6 +382,7 @@ public class JobSearchActivity extends ModifiedActivity implements SearchActivit
             goToJobDetails.putExtra("serializedJob",serializableJob);
             Log.d("DEBUG Before", Boolean.toString(serializableJob==null) );
             startActivity(goToJobDetails);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         /*}
         //when json has been gotten from cal

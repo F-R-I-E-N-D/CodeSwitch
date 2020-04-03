@@ -72,10 +72,12 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                     case R.id.ic_job_search:
                         Intent intent_toJS = new Intent(SavedJobsActivity.this, JobSearchActivity.class);
                         startActivity(intent_toJS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_course_search:
                         Intent intent_toCS = new Intent(SavedJobsActivity.this, CourseSearchActivity.class);
                         startActivity(intent_toCS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_saved_jobs:
                         //already here
@@ -83,6 +85,7 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                     case R.id.ic_profile:
                         Intent intent_toEP = new Intent(SavedJobsActivity.this, EditProfileActivity.class);
                         startActivity(intent_toEP);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                 }
 
@@ -211,6 +214,7 @@ public class SavedJobsActivity extends ModifiedActivity implements SavedJobsRecy
                 goToJobDetails.putExtra("serializedJob",serializableJob);
                 Log.d("DEBUG Before", Boolean.toString(serializableJob==null) );
                 startActivity(goToJobDetails);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         });
         //

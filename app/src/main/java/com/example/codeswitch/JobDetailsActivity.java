@@ -124,6 +124,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
                     Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
                     requiredSkillIntent.putExtra("Skill",acquiredRelevantSkill);
                     startActivity(requiredSkillIntent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 }
             });
             i++;
@@ -146,6 +147,7 @@ public class JobDetailsActivity extends ModifiedActivity  implements DetailsActi
                     Intent requiredSkillIntent = new Intent(JobDetailsActivity.this, CourseSearchActivity.class);
                     requiredSkillIntent.putExtra("Skill",unacquiredSkill);
                     startActivity(requiredSkillIntent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 }
             });
             i++;

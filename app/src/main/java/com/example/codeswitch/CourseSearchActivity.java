@@ -112,6 +112,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                     case R.id.ic_job_search:
                         Intent intent_toJS = new Intent(CourseSearchActivity.this, JobSearchActivity.class);
                         startActivity(intent_toJS);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         break;
                     case R.id.ic_course_search:
                         //already here
@@ -119,10 +120,12 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                     case R.id.ic_saved_jobs:
                         Intent intent_toSJ = new Intent(CourseSearchActivity.this, SavedJobsActivity.class);
                         startActivity(intent_toSJ);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         return true;
                     case R.id.ic_profile:
                         Intent intent_toEP = new Intent(CourseSearchActivity.this, EditProfileActivity.class);
                         startActivity(intent_toEP);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         return true;
                 }
 
@@ -206,6 +209,7 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             String str = searchResults.getJSONObject(position).getString("referenceNumber");
             goToCourseDetails.putExtra("referenceNumber" , str);
             startActivity(goToCourseDetails);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         } catch (JSONException e) {
             e.printStackTrace();
         }
