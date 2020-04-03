@@ -68,6 +68,9 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             }
         });
 
+        //implement recyclerview
+        displayItems(courseItems);
+
         //get skill from jobDetails
         if (thisIntent.hasExtra("Skill"))
         {
@@ -77,10 +80,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
             fetchDisplayItems(keyword);
         }
 
-
-
-        //implement recyclerview
-        displayItems(courseItems);
 
         //set up bottomnavigationview
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
@@ -192,23 +191,22 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
                             System.out.println(courseItems.toString());
                             findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                             TextView blankText = findViewById(R.id.course_search_blank_text);
                             blankText.setText("We did not find any Courses with that Search.");
                             findViewById(R.id.progressBar).setVisibility(View.GONE);
-                        } catch (Exception e)
-                        {
-                            TextView blankText = findViewById(R.id.course_search_blank_text);
-                            blankText.setText("We did not find any Courses with that Search.");
-                            findViewById(R.id.progressBar).setVisibility(View.GONE);
-                        }
+                        } 
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println("HTTPS Error: " + error.getMessage());
+
+                        TextView blankText = findViewById(R.id.course_search_blank_text);
+                        blankText.setText("We did not find any Courses with that Search.");
+                        findViewById(R.id.progressBar).setVisibility(View.GONE);
                     }
                 });
 
