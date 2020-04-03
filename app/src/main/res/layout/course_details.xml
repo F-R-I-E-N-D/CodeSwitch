@@ -70,7 +70,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="36dp"
-            android:text="NOW LOADING "
+            android:text="Loading..."
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#212121"
@@ -172,7 +172,6 @@
             android:layout_marginStart="44dp"
             android:layout_marginLeft="44dp"
             android:layout_marginTop="20dp"
-            android:text="Pricing"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#212121"
@@ -188,7 +187,6 @@
             android:layout_marginStart="44dp"
             android:layout_marginLeft="44dp"
             android:layout_marginTop="50dp"
-            android:text="Description"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#212121"
@@ -204,7 +202,6 @@
             android:layout_marginStart="44dp"
             android:layout_marginLeft="44dp"
             android:layout_marginTop="50dp"
-            android:text="Contact"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#212121"
@@ -226,6 +223,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailCourseDetails" />
 
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="203dp"
+            android:layout_height="71dp"
+            android:indeterminate="true"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/phoneCourseDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

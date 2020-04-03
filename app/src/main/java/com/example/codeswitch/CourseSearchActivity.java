@@ -56,9 +56,6 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-                TextView blankText = findViewById(R.id.course_search_blank_text);
-                blankText.setText("");
                 fetchDisplayItems(query);
                 return false;
             }
@@ -134,6 +131,10 @@ public class CourseSearchActivity extends ModifiedActivity implements SearchActi
     @Override
     public void fetchDisplayItems(String keyword)
     {
+        TextView blankText = findViewById(R.id.course_search_blank_text);
+        blankText.setText("");
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(thisContext);
 
         Uri.Builder builder = new Uri.Builder();
